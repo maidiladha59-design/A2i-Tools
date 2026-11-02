@@ -1,0 +1,43 @@
+{
+  "name": "ai2-all-compress",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ai2 All Compress — free, fast, private image and PDF compression tools that run entirely in your browser.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "6.3.1",
+    "@dnd-kit/sortable": "10.0.0",
+    "@dnd-kit/utilities": "3.2.2",
+    "jszip": "3.10.2",
+    "lucide-react": "1.66.0",
+    "next": "16.4.4",
+    "next-intl": "4.14.9",
+    "next-themes": "0.4.6",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "6.5.438",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-image-crop": "11.1.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.7",
+    "@tailwindcss/typography": "0.5.20",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "autoprefixer": "10.6.2",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.4",
+    "postcss": "8.5.32",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}
