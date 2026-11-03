@@ -60,6 +60,9 @@ export async function generateMetadata({
     verification: {
   google: "jdCdifSniUsVWBxN61HDDFZp3X14hySzl4jKqrJgOI0",
 },
+other: {
+  "google-adsense-account": "ca-pub-2117350369974480",
+},
     manifest: "/manifest.webmanifest",
     icons: {
       icon: "/icon.svg",

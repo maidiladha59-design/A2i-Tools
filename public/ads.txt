@@ -1,4 +1,1 @@
-# ads.txt placeholder for Google AdSense.
-# Replace pub-XXXXXXXXXXXXXXXX with your real publisher ID after AdSense approval.
-# Until then, keep this file as-is; do not publish a fake publisher ID.
-# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-2117350369974480, DIRECT, f08c47fec0942fa0
