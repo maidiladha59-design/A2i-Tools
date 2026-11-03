@@ -13,6 +13,8 @@ export type LandingImageConfig = {
 export type LandingToolConfig = {
   image?: LandingImageConfig;
   pdfTarget?: { value: number; unit: SizeUnit };
+  imagePdf?: { pageSize?: "auto" | "a4" };
+  pdfImage?: { format?: "image/jpeg" | "image/png" };
 };
 
 export type LandingDefinition = {

@@ -123,11 +123,31 @@
       "name": "PDF Merge",
       "short": "Combine PDFs in exactly the order you choose.",
       "description": "Merge two or more PDFs into one file. Reorder files, remove anything unwanted, and download the result without uploading."
+    },
+    "imageToPdf": {
+      "name": "Images to PDF",
+      "short": "Combine JPG, PNG, and WebP into one PDF.",
+      "description": "Turn several images into a single PDF. Reorder pages and choose Auto or A4 size — processed entirely in your browser."
+    },
+    "pdfToImage": {
+      "name": "PDF to Images",
+      "short": "Export every PDF page as JPG or PNG.",
+      "description": "Convert PDF pages to JPG or PNG with resolution and quality controls. Download per page or all pages as a ZIP."
+    },
+    "docxToPdf": {
+      "name": "Word to PDF",
+      "short": "Convert .docx documents into A4 PDFs in your browser.",
+      "description": "Turn a Word document into a PDF with text, headings, lists, tables, and images. Complex layouts may shift slightly, and nothing is uploaded."
+    },
+    "pdfToDocx": {
+      "name": "PDF to Word",
+      "short": "Extract PDF text into an editable .docx file.",
+      "description": "Read the text layer of each PDF page and save it as a Word document. Text only, without images or the original layout."
     }
   },
   "meta": {
     "home": {
-      "title": "Ai2 All Compress — Free, Local Image & PDF Compression Without Uploads",
+      "title": "Image & PDF Compressor Online — Free, No Upload",
       "description": "Compress images and PDFs to a KB or MB target right in your browser. Free, fast, and private — your files are never uploaded to a server."
     },
     "imageCompress": {
@@ -135,44 +155,60 @@
       "description": "Compress JPG, PNG, and WebP images one at a time or in bulk. Manual quality, automatic mode, or a precise size target. Free and 100% local."
     },
     "imageResize": {
-      "title": "Resize Images Online — Presets & Custom Dimensions",
-      "description": "Resize images with a locked ratio, social media presets, or custom dimensions. Processed in your browser without uploads."
+      "title": "Resize Photos Online — Presets & Custom Dimensions",
+      "description": "Resize a photo with a locked ratio, social media presets, or custom dimensions from 16 to 8000 pixels. Processed in your browser, no uploads."
     },
     "imageConvert": {
-      "title": "Convert Images Between JPG, PNG, and WebP — Free & Local",
-      "description": "Convert images between JPG, PNG, and WebP right in your browser. Set output quality without uploading a file."
+      "title": "Convert JPG to PNG and WebP Online — Free & Local",
+      "description": "Convert images between JPG, PNG, and WebP right in your browser, set the output quality, and download the result without uploading a file."
     },
     "imageCrop": {
-      "title": "Crop Images Online — 3×4, 4×6, and 1:1 Ratios",
-      "description": "Crop images with a free ratio or passport photo presets. Fast, private, and fully processed on your device."
+      "title": "Crop a Photo to 3×4 or 4×6 Online — Passport Presets",
+      "description": "Crop photos to 3×4, 4×6, 1:1, or a free ratio for passport photos and avatars. Every crop downloads as a new file, so your original stays safe."
     },
     "pdfCompress": {
-      "title": "Compress PDFs Online — Three Quality Levels",
-      "description": "Reduce PDF file size with three compression levels. Local browser processing with page progress and ZIP download."
+      "title": "Compress PDF Online — Reduce File Size in 3 Levels",
+      "description": "Reduce PDF file size with three compression levels, watch progress page by page, and download the result. Everything runs locally in your browser."
     },
     "pdfReduce": {
       "title": "Reduce a PDF to 100 KB, 500 KB, 1 MB, or 2 MB",
       "description": "Set a PDF target size in KB or MB. The tool lowers DPI and JPEG quality step by step until the file is under the target."
     },
     "pdfOrganize": {
-      "title": "Delete, Reorder & Rotate PDF Pages Online",
-      "description": "Reorder PDF pages with drag and drop, rotate scanned pages, and remove anything you do not need. No uploads."
+      "title": "Organize PDF Pages — Reorder, Rotate & Delete",
+      "description": "Reorder PDF pages with drag and drop, rotate scanned pages, and delete the ones you do not need. Pages are rebuilt locally, with no uploads."
     },
     "pdfMerge": {
       "title": "Merge PDFs Online — Set Order & Remove Files",
-      "description": "Combine two or more PDFs into one file in the order you choose. See each file’s name, size, and page count."
+      "description": "Combine two or more PDFs into one file in the order you choose, with each name, size, and page count shown before you download the result."
+    },
+    "imageToPdf": {
+      "title": "Convert Images to PDF Online — JPG, PNG, WebP, No Upload",
+      "description": "Combine JPG, PNG, and WebP images into one PDF in your browser. Reorder pages, choose Auto or A4 size, and download privately."
+    },
+    "pdfToImage": {
+      "title": "Convert PDF to JPG or PNG Online — Per Page or ZIP",
+      "description": "Turn each PDF page into a JPG or PNG with resolution and quality controls. Download pages individually or as a ZIP, 100% locally."
+    },
+    "docxToPdf": {
+      "title": "Convert Word to PDF Online — DOCX to PDF, No Upload",
+      "description": "Turn .docx documents into A4 PDFs in your browser. Text, tables, and images are laid out locally without uploading a file."
+    },
+    "pdfToDocx": {
+      "title": "Convert PDF to Word Online — Text to DOCX, No Upload",
+      "description": "Extract text from a PDF and download it as an editable .docx file. Text only without the original layout, processed entirely in your browser."
     },
     "blog": {
       "title": "Ai2 All Compress Blog — Image & PDF Compression Tips",
-      "description": "Practical guides on image compression, reducing PDF size, file formats, and meeting upload limits."
+      "description": "Practical guides on image compression, reducing PDF size, choosing file formats, and meeting the upload limits of online application forms."
     },
     "about": {
       "title": "About Ai2 All Compress — Private File Tools",
-      "description": "Why Ai2 All Compress exists: free image and PDF compression tools that process files entirely in your browser."
+      "description": "Why Ai2 All Compress exists: free image and PDF compression tools that process every file entirely in your browser, with nothing uploaded to a server."
     },
     "contact": {
-      "title": "Contact Ai2 All Compress",
-      "description": "Send questions, feedback, or bug reports to maidiladha59@gmail.com. We usually reply within 1–2 business days."
+      "title": "Contact Ai2 All Compress — Support & Feedback",
+      "description": "Send questions, feedback, bug reports, or requests for a new tool to maidiladha59@gmail.com. We usually reply within 1–2 business days."
     },
     "privacy": {
       "title": "Privacy Policy — Your Files Are Never Uploaded",
@@ -180,15 +216,15 @@
     },
     "terms": {
       "title": "Ai2 All Compress Terms & Conditions",
-      "description": "Terms for using the Ai2 All Compress image and PDF tools."
+      "description": "Terms of use for the Ai2 All Compress image and PDF tools, covering file ownership, limits of responsibility, and acceptable use of the site."
     },
     "disclaimer": {
       "title": "Ai2 All Compress Disclaimer",
-      "description": "What to expect from compression results, the limits of our information, and responsible use of the tools."
+      "description": "What to expect from compression results, the limits of our guidance, and how to use the tools responsibly when a file must meet a size target."
     },
     "notFound": {
       "title": "Page Not Found",
-      "description": "The page you are looking for is not available. Return home or use one of the Ai2 All Compress tools."
+      "description": "The page you are looking for is not available. Head back home to compress images, reduce a PDF, or merge PDF files without uploading anything."
     }
   },
   "home": {
@@ -209,7 +245,7 @@
     "statsLocalLabel": "Local to your device",
     "statsUpload": "0",
     "statsUploadLabel": "Files uploaded",
-    "statsTools": "8",
+    "statsTools": "12",
     "statsToolsLabel": "Image & PDF tools",
     "statsPrice": "$0",
     "statsPriceLabel": "No account needed",
@@ -275,11 +311,15 @@
     "relatedDesc": "Tools often used alongside this one.",
     "stepsTitle": "How to use this tool",
     "tipTitle": "Quick tip",
+    "articlesTitle": "Related reading",
+    "articlesDesc": "Short guides that explain when and how to use this tool.",
+    "articlesCta": "Read the guide",
     "adLabel": "Advertisement"
   },
   "imageCompressor": {
     "title": "Compress images to the size you need",
     "subtitle": "Shrink JPG, PNG, and WebP files with precision. Set quality manually or choose a KB/MB target — everything runs on your device.",
+    "previewAlt": "Preview of {name}",
     "dropTitle": "Drop images here",
     "dropHint": "JPG, PNG, WebP, BMP, or GIF · up to 50 MB per file",
     "dropActive": "Drop to add your images",
@@ -603,6 +643,127 @@
     "mergingDone": "Merge cancelled.",
     "dragAria": "Drag {name} to reorder"
   },
+  "imageToPdf": {
+    "title": "Turn images into one PDF",
+    "subtitle": "Combine JPG, PNG, and WebP files into a single PDF. Reorder pages, pick Auto or A4, and download — all processed on your device.",
+    "previewAlt": "Preview of {name}, headed for the PDF",
+    "dropTitle": "Drop images here",
+    "dropHint": "JPG, PNG, or WebP · up to 50 MB per file",
+    "addMore": "Add images",
+    "queueTitle": "Image pages",
+    "total": "{files} images · {size}",
+    "emptyTitle": "No images yet",
+    "emptyBody": "Add images above to build your PDF.",
+    "orderHint": "Drag cards to set the page order, or use the up and down buttons. The list order becomes the PDF page order.",
+    "reading": "Reading image…",
+    "dimsMeta": "{width}×{height}px",
+    "moveUp": "Move {name} up",
+    "moveDown": "Move {name} down",
+    "remove": "Remove {name}",
+    "dragAria": "Drag {name} to reorder",
+    "pageSizeLabel": "Page size",
+    "pageSizeAuto": "Auto",
+    "pageSizeAutoDesc": "Each page follows the image ratio. Best for photos and screenshots.",
+    "pageSizeA4": "A4",
+    "pageSizeA4Desc": "Standard paper with a white margin and automatic portrait or landscape.",
+    "create": "Create PDF",
+    "createWithCount": "Create PDF from {count} images",
+    "creating": "Building PDF…",
+    "progressPage": "Adding image {current} of {total}",
+    "cancel": "Cancel",
+    "resultTitle": "Your PDF is ready",
+    "resultMeta": "{pages} pages · {size}",
+    "download": "Download PDF",
+    "another": "Start over",
+    "note": "Images are re-encoded at high quality and embedded into one PDF. Original files stay untouched.",
+    "minFiles": "Add at least one image to start.",
+    "tooMany": "Up to {count} images per PDF.",
+    "duplicate": "An image with the same name and size is already in the list.",
+    "invalidFile": "{name}: {reason}",
+    "limitHint": "Maximum {size} per image and {count} images per PDF."
+  },
+  "pdfToImage": {
+    "title": "Turn PDF pages into images",
+    "subtitle": "Export every page as JPG or PNG. Choose resolution and quality, preview the results, then download one page or the whole set as a ZIP.",
+    "dropTitle": "Drop a PDF here",
+    "dropHint": "One PDF · up to 100 MB",
+    "choosePdf": "Choose PDF",
+    "pageCount": "{count} pages",
+    "replace": "Choose another PDF",
+    "reading": "Reading PDF…",
+    "emptyTitle": "No PDF selected",
+    "emptyBody": "Add a PDF above to export its pages as images.",
+    "start": "Convert to images",
+    "processing": "Rendering pages…",
+    "processingHint": "Pages are rendered one by one to keep the tab stable. You can cancel at any time.",
+    "progressPage": "Rendering page {current} of {total}",
+    "cancel": "Cancel",
+    "formatLabel": "Image format",
+    "formatJpg": "JPG — photos, smaller files",
+    "formatPng": "PNG — text and sharp lines",
+    "resolutionLabel": "Resolution",
+    "resolutionValue": "{dpi} DPI",
+    "resolutionHint": "Higher DPI means sharper images but larger files and longer processing.",
+    "qualityLabel": "JPG quality",
+    "qualityHint": "88–95% keeps documents readable. Lower it if you need smaller images.",
+    "pngNote": "PNG is lossless, so quality stays fixed. Files are usually larger than JPG.",
+    "resultTitle": "Exported pages",
+    "resultMeta": "{count} pages · {size} total",
+    "pageLabel": "Page {page}",
+    "dimsMeta": "{width}×{height}px",
+    "downloadPage": "Download page",
+    "downloadAll": "Download all (ZIP)",
+    "zipping": "Building ZIP…",
+    "resultToast": "{count} pages converted.",
+    "zipFailed": "The ZIP could not be created. Try downloading pages individually.",
+    "note": "Each page becomes a flat image, so text is no longer selectable. Keep the original PDF if you need searchable text."
+  },
+  "docxToPdf": {
+    "title": "Turn Word documents into PDF",
+    "subtitle": "Convert .docx files to PDF in your browser. Text, headings, lists, tables, and images are laid out on A4 pages without uploading your file.",
+    "dropTitle": "Drop a Word file here",
+    "dropHint": "One .docx file · up to 25 MB",
+    "chooseDocx": "Choose .docx",
+    "replace": "Choose another file",
+    "invalidFile": "{name}: {reason}",
+    "emptyTitle": "No Word file selected",
+    "emptyBody": "Add a .docx file above to create a PDF.",
+    "formatLabel": "Output format",
+    "formatHint": "PDF, A4 portrait pages with a white margin. Complex layouts may shift slightly.",
+    "caveat": "Complex layouts — columns, floating text boxes, headers, footers, or precise page breaks — can change. Review the PDF before sharing it.",
+    "start": "Convert to PDF",
+    "converting": "Reading the document…",
+    "convertingHint": "The document is rendered on your device, then split into A4 pages. Large files can take a moment.",
+    "progressPage": "Building page {current} of {total}",
+    "cancel": "Cancel",
+    "resultTitle": "Your PDF is ready",
+    "resultMeta": "{pages} pages · {size}",
+    "download": "Download PDF",
+    "limitHint": "Maximum {size} per .docx file."
+  },
+  "pdfToDocx": {
+    "title": "Turn PDF text into a Word document",
+    "subtitle": "Extract the text from every PDF page and save it as an editable .docx file. Images and the original layout are not included.",
+    "dropTitle": "Drop a PDF here",
+    "dropHint": "One PDF · up to 100 MB",
+    "choosePdf": "Choose PDF",
+    "pageCount": "{count} pages",
+    "replace": "Choose another PDF",
+    "reading": "Reading PDF…",
+    "emptyTitle": "No PDF selected",
+    "emptyBody": "Add a PDF above to extract its text into Word.",
+    "formatLabel": "Output format",
+    "formatHint": "Word .docx with one paragraph per text line. Only text is copied.",
+    "caveat": "The result contains text only: images, columns, tables, fonts, and the original page layout are not preserved. Scanned PDFs without a text layer produce no text.",
+    "start": "Convert to Word",
+    "converting": "Extracting text…",
+    "convertingHint": "Each page is read in your browser. Large PDFs may take a little longer.",
+    "progressPage": "Reading page {current} of {total}",
+    "cancel": "Cancel",
+    "resultTitle": "Your Word file is ready",
+    "resultMeta": "{pages} text pages · {size}",
+    "download": "Download .docx"
+  },
   "blog": {
     "title": "File compression guides, minus the hassle",
     "subtitle": "How to choose formats, shrink documents, and meet upload limits — written for applications, work, and everyday tasks.",
@@ -686,6 +847,7 @@
     "filesSkipped": "{count} files skipped.",
     "compressed": "Compression complete. Results are ready to download.",
     "pdfReady": "PDF is ready to download.",
+    "docxReady": "{count} pages converted to Word.",
     "zipReady": "ZIP with {count} files is downloading.",
     "copied": "Email copied to clipboard.",
     "mailto": "Email app opened. Review the message before sending.",
@@ -701,6 +863,7 @@
     "generic": "Something went wrong. Try again.",
     "emptyFile": "The file is empty and cannot be processed.",
     "unsupportedImage": "Unsupported image format. Use JPG, PNG, WebP, BMP, or GIF.",
+    "imagePdfOnly": "Only JPG, PNG, and WebP images are supported by this tool.",
     "imageTooLarge": "The image is larger than 50 MB.",
     "imageDecode": "The image could not be read. It may be corrupted or unsupported by this browser.",
     "unsupportedBrowser": "This browser does not support image processing in a Web Worker.",
@@ -714,6 +877,10 @@
     "pdfTooLarge": "The PDF is larger than 100 MB.",
     "pdfPassword": "This PDF is password protected. Remove the protection first, then try again.",
     "pdfCorrupt": "The PDF is corrupted or invalid and cannot be read.",
+    "pdfNoText": "No selectable text was found. This PDF may be a scan; convert the pages to images or run OCR first.",
+    "docxOnly": "Only .docx files are accepted. Save older .doc files as .docx first.",
+    "docxTooLarge": "The Word file is larger than 25 MB.",
+    "docxInvalid": "The Word file is corrupted or invalid and cannot be read.",
     "noFiles": "Add a file first.",
     "minPdfFiles": "Add at least two PDF files.",
     "maxFiles": "The file limit has been reached.",

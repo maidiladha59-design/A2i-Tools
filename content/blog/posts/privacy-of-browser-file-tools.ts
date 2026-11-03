@@ -9,11 +9,11 @@ export const privacyOfBrowserFileTools: BlogPost = {
   relatedTools: ["imageCompress", "pdfCompress", "pdfMerge"],
   title: {
     id: "Seberapa Privat Alat File di Browser? Ini Cara Memeriksanya",
-    en: "How Private Are Browser-Based File Tools? How to Check for Yourself",
+    en: "How Private Are Browser File Tools? Check for Yourself",
   },
   description: {
-    id: "Memahami pemrosesan sisi klien, apa yang benar-benar lewat jaringan, risiko konverter cloud, cara memeriksa alat lokal lewat DevTools, dan batas memori browser.",
-    en: "Understanding client-side processing, what still travels over the network, the risks of cloud converters, how to verify a local tool with DevTools, and browser memory limits.",
+    id: "Memahami pemrosesan sisi klien, apa yang benar-benar lewat jaringan, risiko konverter cloud, dan cara memeriksa alat lokal lewat DevTools.",
+    en: "How client-side processing works, what still crosses the network, the risks of cloud converters, and how to verify a tool with DevTools.",
   },
   intro: {
     id: [

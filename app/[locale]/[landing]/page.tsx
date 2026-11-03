@@ -7,7 +7,12 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { buttonClass } from "@/components/ui/Button";
 import { ToolCard } from "@/components/tools/ToolCard";
+import { RelatedArticles } from "@/components/tools/RelatedArticles";
 import { ImageCompressor } from "@/components/tools/image/ImageCompressor";
+import { DocxToPdf } from "@/components/tools/pdf/DocxToPdf";
+import { ImageToPdf } from "@/components/tools/pdf/ImageToPdf";
+import { PdfToDocx } from "@/components/tools/pdf/PdfToDocx";
+import { PdfToImage } from "@/components/tools/pdf/PdfToImage";
 import { PdfReducer } from "@/components/tools/pdf/PdfReducer";
 import { PdfMerge } from "@/components/tools/pdf/PdfMerge";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -47,6 +52,14 @@ function LandingTool({ landing }: { landing: LandingDefinition }) {
       return <PdfReducer initialTarget={landing.config?.pdfTarget} />;
     case "pdfMerge":
       return <PdfMerge />;
+    case "imageToPdf":
+      return <ImageToPdf initialPageSize={landing.config?.imagePdf?.pageSize} />;
+    case "pdfToImage":
+      return <PdfToImage initialFormat={landing.config?.pdfImage?.format} />;
+    case "docxToPdf":
+      return <DocxToPdf />;
+    case "pdfToDocx":
+      return <PdfToDocx />;
     default:
       return <ImageCompressor initialConfig={landing.config?.image} />;
   }
@@ -231,6 +244,8 @@ export default async function LandingPage({ params }: PageProps) {
             ))}
           </div>
         </section>
+
+        <RelatedArticles locale={locale} toolId={landing.toolId} />
 
         <div className="mt-10 rounded-3xl border border-brand/20 bg-brand-soft/40 p-6 text-center">
           <h2 className="font-display text-xl font-extrabold text-ink">

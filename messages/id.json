@@ -123,11 +123,31 @@
       "name": "Gabung PDF",
       "short": "Satukan beberapa PDF dengan urutan yang kamu atur.",
       "description": "Gabungkan dua file atau lebih menjadi satu PDF. Atur urutan, hapus file dari daftar, dan unduh hasilnya tanpa upload."
+    },
+    "imageToPdf": {
+      "name": "Gambar ke PDF",
+      "short": "Gabungkan JPG, PNG, dan WebP menjadi satu PDF.",
+      "description": "Ubah beberapa gambar menjadi satu PDF. Atur urutan halaman dan pilih ukuran Auto atau A4 — semuanya diproses di browser."
+    },
+    "pdfToImage": {
+      "name": "PDF ke Gambar",
+      "short": "Ekspor tiap halaman PDF sebagai JPG atau PNG.",
+      "description": "Konversi halaman PDF ke JPG atau PNG dengan pilihan resolusi dan kualitas. Unduh per halaman atau semua sebagai ZIP."
+    },
+    "docxToPdf": {
+      "name": "Word ke PDF",
+      "short": "Ubah dokumen .docx menjadi PDF A4 di browser.",
+      "description": "Konversi dokumen Word ke PDF dengan teks, tabel, dan gambar. Tata letak kompleks bisa berubah sedikit, dan file tidak pernah diunggah."
+    },
+    "pdfToDocx": {
+      "name": "PDF ke Word",
+      "short": "Ekstrak teks PDF menjadi file .docx yang bisa diedit.",
+      "description": "Ambil teks dari setiap halaman PDF dan simpan sebagai dokumen Word. Hanya teks, tanpa gambar atau tata letak asli."
     }
   },
   "meta": {
     "home": {
-      "title": "Ai2 All Compress — Kompres Gambar & PDF Gratis, Lokal, Tanpa Upload",
+      "title": "Kompres Gambar & PDF Online Gratis — Ai2 All Compress",
       "description": "Kompres gambar dan PDF sesuai target KB atau MB langsung di browser. Gratis, cepat, dan privat — file tidak pernah diunggah ke server."
     },
     "imageCompress": {
@@ -135,20 +155,20 @@
       "description": "Kompres JPG, PNG, dan WebP satu atau banyak sekaligus. Pilih kualitas manual, mode otomatis, atau target ukuran presisi. Gratis dan 100% lokal."
     },
     "imageResize": {
-      "title": "Ubah Ukuran Gambar Online — Preset & Ukuran Kustom",
-      "description": "Ubah dimensi gambar dengan rasio terkunci, preset media sosial, atau ukuran khusus. Diproses di browser tanpa upload."
+      "title": "Ubah Ukuran Foto Online — Preset & Dimensi Kustom",
+      "description": "Ubah ukuran foto dengan rasio terkunci, preset media sosial, atau dimensi khusus dari 16 sampai 8000 piksel. Semua diproses di browser tanpa upload."
     },
     "imageConvert": {
-      "title": "Konversi Gambar JPG, PNG, WebP — Gratis & Lokal",
-      "description": "Konversi gambar antara JPG, PNG, dan WebP langsung di browser. Atur kualitas keluaran tanpa mengunggah file."
+      "title": "Konversi JPG ke PNG dan WebP Online — Gratis & Lokal",
+      "description": "Konversi gambar antara JPG, PNG, dan WebP langsung di browser, atur kualitas keluaran, lalu unduh hasilnya tanpa mengunggah file ke server."
     },
     "imageCrop": {
-      "title": "Potong Gambar Online — Rasio 3×4, 4×6, 1:1",
-      "description": "Crop gambar dengan rasio bebas atau preset pas foto. Cepat, privat, dan berjalan sepenuhnya di perangkatmu."
+      "title": "Crop Foto 3×4 & 4×6 Online — Preset Pas Foto",
+      "description": "Potong foto dengan rasio 3×4, 4×6, 1:1, atau bebas untuk pas foto dan avatar. Hasilnya diunduh sebagai file baru sehingga foto asli tetap utuh."
     },
     "pdfCompress": {
-      "title": "Kompres PDF Online — Tiga Level Kualitas",
-      "description": "Perkecil ukuran PDF dengan tiga level kompresi. Proses lokal di browser, dengan progress per halaman dan opsi unduh ZIP."
+      "title": "Kompres PDF Online — Perkecil Ukuran File PDF",
+      "description": "Perkecil ukuran PDF dengan tiga level kompresi, pantau kemajuan per halaman, lalu unduh hasilnya. Diproses lokal di browser, tanpa unggahan."
     },
     "pdfReduce": {
       "title": "Perkecil PDF ke 100 KB, 500 KB, 1 MB, 2 MB",
@@ -162,17 +182,33 @@
       "title": "Gabung PDF Online — Atur Urutan & Hapus File",
       "description": "Gabungkan dua PDF atau lebih menjadi satu file dengan urutan yang kamu tentukan. Tampilkan nama, ukuran, dan jumlah halaman."
     },
+    "imageToPdf": {
+      "title": "Konversi Gambar ke PDF Online — JPG, PNG, WebP Tanpa Upload",
+      "description": "Gabungkan gambar JPG, PNG, dan WebP menjadi satu PDF di browser. Atur urutan halaman, pilih ukuran Auto atau A4, lalu unduh tanpa upload."
+    },
+    "pdfToImage": {
+      "title": "Konversi PDF ke JPG atau PNG Online — Per Halaman atau ZIP",
+      "description": "Ubah setiap halaman PDF menjadi JPG atau PNG dengan pilihan resolusi dan kualitas. Unduh per halaman atau sebagai ZIP, 100% lokal."
+    },
+    "docxToPdf": {
+      "title": "Konversi Word ke PDF Online — DOCX ke PDF Tanpa Upload",
+      "description": "Ubah dokumen .docx menjadi PDF A4 di browser. Teks, tabel, dan gambar ditata ulang secara lokal, lalu hasilnya diunduh tanpa mengirim apa pun ke server."
+    },
+    "pdfToDocx": {
+      "title": "Konversi PDF ke Word Online — Teks ke DOCX Tanpa Upload",
+      "description": "Ekstrak teks dari PDF dan unduh sebagai .docx yang bisa diedit. Hanya teks tanpa tata letak asli, diproses 100% di browser."
+    },
     "blog": {
       "title": "Blog Ai2 All Compress — Tips Kompres Gambar & PDF",
-      "description": "Panduan praktis tentang kompresi gambar, memperkecil PDF, format file, dan cara lolos batas ukuran unggahan."
+      "description": "Panduan praktis tentang kompres gambar, perkecil ukuran PDF, perbedaan format file, dan cara lolos batas ukuran unggahan di formulir online."
     },
     "about": {
       "title": "Tentang Ai2 All Compress — Alat File yang Privat",
-      "description": "Kenali alasan Ai2 All Compress dibuat: alat kompres gambar dan PDF gratis yang memproses file sepenuhnya di browser."
+      "description": "Kenali alasan Ai2 All Compress dibuat: alat kompres gambar dan PDF gratis yang memproses seluruh file di browser tanpa unggahan ke server."
     },
     "contact": {
-      "title": "Kontak Ai2 All Compress",
-      "description": "Kirim pertanyaan, masukan, atau laporan masalah ke maidiladha59@gmail.com. Kami biasanya membalas dalam 1–2 hari kerja."
+      "title": "Kontak Ai2 All Compress — Dukungan & Masukan",
+      "description": "Kirim pertanyaan, masukan, laporan masalah, atau permintaan alat baru ke maidiladha59@gmail.com. Kami biasanya membalas dalam 1–2 hari kerja."
     },
     "privacy": {
       "title": "Kebijakan Privasi — File Tidak Pernah Diunggah",
@@ -180,15 +216,15 @@
     },
     "terms": {
       "title": "Syarat & Ketentuan Ai2 All Compress",
-      "description": "Syarat penggunaan alat kompres gambar dan PDF Ai2 All Compress."
+      "description": "Syarat penggunaan alat kompres gambar dan PDF Ai2 All Compress, termasuk batasan tanggung jawab, kepemilikan file, dan pemakaian yang wajar."
     },
     "disclaimer": {
       "title": "Disclaimer Ai2 All Compress",
-      "description": "Informasi tentang batasan hasil kompresi, ketepatan informasi, dan penggunaan alat secara bertanggung jawab."
+      "description": "Informasi tentang batasan hasil kompresi, akurasi panduan, dan tanggung jawab pemakaian alat saat file harus memenuhi target ukuran tertentu."
     },
     "notFound": {
       "title": "Halaman Tidak Ditemukan",
-      "description": "Halaman yang kamu cari tidak tersedia. Kembali ke beranda atau gunakan salah satu alat Ai2 All Compress."
+      "description": "Halaman yang kamu cari tidak tersedia. Kembali ke beranda untuk kompres gambar, perkecil PDF, atau gabung PDF tanpa mengunggah file."
     }
   },
   "home": {
@@ -209,7 +245,7 @@
     "statsLocalLabel": "Lokal di perangkat",
     "statsUpload": "0",
     "statsUploadLabel": "File diunggah",
-    "statsTools": "8",
+    "statsTools": "12",
     "statsToolsLabel": "Alat gambar & PDF",
     "statsPrice": "Rp0",
     "statsPriceLabel": "Tanpa akun",
@@ -275,11 +311,15 @@
     "relatedDesc": "Alat yang sering dipakai bersama halaman ini.",
     "stepsTitle": "Cara memakai alat ini",
     "tipTitle": "Tips singkat",
+    "articlesTitle": "Bacaan terkait",
+    "articlesDesc": "Panduan singkat yang menjelaskan kapan dan bagaimana memakai alat ini.",
+    "articlesCta": "Baca panduannya",
     "adLabel": "Iklan"
   },
   "imageCompressor": {
     "title": "Kompres gambar ke ukuran yang kamu mau",
     "subtitle": "Kurangi ukuran JPG, PNG, dan WebP dengan presisi. Atur kualitas manual atau tentukan target KB/MB — semuanya berjalan di perangkatmu.",
+    "previewAlt": "Pratinjau gambar {name}",
     "dropTitle": "Tarik gambar ke sini",
     "dropHint": "JPG, PNG, WebP, BMP, atau GIF · maksimal 50 MB per file",
     "dropActive": "Lepaskan untuk menambahkan gambar",
@@ -603,6 +643,127 @@
     "mergingDone": "Penggabungan dibatalkan.",
     "dragAria": "Seret {name} untuk mengubah urutan"
   },
+  "imageToPdf": {
+    "title": "Ubah gambar menjadi satu PDF",
+    "subtitle": "Gabungkan file JPG, PNG, dan WebP menjadi satu PDF. Atur urutan halaman, pilih Auto atau A4, lalu unduh — semuanya diproses di perangkatmu.",
+    "previewAlt": "Pratinjau gambar {name} yang akan masuk ke PDF",
+    "dropTitle": "Tarik gambar ke sini",
+    "dropHint": "JPG, PNG, atau WebP · maksimal 50 MB per file",
+    "addMore": "Tambah gambar",
+    "queueTitle": "Halaman gambar",
+    "total": "{files} gambar · {size}",
+    "emptyTitle": "Belum ada gambar",
+    "emptyBody": "Tambahkan gambar di atas untuk membuat PDF.",
+    "orderHint": "Tarik kartu untuk mengatur urutan halaman, atau gunakan tombol naik dan turun. Urutan daftar menjadi urutan halaman PDF.",
+    "reading": "Membaca gambar…",
+    "dimsMeta": "{width}×{height}px",
+    "moveUp": "Naikkan {name}",
+    "moveDown": "Turunkan {name}",
+    "remove": "Hapus {name}",
+    "dragAria": "Seret {name} untuk mengubah urutan",
+    "pageSizeLabel": "Ukuran halaman",
+    "pageSizeAuto": "Auto",
+    "pageSizeAutoDesc": "Setiap halaman mengikuti rasio gambar. Cocok untuk foto dan tangkapan layar.",
+    "pageSizeA4": "A4",
+    "pageSizeA4Desc": "Kertas standar dengan margin putih dan orientasi portrait atau landscape otomatis.",
+    "create": "Buat PDF",
+    "createWithCount": "Buat PDF dari {count} gambar",
+    "creating": "Membuat PDF…",
+    "progressPage": "Menambahkan gambar {current} dari {total}",
+    "cancel": "Batalkan",
+    "resultTitle": "PDF siap diunduh",
+    "resultMeta": "{pages} halaman · {size}",
+    "download": "Unduh PDF",
+    "another": "Mulai ulang",
+    "note": "Gambar diproses ulang pada kualitas tinggi lalu ditanam ke satu PDF. File asli tetap utuh.",
+    "minFiles": "Tambahkan minimal satu gambar untuk mulai.",
+    "tooMany": "Maksimal {count} gambar per PDF.",
+    "duplicate": "Gambar dengan nama dan ukuran yang sama sudah ada di daftar.",
+    "invalidFile": "{name}: {reason}",
+    "limitHint": "Maksimal {size} per gambar dan {count} gambar per PDF."
+  },
+  "pdfToImage": {
+    "title": "Ubah halaman PDF menjadi gambar",
+    "subtitle": "Ekspor setiap halaman sebagai JPG atau PNG. Atur resolusi dan kualitas, lihat pratinjau, lalu unduh satu halaman atau semuanya dalam ZIP.",
+    "dropTitle": "Tarik PDF ke sini",
+    "dropHint": "Satu PDF · maksimal 100 MB",
+    "choosePdf": "Pilih PDF",
+    "pageCount": "{count} halaman",
+    "replace": "Pilih PDF lain",
+    "reading": "Membaca PDF…",
+    "emptyTitle": "Belum ada PDF",
+    "emptyBody": "Tambahkan PDF di atas untuk mengekspor halamannya sebagai gambar.",
+    "start": "Konversi ke gambar",
+    "processing": "Merender halaman…",
+    "processingHint": "Halaman dirender satu per satu agar tab tetap stabil. Proses bisa dibatalkan kapan saja.",
+    "progressPage": "Merender halaman {current} dari {total}",
+    "cancel": "Batalkan",
+    "formatLabel": "Format gambar",
+    "formatJpg": "JPG — foto, ukuran lebih kecil",
+    "formatPng": "PNG — teks dan garis tajam",
+    "resolutionLabel": "Resolusi",
+    "resolutionValue": "{dpi} DPI",
+    "resolutionHint": "DPI lebih tinggi membuat gambar lebih tajam, tetapi ukuran file lebih besar dan proses lebih lama.",
+    "qualityLabel": "Kualitas JPG",
+    "qualityHint": "88–95% menjaga dokumen tetap terbaca. Turunkan bila butuh gambar lebih kecil.",
+    "pngNote": "PNG bersifat lossless, sehingga kualitas tetap. Ukuran file biasanya lebih besar dari JPG.",
+    "resultTitle": "Halaman hasil ekspor",
+    "resultMeta": "{count} halaman · total {size}",
+    "pageLabel": "Halaman {page}",
+    "dimsMeta": "{width}×{height}px",
+    "downloadPage": "Unduh halaman",
+    "downloadAll": "Unduh semua (ZIP)",
+    "zipping": "Membuat ZIP…",
+    "resultToast": "{count} halaman berhasil dikonversi.",
+    "zipFailed": "ZIP tidak bisa dibuat. Coba unduh halaman satu per satu.",
+    "note": "Setiap halaman menjadi gambar datar, sehingga teks tidak lagi bisa dipilih. Simpan PDF asli bila kamu membutuhkan teks yang bisa dicari."
+  },
+  "docxToPdf": {
+    "title": "Ubah dokumen Word menjadi PDF",
+    "subtitle": "Konversi file .docx menjadi PDF di browser. Teks, judul, daftar, tabel, dan gambar ditata pada halaman A4 tanpa mengunggah file.",
+    "dropTitle": "Tarik file Word ke sini",
+    "dropHint": "Satu file .docx · maksimal 25 MB",
+    "chooseDocx": "Pilih .docx",
+    "replace": "Pilih file lain",
+    "invalidFile": "{name}: {reason}",
+    "emptyTitle": "Belum ada file Word",
+    "emptyBody": "Tambahkan file .docx di atas untuk membuat PDF.",
+    "formatLabel": "Format hasil",
+    "formatHint": "PDF, halaman A4 portrait dengan margin putih. Tata letak rumit bisa bergeser sedikit.",
+    "caveat": "Tata letak kompleks — kolom, kotak teks mengambang, header, footer, atau pemisah halaman khusus — bisa berubah. Periksa PDF sebelum dibagikan.",
+    "start": "Konversi ke PDF",
+    "converting": "Membaca dokumen…",
+    "convertingHint": "Dokumen dirender di perangkatmu, lalu dipecah menjadi halaman A4. File besar bisa memakan waktu sebentar.",
+    "progressPage": "Membuat halaman {current} dari {total}",
+    "cancel": "Batalkan",
+    "resultTitle": "PDF siap diunduh",
+    "resultMeta": "{pages} halaman · {size}",
+    "download": "Unduh PDF",
+    "limitHint": "Maksimal {size} per file .docx."
+  },
+  "pdfToDocx": {
+    "title": "Ubah teks PDF menjadi dokumen Word",
+    "subtitle": "Ekstrak teks dari setiap halaman PDF dan simpan sebagai file .docx yang bisa diedit. Gambar dan tata letak asli tidak disertakan.",
+    "dropTitle": "Tarik PDF ke sini",
+    "dropHint": "Satu PDF · maksimal 100 MB",
+    "choosePdf": "Pilih PDF",
+    "pageCount": "{count} halaman",
+    "replace": "Pilih PDF lain",
+    "reading": "Membaca PDF…",
+    "emptyTitle": "Belum ada PDF",
+    "emptyBody": "Tambahkan PDF di atas untuk mengekstrak teksnya ke Word.",
+    "formatLabel": "Format hasil",
+    "formatHint": "Word .docx dengan satu paragraf per baris teks. Hanya teks yang disalin.",
+    "caveat": "Hasil hanya berisi teks: gambar, kolom, tabel, font, dan tata letak halaman asli tidak dipertahankan. PDF hasil pindai tanpa lapisan teks tidak menghasilkan teks.",
+    "start": "Konversi ke Word",
+    "converting": "Mengekstrak teks…",
+    "convertingHint": "Setiap halaman dibaca di browser. PDF besar bisa memakan waktu lebih lama.",
+    "progressPage": "Membaca halaman {current} dari {total}",
+    "cancel": "Batalkan",
+    "resultTitle": "File Word siap diunduh",
+    "resultMeta": "{pages} halaman teks · {size}",
+    "download": "Unduh .docx"
+  },
   "blog": {
     "title": "Panduan kompresi file tanpa ribet",
     "subtitle": "Cara memilih format, mengecilkan dokumen, dan memenuhi batas unggahan — ditulis untuk kebutuhan pendaftaran, pekerjaan, dan tugas sehari-hari.",
@@ -686,6 +847,7 @@
     "filesSkipped": "{count} file dilewati.",
     "compressed": "Kompresi selesai. Hasil siap diunduh.",
     "pdfReady": "PDF siap diunduh.",
+    "docxReady": "{count} halaman berhasil diubah ke Word.",
     "zipReady": "ZIP berisi {count} file sedang diunduh.",
     "copied": "Email disalin ke clipboard.",
     "mailto": "Aplikasi email dibuka. Periksa pesan sebelum mengirim.",
@@ -701,6 +863,7 @@
     "generic": "Terjadi kesalahan. Coba lagi.",
     "emptyFile": "File kosong dan tidak bisa diproses.",
     "unsupportedImage": "Format gambar tidak didukung. Gunakan JPG, PNG, WebP, BMP, atau GIF.",
+    "imagePdfOnly": "Alat ini hanya mendukung gambar JPG, PNG, dan WebP.",
     "imageTooLarge": "Ukuran gambar melebihi 50 MB.",
     "imageDecode": "Gambar tidak bisa dibaca. File mungkin rusak atau formatnya tidak didukung browser.",
     "unsupportedBrowser": "Browser ini tidak mendukung pemrosesan gambar di Web Worker.",
@@ -714,6 +877,10 @@
     "pdfTooLarge": "Ukuran PDF melebihi 100 MB.",
     "pdfPassword": "PDF dilindungi kata sandi. Buka proteksinya terlebih dahulu, lalu coba lagi.",
     "pdfCorrupt": "PDF rusak atau tidak valid dan tidak bisa dibaca.",
+    "pdfNoText": "Tidak ada teks yang bisa dipilih. PDF ini mungkin hasil pindai; ubah ke gambar atau jalankan OCR terlebih dahulu.",
+    "docxOnly": "Hanya file .docx yang didukung. Simpan file .doc lama sebagai .docx terlebih dahulu.",
+    "docxTooLarge": "Ukuran file Word melebihi 25 MB.",
+    "docxInvalid": "File Word rusak atau tidak valid dan tidak bisa dibaca.",
     "noFiles": "Tambahkan file terlebih dahulu.",
     "minPdfFiles": "Tambahkan minimal dua file PDF.",
     "maxFiles": "Batas jumlah file tercapai.",

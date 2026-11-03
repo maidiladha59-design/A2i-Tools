@@ -18,3 +18,9 @@ export const MAX_IMAGE_BYTES = 50 * 1024 * 1024;
 export const MAX_PDF_BYTES = 100 * 1024 * 1024;
 export const MAX_IMAGE_FILES = 20;
 export const MAX_PDF_FILES = 20;
+
+export const IMAGE_PDF_ACCEPT = "image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp";
+
+export const DOCX_ACCEPT =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx";
+export const MAX_DOCX_BYTES = 25 * 1024 * 1024;

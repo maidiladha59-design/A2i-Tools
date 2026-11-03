@@ -970,6 +970,868 @@ export const LANDINGS: LandingDefinition[] = [
     },
     relatedTools: ["pdfReduce", "pdfOrganize", "pdfCompress", "imageCompress"],
   },
+  {
+    slug: "jpg-to-pdf",
+    toolId: "imageToPdf",
+    config: { imagePdf: { pageSize: "a4" } },
+    title: {
+      id: "Konversi JPG ke PDF Tanpa Upload File",
+      en: "Convert JPG to PDF Without Uploading Files",
+    },
+    description: {
+      id: "Gabungkan beberapa JPG menjadi satu PDF A4 langsung di browser. Atur urutan halaman, dapatkan margin rapi, dan unduh tanpa upload.",
+      en: "Combine several JPGs into one A4 PDF right in your browser. Reorder pages, keep clean margins, and download without uploading.",
+    },
+    h1: {
+      id: "Konversi JPG ke PDF",
+      en: "Convert JPG to PDF",
+    },
+    intro: {
+      id: [
+        "Menggabungkan foto atau hasil pindai JPG menjadi satu PDF sering dibutuhkan saat melamar kerja, mengirim dokumen administrasi, atau mengarsipkan bukti transaksi. Banyak portal hanya menerima satu lampiran PDF, bukan beberapa gambar terpisah.",
+        "Halaman ini membuka alat Gambar ke PDF dengan ukuran halaman A4 sudah dipilih. Tambahkan file JPG, atur urutannya, lalu tekan Buat PDF. Semua pemrosesan berjalan di browser memakai canvas dan pdf-lib, sehingga file tidak dikirim ke server.",
+        "Ukuran A4 menempatkan setiap gambar di tengah halaman dengan margin putih dan memilih orientasi portrait atau landscape secara otomatis. Jika kamu lebih suka halaman mengikuti proporsi foto tanpa margin, ganti ukuran halaman ke Auto.",
+      ],
+      en: [
+        "Combining photos or scanned JPGs into a single PDF comes up when applying for a job, sending administrative documents, or archiving receipts. Many portals accept only one PDF attachment rather than several separate images.",
+        "This page opens the Images to PDF tool with A4 already selected. Add JPG files, arrange the order, and press Create PDF. Everything runs in your browser with canvas and pdf-lib, so the files are never sent to a server.",
+        "A4 centers each image on the page with a white margin and picks portrait or landscape automatically. If you prefer pages that follow the photo proportions without margins, switch the page size to Auto.",
+      ],
+    },
+    bullets: {
+      id: [
+        "Beberapa JPG digabung menjadi satu PDF sesuai urutan daftar.",
+        "A4 sudah dipilih saat halaman dibuka; Auto tersedia untuk arsip digital.",
+        "Setiap gambar maksimal 50 MB, hingga 20 gambar per PDF.",
+        "Urutan bisa diubah lewat drag and drop atau tombol naik dan turun.",
+        "File asli tidak diubah dan tidak ada unggahan ke server.",
+      ],
+      en: [
+        "Several JPGs are combined into one PDF in list order.",
+        "A4 is pre-selected on this page; Auto is available for digital archives.",
+        "Each image can be up to 50 MB, with 20 images per PDF.",
+        "Reorder with drag and drop or the up and down buttons.",
+        "Original files stay untouched and nothing is uploaded.",
+      ],
+    },
+    sections: {
+      id: [
+        {
+          heading: "Kapan JPG perlu diubah menjadi PDF",
+          paragraphs: [
+            "PDF menyatukan beberapa halaman menjadi satu file yang mudah dikirim dan dicetak. Penerima tidak perlu membuka banyak file, dan urutan halaman tetap terjaga. Format ini juga lebih diterima oleh sistem lamaran kerja, kampus, dan portal administrasi.",
+            "JPG tetap berguna sebagai format sumber karena hampir semua kamera dan ponsel menyimpannya secara default. Yang perlu dilakukan adalah menggabungkannya dengan rapi, bukan mengonversi setiap gambar secara manual di aplikasi yang berbeda.",
+          ],
+        },
+        {
+          heading: "Menyiapkan halaman A4 yang rapi",
+          paragraphs: [
+            "Periksa orientasi setiap foto sebelum membuat PDF. Foto yang miring atau terbalik tidak bisa diputar di alat ini, jadi putar dulu di galeri atau editor perangkat. Pastikan juga urutan halaman sesuai dokumen yang diminta.",
+            "A4 memberi ukuran kertas yang konsisten untuk semua halaman. Ini penting saat PDF dicetak atau digabung dengan dokumen lain. Sisi putih di sekitar gambar adalah margin, bukan ruang yang terbuang.",
+          ],
+          bullets: [
+            "Putar foto yang miring sebelum ditambahkan.",
+            "Susun urutan dari halaman pertama hingga terakhir.",
+            "Gunakan A4 untuk dokumen cetak, Auto untuk arsip digital.",
+            "Periksa hasil PDF sebelum mengunggah ke formulir.",
+          ],
+        },
+        {
+          heading: "Kualitas gambar dan privasi",
+          paragraphs: [
+            "JPG diproses ulang pada kualitas tinggi sebelum ditanam ke PDF, sehingga ada penurunan kecil yang biasanya tidak terlihat. Mulai dari file asli dan hindari foto yang sudah berkali-kali dikirim lewat aplikasi chat agar artefaknya tidak menumpuk.",
+            "Tidak ada API unggahan di balik alat ini. Gambar dibaca dari perangkat, digabung di memori browser, lalu PDF hasilnya diunduh langsung. Menutup tab akan membebaskan data proses tanpa meninggalkan salinan di server.",
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: "When JPG files should become a PDF",
+          paragraphs: [
+            "A PDF brings several pages into one file that is easy to send and print. The recipient does not have to open a pile of files, and the page order stays intact. The format is also more widely accepted by job, campus, and administrative portals.",
+            "JPG remains useful as a source format because nearly every camera and phone saves to it by default. The task is to combine those images neatly rather than converting each one manually in a different app.",
+          ],
+        },
+        {
+          heading: "Preparing clean A4 pages",
+          paragraphs: [
+            "Check the orientation of every photo before creating the PDF. This tool cannot rotate an image, so straighten sideways or upside-down photos in your gallery or editor first. Also confirm that the page order matches the document the form expects.",
+            "A4 gives every page the same paper size, which matters when the PDF is printed or combined with other documents. The white space around each image is a deliberate margin, not wasted room.",
+          ],
+          bullets: [
+            "Rotate crooked photos before adding them.",
+            "Arrange pages from first to last.",
+            "Use A4 for printed documents and Auto for digital archives.",
+            "Review the final PDF before uploading it to a form.",
+          ],
+        },
+        {
+          heading: "Image quality and privacy",
+          paragraphs: [
+            "JPGs are re-encoded at high quality before being embedded, so there is a small loss that is usually invisible. Start from the original file and avoid photos that have been sent through chat apps many times, since their artefacts accumulate.",
+            "There is no upload API behind this tool. Images are read from your device, combined in browser memory, and the resulting PDF downloads directly. Closing the tab frees the working data and leaves no copy on a server.",
+          ],
+        },
+      ],
+    },
+    faq: {
+      id: [
+        {
+          q: "Apakah file JPG saya diunggah?",
+          a: "Tidak. JPG dibaca dan digabung di browser memakai canvas dan pdf-lib. Tidak ada unggahan ke server, dan PDF hasil hanya ada di memori perangkat sampai kamu mengunduhnya.",
+        },
+        {
+          q: "Berapa banyak JPG yang bisa digabung menjadi satu PDF?",
+          a: "Hingga 20 gambar per PDF, dengan batas 50 MB per file. Setiap gambar diperiksa saat ditambahkan, dan yang gagal dibaca ditandai dengan pesan yang jelas tanpa menghentikan gambar lain.",
+        },
+        {
+          q: "Apakah kualitas JPG turun setelah dibuat PDF?",
+          a: "JPG di-encode ulang pada kualitas tinggi sebelum ditanam, sehingga ada penurunan kecil yang biasanya tidak terlihat. Mulai dari file asli dan periksa hasil PDF sebelum mengirimnya ke formulir penting.",
+        },
+        {
+          q: "Bagaimana cara mengubah urutan halaman?",
+          a: "Tarik kartu gambar ke posisi yang diinginkan, atau gunakan tombol naik dan turun yang tersedia di setiap item. Urutan daftar dari atas ke bawah menjadi urutan halaman di PDF hasil.",
+        },
+      ],
+      en: [
+        {
+          q: "Are my JPG files uploaded?",
+          a: "No. JPGs are read and combined in your browser with canvas and pdf-lib. Nothing is uploaded to a server, and the PDF exists only in device memory until you download it.",
+        },
+        {
+          q: "How many JPGs can I combine into one PDF?",
+          a: "Up to 20 images per PDF, with a 50 MB limit per file. Each image is checked when added, and any file that cannot be read is flagged with a clear message without stopping the others.",
+        },
+        {
+          q: "Does JPG quality drop after creating the PDF?",
+          a: "JPGs are re-encoded at high quality before being embedded, so there is a small loss that is usually invisible. Start from the originals and review the PDF before sending it to an important form.",
+        },
+        {
+          q: "How do I change the page order?",
+          a: "Drag an image card to the desired position, or use the up and down buttons on each item. The list order from top to bottom becomes the page order in the finished PDF.",
+        },
+      ],
+    },
+    relatedTools: ["imageCompress", "imageConvert", "pdfMerge", "pdfToImage"],
+  },
+  {
+    slug: "png-to-pdf",
+    toolId: "imageToPdf",
+    config: { imagePdf: { pageSize: "a4" } },
+    title: {
+      id: "Konversi PNG ke PDF Tanpa Kehilangan Ketajaman",
+      en: "Convert PNG to PDF Without Losing Sharpness",
+    },
+    description: {
+      id: "Gabungkan tangkapan layar dan diagram PNG menjadi satu PDF A4 di browser. Teks tetap tajam dan tidak ada file yang diunggah.",
+      en: "Combine PNG screenshots and diagrams into one A4 PDF in your browser. Text and line art stay sharp, and no file is ever uploaded to a server.",
+    },
+    h1: {
+      id: "Konversi PNG ke PDF",
+      en: "Convert PNG to PDF",
+    },
+    intro: {
+      id: [
+        "PNG menyimpan tangkapan layar, diagram, dan teks dengan tepi tajam. Saat beberapa PNG harus dikirim sebagai satu dokumen, PDF membuat penerima bisa membukanya dalam satu kali tanpa kehilangan urutan halaman.",
+        "Halaman ini membuka alat Gambar ke PDF dengan A4 dipilih. Tambahkan PNG, atur urutan, lalu buat PDF. PNG tetap disimpan sebagai PNG di dalam PDF, sehingga teks dan garis tidak mengalami kompresi lossy tambahan.",
+        "Area transparan pada PNG akan terlihat putih karena halaman PDF memiliki latar putih. Jika transparansi perlu dipertahankan untuk keperluan lain, simpan file PNG asli secara terpisah.",
+      ],
+      en: [
+        "PNG keeps screenshots, diagrams, and text crisp. When several PNGs need to travel as one document, a PDF lets the recipient open everything at once without losing the page order.",
+        "This page opens the Images to PDF tool with A4 selected. Add PNGs, arrange the order, and create the PDF. PNGs stay PNG inside the PDF, so text and lines avoid another round of lossy compression.",
+        "Transparent areas in a PNG appear white because PDF pages have a white background. If transparency must survive for another purpose, keep the original PNG file separately.",
+      ],
+    },
+    bullets: {
+      id: [
+        "PNG tetap PNG di dalam PDF agar teks dan garis tetap tajam.",
+        "Ukuran A4 sudah dipilih; Auto bisa dipakai agar halaman mengikuti gambar.",
+        "Hingga 20 PNG, masing-masing maksimal 50 MB.",
+        "Urutan halaman diatur dengan drag and drop atau tombol.",
+        "Semua proses lokal, tanpa upload dan tanpa akun.",
+      ],
+      en: [
+        "PNGs stay PNG inside the PDF so text and lines remain sharp.",
+        "A4 is pre-selected; Auto is available when pages should follow the images.",
+        "Up to 20 PNGs, each one limited to 50 MB.",
+        "Reorder pages with drag and drop or the buttons.",
+        "Everything runs locally, with no upload and no account.",
+      ],
+    },
+    sections: {
+      id: [
+        {
+          heading: "Kelebihan PNG untuk tangkapan layar dan diagram",
+          paragraphs: [
+            "PNG adalah format lossless yang populer untuk tangkapan layar, diagram, logo, dan gambar dengan transparansi. Karena setiap piksel dipertahankan, huruf kecil dan garis tipis tetap terbaca setelah gambar dipindahkan ke dokumen lain.",
+            "PDF mendukung PNG secara native, jadi alat ini mempertahankan format tersebut saat menanam gambar. Ini berbeda dari mengubah PNG menjadi JPG terlebih dahulu, yang bisa menimbulkan noise di sekitar teks dan menghilangkan transparansi.",
+          ],
+        },
+        {
+          heading: "A4 atau Auto untuk dokumen PNG",
+          paragraphs: [
+            "A4 memberi ukuran halaman yang seragam dan margin putih di sekeliling gambar. Pilihan ini cocok untuk dokumen yang akan dicetak atau digabung dengan berkas lain. Orientasi portrait atau landscape dipilih otomatis mengikuti bentuk gambar.",
+            "Auto membuat halaman mengikuti rasio gambar, sehingga tangkapan layar lebar tidak memiliki bingkai putih besar. Namun ukuran halaman bisa berbeda-beda. Untuk arsip digital pribadi, Auto sering terasa lebih pas; untuk dokumen resmi, A4 lebih aman.",
+          ],
+          bullets: [
+            "Gunakan A4 untuk cetak dan dokumen resmi.",
+            "Gunakan Auto untuk tangkapan layar lebar dan arsip digital.",
+            "Periksa urutan sebelum membuat PDF.",
+            "Pastikan gambar tidak terpotong di sisi mana pun.",
+          ],
+        },
+        {
+          heading: "Transparansi dan ketajaman teks",
+          paragraphs: [
+            "Halaman PDF memiliki latar putih, jadi bagian transparan pada PNG akan tampil putih. Itu normal dan biasanya justru diinginkan untuk dokumen. Jika kamu membutuhkan latar transparan, simpan PNG asli dan jangan mengandalkan PDF sebagai pengganti.",
+            "Untuk menjaga teks tetap tajam, mulai dari PNG beresolusi penuh dan hindari menambahkan gambar hasil tangkapan ulang dari layar. Alat ini membatasi sisi terpanjang gambar agar memori browser tetap aman, lalu menempatkannya tanpa memperbesar melebihi resolusi asli.",
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: "Why PNG suits screenshots and diagrams",
+          paragraphs: [
+            "PNG is a lossless format popular for screenshots, diagrams, logos, and images with transparency. Because every pixel is preserved, small letters and thin lines stay readable after the image moves into another document.",
+            "PDF supports PNG natively, so this tool keeps that format when embedding the image. That differs from converting to JPG first, which can add noise around text and drop transparency.",
+          ],
+        },
+        {
+          heading: "A4 or Auto for PNG documents",
+          paragraphs: [
+            "A4 gives every page a consistent size with a white margin around the image. It suits documents that will be printed or combined with other files. Portrait or landscape is selected automatically based on the image shape.",
+            "Auto makes the page follow the image ratio, so a wide screenshot does not sit inside a large white frame. Page sizes can vary, though. For a personal digital archive Auto often feels right; for official documents A4 is safer.",
+          ],
+          bullets: [
+            "Use A4 for printing and official documents.",
+            "Use Auto for wide screenshots and digital archives.",
+            "Check the order before creating the PDF.",
+            "Make sure no image is cropped on any side.",
+          ],
+        },
+        {
+          heading: "Transparency and text sharpness",
+          paragraphs: [
+            "A PDF page has a white background, so transparent parts of a PNG show as white. That is normal and usually desirable for documents. If you need a transparent background, keep the original PNG and do not use the PDF as a replacement.",
+            "To keep text sharp, start from full-resolution PNGs and avoid adding screenshots of screenshots. The tool caps the longest image side to protect browser memory, then places the image without upscaling it beyond its original resolution.",
+          ],
+        },
+      ],
+    },
+    faq: {
+      id: [
+        {
+          q: "Format apa saja yang bisa dijadikan PDF?",
+          a: "Alat ini menerima JPG, PNG, dan WebP, masing-masing hingga 50 MB dan maksimal 20 gambar per PDF. Halaman ini sudah diatur ke A4, tetapi kamu bisa menggantinya ke Auto.",
+        },
+        {
+          q: "Apakah transparansi PNG dipertahankan?",
+          a: "PNG tetap disimpan sebagai PNG di dalam PDF, tetapi halaman PDF memiliki latar putih. Area transparan akan terlihat putih saat halaman dibuka. Simpan file PNG asli jika latar transparan masih diperlukan.",
+        },
+        {
+          q: "Apakah teks pada PNG tetap tajam?",
+          a: "Ya. PNG tidak diubah menjadi JPG, sehingga huruf dan garis tidak mengalami kompresi lossy tambahan. Mulai dari tangkapan layar beresolusi penuh dan hindari gambar yang sudah diperkecil sebelum ditambahkan.",
+        },
+        {
+          q: "Berapa banyak gambar yang bisa diproses?",
+          a: "Hingga 20 file dalam satu PDF, dengan batas 50 MB per gambar. Pemrosesan berjalan lokal, jadi kecepatan bergantung pada perangkat dan ukuran gambar.",
+        },
+      ],
+      en: [
+        {
+          q: "Which formats can become a PDF?",
+          a: "This tool accepts JPG, PNG, and WebP, each up to 50 MB and up to 20 images per PDF. This page is set to A4, but you can switch it to Auto.",
+        },
+        {
+          q: "Is PNG transparency preserved?",
+          a: "PNGs stay PNG inside the PDF, but a PDF page has a white background. Transparent areas appear white when the page is opened. Keep the original PNG if you still need a transparent background.",
+        },
+        {
+          q: "Does text in a PNG stay sharp?",
+          a: "Yes. PNGs are not converted to JPG, so letters and lines avoid extra lossy compression. Start from a full-resolution screenshot and avoid images that were already shrunk before being added.",
+        },
+        {
+          q: "How many images can I process?",
+          a: "Up to 20 files in one PDF, with a 50 MB limit per image. Processing runs locally, so speed depends on your device and the image sizes.",
+        },
+      ],
+    },
+    relatedTools: ["imageConvert", "imageCompress", "pdfMerge", "pdfToImage"],
+  },
+  {
+    slug: "pdf-to-jpg",
+    toolId: "pdfToImage",
+    config: { pdfImage: { format: "image/jpeg" } },
+    title: {
+      id: "Konversi PDF ke JPG per Halaman Tanpa Upload",
+      en: "Convert PDF to JPG per Page Without Uploading",
+    },
+    description: {
+      id: "Ubah setiap halaman PDF menjadi JPG dengan pilihan 72, 150, atau 300 DPI. Unduh per halaman atau semua dalam ZIP, 100% di browser.",
+      en: "Turn every PDF page into a JPG with 72, 150, or 300 DPI options. Download pages individually or as a ZIP, 100% in your browser.",
+    },
+    h1: {
+      id: "Konversi PDF ke JPG",
+      en: "Convert PDF to JPG",
+    },
+    intro: {
+      id: [
+        "JPG adalah format yang mudah ditempel ke presentasi, dokumen lain, atau unggahan media sosial. Ketika isi penting berada di dalam PDF, mengubah setiap halaman menjadi JPG membuatnya lebih mudah dibagikan tanpa perlu aplikasi pembaca PDF.",
+        "Halaman ini membuka alat PDF ke Gambar dengan format JPG dipilih. Tambahkan PDF, tentukan resolusi dan kualitas, lalu konversi. Setiap halaman dirender di browser memakai pdf.js dan canvas; file tidak dikirim ke server.",
+        "Kamu bisa mengunduh satu halaman yang dibutuhkan atau semua halaman sekaligus dalam arsip ZIP yang dibuat di perangkat. Teks pada hasil JPG tidak lagi bisa dipilih atau dicari, jadi simpan PDF asli untuk kebutuhan tersebut.",
+      ],
+      en: [
+        "JPG is easy to drop into a presentation, another document, or a social media upload. When important content lives inside a PDF, converting each page to JPG makes it simpler to share without a PDF reader.",
+        "This page opens the PDF to Images tool with JPG selected. Add a PDF, choose resolution and quality, then convert. Every page is rendered in your browser with pdf.js and canvas; nothing is sent to a server.",
+        "Download only the pages you need or all of them in a ZIP archive built on your device. Text in the JPG can no longer be selected or searched, so keep the original PDF for those needs.",
+      ],
+    },
+    bullets: {
+      id: [
+        "Format JPG sudah dipilih saat halaman dibuka.",
+        "Resolusi 72, 150, atau 300 DPI dengan pengatur kualitas JPG.",
+        "Pratinjau setiap halaman beserta ukuran piksel dan ukuran file.",
+        "Unduh per halaman atau semua halaman dalam ZIP.",
+        "PDF maksimal 100 MB; tidak ada upload ke server.",
+      ],
+      en: [
+        "JPG is pre-selected on this page.",
+        "72, 150, or 300 DPI with a JPG quality control.",
+        "Preview each page with its pixel dimensions and file size.",
+        "Download single pages or every page as a ZIP.",
+        "Up to 100 MB per PDF; nothing is uploaded.",
+      ],
+    },
+    sections: {
+      id: [
+        {
+          heading: "Kapan halaman PDF sebaiknya menjadi JPG",
+          paragraphs: [
+            "Slide presentasi, gambar produk, dan tangkapan halaman untuk media sosial biasanya membutuhkan JPG, bukan PDF. Format ini diterima hampir di mana saja dan mudah dimasukkan ke aplikasi yang tidak mendukung PDF.",
+            "JPG juga berguna saat kamu hanya perlu satu halaman dari dokumen panjang. Ubah seluruh PDF, lalu unduh halaman yang relevan tanpa harus mengirim seluruh dokumen ke orang lain.",
+          ],
+        },
+        {
+          heading: "Memilih resolusi dan kualitas",
+          paragraphs: [
+            "72 DPI cukup untuk pratinjau dan file kecil. 150 DPI seimbang untuk layar, presentasi, dan dokumen sehari-hari. 300 DPI memberi detail cetak, tetapi menghasilkan gambar lebih besar dan proses lebih lama.",
+            "Kualitas JPG antara 88% dan 95% menjaga teks tetap terbaca. Turunkan bila ukuran file menjadi masalah, tetapi periksa kembali huruf kecil dan garis tipis sebelum digunakan. Untuk halaman berisi teks sangat kecil, pertimbangkan format PNG.",
+          ],
+          bullets: [
+            "72 DPI untuk pratinjau cepat.",
+            "150 DPI untuk layar dan presentasi.",
+            "300 DPI untuk cetak.",
+            "Periksa hasil pada zoom 100 persen sebelum dibagikan.",
+          ],
+        },
+        {
+          heading: "Mengunduh per halaman atau sekaligus",
+          paragraphs: [
+            "Setelah proses selesai, setiap halaman tampil sebagai pratinjau dengan nomor, dimensi piksel, dan ukuran file. Tombol unduh per halaman memudahkan mengambil bagian tertentu tanpa menyimpan semuanya.",
+            "Tombol Unduh semua (ZIP) menggabungkan seluruh gambar dalam satu arsip. ZIP dibuat dengan jszip di perangkatmu, jadi tidak ada gambar yang diunggah. PDF berpassword atau rusak ditolak dengan pesan jelas; buka proteksinya terlebih dahulu.",
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: "When PDF pages should become JPG",
+          paragraphs: [
+            "Presentation slides, product images, and social media captures usually need JPG rather than PDF. The format is accepted almost everywhere and fits into apps that cannot open PDFs.",
+            "JPG also helps when you need only one page from a long document. Convert the whole PDF, then download the relevant pages without sending the entire document to someone else.",
+          ],
+        },
+        {
+          heading: "Choosing resolution and quality",
+          paragraphs: [
+            "72 DPI is enough for previews and small files. 150 DPI is a balance for screens, presentations, and everyday documents. 300 DPI keeps print detail but creates larger images and takes longer.",
+            "JPG quality between 88% and 95% keeps text readable. Lower it when file size becomes a problem, but inspect small letters and thin lines afterward. For pages with very small text, consider PNG instead.",
+          ],
+          bullets: [
+            "72 DPI for quick previews.",
+            "150 DPI for screens and presentations.",
+            "300 DPI for printing.",
+            "Inspect the result at 100 percent zoom before sharing.",
+          ],
+        },
+        {
+          heading: "Downloading single pages or everything",
+          paragraphs: [
+            "When processing finishes, every page appears as a preview with its number, pixel dimensions, and file size. The per-page download button lets you take one section without saving the rest.",
+            "The Download all (ZIP) button bundles every image into one archive. The ZIP is built with jszip on your device, so no image is uploaded. Password-protected or corrupted PDFs are rejected with a clear message; remove the protection first.",
+          ],
+        },
+      ],
+    },
+    faq: {
+      id: [
+        {
+          q: "Apakah PDF saya diunggah?",
+          a: "Tidak. PDF dibaca dengan pdf.js di browser, lalu setiap halaman dirender ke canvas dan diubah menjadi JPG. Tidak ada file yang dikirim ke server dan tidak ada hasil yang disimpan setelah tab ditutup.",
+        },
+        {
+          q: "Resolusi mana yang sebaiknya dipilih?",
+          a: "72 DPI untuk pratinjau cepat, 150 DPI untuk layar dan presentasi, dan 300 DPI untuk cetak. Resolusi lebih tinggi menghasilkan gambar lebih tajam, tetapi ukuran file dan waktu proses ikut bertambah.",
+        },
+        {
+          q: "Apakah teks pada JPG bisa diedit?",
+          a: "Tidak. Hasilnya adalah gambar, sehingga teks tidak bisa dipilih, dicari, atau diedit. Simpan PDF asli bila kamu masih membutuhkan teks yang dapat dicari atau disalin.",
+        },
+        {
+          q: "Apakah semua halaman bisa diunduh sekaligus?",
+          a: "Bisa. Setelah proses selesai, tekan Unduh semua (ZIP). Arsip dibuat di perangkat dengan jszip tanpa mengunggah gambar, dan halaman juga tetap bisa diunduh satu per satu.",
+        },
+      ],
+      en: [
+        {
+          q: "Is my PDF uploaded?",
+          a: "No. The PDF is read with pdf.js in your browser, then each page is rendered to canvas and encoded as JPG. Nothing is sent to a server, and no result is stored after you close the tab.",
+        },
+        {
+          q: "Which resolution should I choose?",
+          a: "72 DPI for quick previews, 150 DPI for screens and presentations, and 300 DPI for printing. Higher resolution produces sharper images but also larger files and longer processing.",
+        },
+        {
+          q: "Can the text in a JPG be edited?",
+          a: "No. The output is an image, so text cannot be selected, searched, or edited. Keep the original PDF when you still need searchable or copyable text.",
+        },
+        {
+          q: "Can I download every page at once?",
+          a: "Yes. When processing finishes, press Download all (ZIP). The archive is built on your device with jszip without uploading the images, and individual pages remain available to download separately.",
+        },
+      ],
+    },
+    relatedTools: ["pdfCompress", "pdfOrganize", "imageCompress", "imageToPdf"],
+  },
+  {
+    slug: "pdf-to-png",
+    toolId: "pdfToImage",
+    config: { pdfImage: { format: "image/png" } },
+    title: {
+      id: "Konversi PDF ke PNG untuk Teks yang Tetap Tajam",
+      en: "Convert PDF to PNG for Sharp, Lossless Text",
+    },
+    description: {
+      id: "Ekspor halaman PDF menjadi PNG lossless dengan pilihan 72, 150, atau 300 DPI. Cocok untuk teks, tabel, dan diagram tanpa upload.",
+      en: "Export PDF pages as lossless PNG files at 72, 150, or 300 DPI. Ideal for text, tables, and diagrams that must stay sharp, with no upload.",
+    },
+    h1: {
+      id: "Konversi PDF ke PNG",
+      en: "Convert PDF to PNG",
+    },
+    intro: {
+      id: [
+        "PNG menyimpan gambar tanpa kompresi lossy, sehingga teks, garis tipis, dan diagram tetap tajam. Saat halaman PDF perlu dipakai di dokumen lain atau diolah lebih lanjut, PNG sering menjadi pilihan yang lebih aman daripada JPG.",
+        "Halaman ini membuka alat PDF ke Gambar dengan format PNG dipilih. Atur resolusi 72, 150, atau 300 DPI, lalu konversi seluruh halaman. Semua rendering berjalan di browser dan hasilnya bisa diunduh per halaman atau sebagai ZIP.",
+        "Karena PNG bersifat lossless, ukuran file biasanya lebih besar daripada JPG. Gunakan PNG ketika ketajaman lebih penting daripada ukuran, dan pilih JPG bila gambar hanya perlu dilihat di layar atau dibagikan lewat pesan.",
+      ],
+      en: [
+        "PNG stores images without lossy compression, so text, thin lines, and diagrams stay crisp. When PDF pages need to be used in another document or edited further, PNG is often safer than JPG.",
+        "This page opens the PDF to Images tool with PNG selected. Choose 72, 150, or 300 DPI, then convert every page. Rendering runs in your browser, and the results can be downloaded per page or as a ZIP.",
+        "Because PNG is lossless, files are usually larger than JPG. Use PNG when sharpness matters more than size, and choose JPG when the image only needs to be viewed on screen or shared in a message.",
+      ],
+    },
+    bullets: {
+      id: [
+        "Format PNG sudah dipilih saat halaman dibuka.",
+        "Resolusi 72, 150, atau 300 DPI tanpa kompresi lossy.",
+        "Cocok untuk halaman berisi teks, tabel, dan diagram.",
+        "Unduh per halaman atau semuanya dalam ZIP.",
+        "Pemrosesan lokal; PDF tidak diunggah.",
+      ],
+      en: [
+        "PNG is pre-selected on this page.",
+        "72, 150, or 300 DPI without lossy compression.",
+        "Suited to pages with text, tables, and diagrams.",
+        "Download pages individually or all of them as a ZIP.",
+        "Local processing; the PDF is never uploaded.",
+      ],
+    },
+    sections: {
+      id: [
+        {
+          heading: "Kapan PNG lebih tepat daripada JPG",
+          paragraphs: [
+            "JPG bagus untuk foto karena menghasilkan file kecil, tetapi tepi huruf dan garis tipis bisa tampak bergetar. PNG menyimpan setiap piksel dengan tepat, sehingga teks pada kontrak, slide, atau diagram tetap tajam saat diperbesar.",
+            "PNG juga berguna saat halaman akan diedit lagi di aplikasi desain. Tidak adanya artefak kompresi membuat gambar lebih mudah dipotong, ditempel, atau digabung dengan elemen lain tanpa kehilangan kualitas.",
+          ],
+        },
+        {
+          heading: "Resolusi untuk teks dan diagram",
+          paragraphs: [
+            "150 DPI biasanya cukup untuk dibaca di layar dan dimasukkan ke presentasi. Jika hasilnya akan dicetak atau diperbesar, pilih 300 DPI. Perlu diingat, menaikkan DPI memperbesar dimensi piksel dan ukuran file secara signifikan.",
+            "Alat ini membatasi ukuran render agar memori browser tetap aman. Untuk halaman yang sangat besar, resolusi mungkin dibatasi secara otomatis; periksa dimensi akhir pada pratinjau sebelum mengunduh.",
+          ],
+          bullets: [
+            "150 DPI untuk layar dan presentasi.",
+            "300 DPI untuk cetak dan zoom detail.",
+            "Periksa dimensi piksel pada kartu pratinjau.",
+            "Gunakan ZIP untuk menyimpan semua halaman sekaligus.",
+          ],
+        },
+        {
+          heading: "Teks tidak lagi bisa dicari",
+          paragraphs: [
+            "Hasil konversi adalah gambar, bukan PDF dengan lapisan teks. Teks tidak bisa dipilih, dicari, atau disalin dari PNG. Simpan PDF asli bila kamu masih membutuhkan fungsi pencarian atau pengeditan.",
+            "Jika tujuanmu justru mengarsipkan tampilan halaman agar identik di semua perangkat, PNG adalah pilihan yang tepat. Prosesnya tidak mengunggah file, dan menutup tab akan membersihkan data dari memori.",
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: "When PNG beats JPG",
+          paragraphs: [
+            "JPG works well for photos because it produces small files, but letter edges and thin lines can look shaky. PNG stores every pixel exactly, so text in contracts, slides, or diagrams stays sharp when enlarged.",
+            "PNG also helps when a page will be edited again in a design app. The absence of compression artefacts makes the image easier to crop, paste, or combine with other elements without losing quality.",
+          ],
+        },
+        {
+          heading: "Resolution for text and diagrams",
+          paragraphs: [
+            "150 DPI is usually enough for reading on screen and placing pages in presentations. If the result will be printed or enlarged, choose 300 DPI. Keep in mind that higher DPI increases pixel dimensions and file size significantly.",
+            "The tool caps render size to protect browser memory. For very large pages, resolution may be limited automatically; check the final dimensions in the preview before downloading.",
+          ],
+          bullets: [
+            "150 DPI for screens and presentations.",
+            "300 DPI for printing and close-up detail.",
+            "Check pixel dimensions on the preview card.",
+            "Use ZIP to save every page in one go.",
+          ],
+        },
+        {
+          heading: "Text is no longer searchable",
+          paragraphs: [
+            "The output is an image, not a PDF with a text layer. Text cannot be selected, searched, or copied from a PNG. Keep the original PDF when you still need search or editing.",
+            "If the goal is to archive exactly how pages look across devices, PNG is a good fit. The process does not upload files, and closing the tab clears the working data from memory.",
+          ],
+        },
+      ],
+    },
+    faq: {
+      id: [
+        {
+          q: "Apakah PNG lebih baik daripada JPG untuk halaman PDF?",
+          a: "Untuk halaman berisi teks, tabel, dan garis tipis, PNG lebih tajam karena tidak memakai kompresi lossy. Untuk foto, JPG biasanya lebih kecil dan cukup baik. Pilih sesuai isi halaman dan kebutuhan ukuran.",
+        },
+        {
+          q: "Resolusi berapa yang sebaiknya dipakai?",
+          a: "150 DPI seimbang untuk layar dan presentasi. Gunakan 300 DPI untuk cetak atau saat detail kecil harus tetap jelas. Resolusi lebih tinggi memperbesar ukuran file dan memperlama proses.",
+        },
+        {
+          q: "Apakah latar transparan pada PDF dipertahankan?",
+          a: "Halaman PDF dirender di atas latar putih, sehingga PNG hasilnya memiliki latar putih yang padat. Jika kamu membutuhkan transparansi, simpan elemen asli dari dokumen sumber, bukan hasil render halaman.",
+        },
+        {
+          q: "Apakah teks masih bisa dicari?",
+          a: "Tidak. Hasilnya adalah gambar PNG, sehingga teks tidak bisa dipilih atau dicari. Simpan PDF asli bila dokumen masih perlu dicari, disalin, atau diedit.",
+        },
+      ],
+      en: [
+        {
+          q: "Is PNG better than JPG for PDF pages?",
+          a: "For pages with text, tables, and thin lines, PNG is sharper because it uses no lossy compression. For photos, JPG is usually smaller and good enough. Choose based on the page content and size needs.",
+        },
+        {
+          q: "Which resolution should I use?",
+          a: "150 DPI is a good balance for screens and presentations. Use 300 DPI for printing or when small details must stay clear. Higher resolution increases file size and processing time.",
+        },
+        {
+          q: "Is a transparent PDF background preserved?",
+          a: "PDF pages are rendered onto a white background, so the resulting PNG has a solid white background. If you need transparency, export the original element from the source document rather than a rendered page.",
+        },
+        {
+          q: "Can the text still be searched?",
+          a: "No. The output is a PNG image, so text cannot be selected or searched. Keep the original PDF if the document still needs to be searched, copied, or edited.",
+        },
+      ],
+    },
+    relatedTools: ["pdfCompress", "pdfOrganize", "imageCompress", "imageToPdf"],
+  },
+  {
+    slug: "word-to-pdf",
+    toolId: "docxToPdf",
+    title: {
+      id: "Konversi Word ke PDF Online Tanpa Upload File",
+      en: "Convert Word to PDF Online Without Uploading",
+    },
+    description: {
+      id: "Ubah dokumen .docx menjadi PDF A4 langsung di browser. Teks, tabel, dan gambar diproses di perangkatmu, tanpa unggahan dan tanpa akun.",
+      en: "Turn .docx documents into A4 PDFs right in your browser. Text, tables, and images are processed on your device, with no uploads and no account.",
+    },
+    h1: {
+      id: "Konversi Word ke PDF",
+      en: "Convert Word to PDF",
+    },
+    intro: {
+      id: [
+        "Dokumen Word nyaman untuk menulis, tetapi tampilannya bisa berubah ketika dibuka di komputer lain. Font yang tidak tersedia, versi Word yang berbeda, atau pengaturan margin yang tidak ikut terbawa sering membuat dokumen terlihat berantakan. PDF menyimpan tampilan halaman sehingga dokumen tetap sama saat dikirim, dicetak, atau diunggah ke portal.",
+        "Halaman ini mengonversi file .docx menjadi PDF sepenuhnya di browser. Isi dokumen dibaca dengan mammoth, ditata pada halaman A4, lalu digambar menjadi PDF. File tidak dikirim ke server, tidak disimpan di cloud, dan tidak memerlukan akun.",
+        "Karena prosesnya berjalan di browser, hasilnya mendekati dokumen asli untuk teks, judul, daftar, tabel, dan gambar sederhana. Tata letak yang sangat rumit seperti kolom koran, kotak teks mengambang, atau header dan footer khusus bisa bergeser. Selalu periksa PDF sebelum mengirimkannya.",
+      ],
+      en: [
+        "Word documents are convenient to write in, but their appearance can change when opened on another computer. Missing fonts, a different Word version, or margins that do not carry over often make a document look broken. PDF preserves the page appearance, so it stays the same when emailed, printed, or uploaded to a portal.",
+        "This page converts .docx files to PDF entirely in your browser. The document is read with mammoth, laid out on A4 pages, and drawn into a PDF. Files are not sent to a server, stored in the cloud, or tied to an account.",
+        "Because processing runs in the browser, the result closely follows the original for text, headings, lists, tables, and simple images. Highly complex layouts such as newspaper columns, floating text boxes, or custom headers and footers may shift. Always review the PDF before sending it.",
+      ],
+    },
+    bullets: {
+      id: [
+        "Menerima satu file .docx hingga 25 MB, tanpa watermark.",
+        "Semua konversi berjalan lokal di browser tanpa unggahan.",
+        "Hasil berupa halaman A4 portrait dengan margin putih.",
+        "Mendukung judul, daftar, tabel, dan gambar sederhana.",
+        "Catatan jujur ditampilkan bila tata letak kompleks bisa berubah.",
+      ],
+      en: [
+        "Accepts one .docx file up to 25 MB, with no watermark.",
+        "Every conversion runs locally in your browser with no upload.",
+        "Output uses A4 portrait pages with a white margin.",
+        "Supports headings, lists, tables, and simple images.",
+        "An honest note appears when complex layouts may change.",
+      ],
+    },
+    sections: {
+      id: [
+        {
+          heading: "Mengapa mengubah Word ke PDF",
+          paragraphs: [
+            "PDF adalah format yang paling aman untuk dokumen yang sudah final. Lamaran kerja, proposal, invoice, dan tugas sekolah biasanya diminta dalam PDF karena tampilannya tidak berubah di perangkat mana pun. Ukuran halaman juga terkunci, sehingga hasil cetak lebih mudah diprediksi.",
+            "Mengubah ke PDF juga membantu ketika dokumen akan diunggah ke sistem yang hanya menerima PDF. Alih-alih meminta penerima membuka file Word, kamu bisa mengirim satu file yang siap dibaca di ponsel, tablet, atau komputer tanpa aplikasi tambahan.",
+          ],
+        },
+        {
+          heading: "Cara kerja konversi di browser",
+          paragraphs: [
+            "Pertama, mammoth membaca struktur file .docx dan mengubahnya menjadi HTML. HTML itu ditata dengan gaya dokumen yang bersih, lalu html2canvas menggambar halaman A4 ke canvas. Setiap bagian halaman disusun agar tidak memotong baris teks di tengah, kemudian dimasukkan ke PDF menggunakan pdf-lib.",
+            "Seluruh proses berjalan di memori perangkat. Tidak ada API konversi, tidak ada unggahan tersembunyi, dan hasilnya langsung diunduh ke perangkatmu. Untuk file besar, proses bisa memakan beberapa detik karena setiap halaman dirender satu per satu agar tab tetap stabil.",
+          ],
+        },
+        {
+          heading: "Tips agar hasil PDF lebih rapi",
+          paragraphs: [
+            "Gunakan gaya judul dan daftar bawaan Word, bukan teks tebal manual. Margin yang konsisten, tabel sederhana, dan gambar dengan lebar wajar cenderung menghasilkan PDF yang paling dekat dengan aslinya. Hindari kolom ganda, kotak teks mengambang, dan pemisah halaman manual yang rumit.",
+            "Jika dokumen harus tampil persis seperti aslinya, termasuk header, footer, dan nomor halaman otomatis, sebaiknya ekspor PDF dari aplikasi Word atau LibreOffice di desktop. Alat browser ini paling berguna untuk konversi cepat ketika kamu tidak ingin mengunggah file ke layanan pihak ketiga.",
+          ],
+          bullets: [
+            "Gunakan Heading 1–3 untuk struktur judul.",
+            "Hindari kolom ganda dan kotak teks mengambang.",
+            "Periksa tabel lebar dan gambar setelah konversi.",
+            "Simpan file .docx asli sebagai cadangan.",
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: "Why convert Word to PDF",
+          paragraphs: [
+            "PDF is the safest format for a finished document. Job applications, proposals, invoices, and school assignments are usually requested as PDF because their appearance does not change from one device to another. Page size is also locked, making print results more predictable.",
+            "Converting to PDF also helps when a document must be uploaded to a system that only accepts PDF. Instead of asking the recipient to open a Word file, you can send one file that is ready to read on a phone, tablet, or computer without extra software.",
+          ],
+        },
+        {
+          heading: "How the browser conversion works",
+          paragraphs: [
+            "First, mammoth reads the .docx structure and turns it into HTML. That HTML is styled with clean document formatting, then html2canvas draws A4 pages onto a canvas. Page sections are arranged so text lines are not cut in the middle, and the result is placed into a PDF with pdf-lib.",
+            "Everything runs in device memory. There is no conversion API, no hidden upload, and the result downloads straight to your device. Large files can take a few seconds because each page is rendered one at a time to keep the tab stable.",
+          ],
+        },
+        {
+          heading: "Tips for a cleaner PDF",
+          paragraphs: [
+            "Use Word’s built-in heading and list styles instead of manually bolded text. Consistent margins, simple tables, and reasonably sized images usually produce a PDF that stays closest to the original. Avoid multiple columns, floating text boxes, and complicated manual page breaks.",
+            "If the document must look exactly like the original, including headers, footers, and automatic page numbers, export the PDF from Word or LibreOffice on a desktop. This browser tool is most useful for a quick conversion when you do not want to upload a file to a third-party service.",
+          ],
+          bullets: [
+            "Use Heading 1–3 styles for structure.",
+            "Avoid multiple columns and floating text boxes.",
+            "Check wide tables and images after conversion.",
+            "Keep the original .docx as a backup.",
+          ],
+        },
+      ],
+    },
+    faq: {
+      id: [
+        {
+          q: "Apakah file Word saya diunggah?",
+          a: "Tidak. Konversi berjalan di browser dengan mammoth, html2canvas, dan pdf-lib. File tidak pernah dikirim ke server, tidak disimpan, dan tidak dilihat oleh kami.",
+        },
+        {
+          q: "Apakah hasil PDF sama persis dengan dokumen asli?",
+          a: "Untuk dokumen teks sederhana, hasilnya biasanya sangat mirip. Kolom, kotak teks mengambang, header, footer, dan pemisah halaman khusus bisa berubah karena isi disusun ulang pada halaman A4. Periksa hasil sebelum dibagikan.",
+        },
+        {
+          q: "Apakah teks di PDF bisa dipilih atau dicari?",
+          a: "Tidak. Halaman dirasterisasi menjadi gambar sebelum dimasukkan ke PDF, sehingga teks tidak bisa dipilih atau dicari. Simpan file .docx asli bila kamu masih membutuhkan teks yang bisa diedit.",
+        },
+        {
+          q: "Apakah file .doc lama didukung?",
+          a: "Tidak. Hanya .docx yang didukung. Buka file .doc di Word atau LibreOffice, simpan ulang sebagai .docx, lalu konversi di halaman ini.",
+        },
+      ],
+      en: [
+        {
+          q: "Is my Word file uploaded?",
+          a: "No. Conversion runs in your browser with mammoth, html2canvas, and pdf-lib. The file is never sent to a server, stored, or viewed by us.",
+        },
+        {
+          q: "Is the PDF identical to the original document?",
+          a: "For simple text documents, the result is usually very close. Columns, floating text boxes, headers, footers, and custom page breaks can change because content is reflowed onto A4 pages. Review the result before sharing it.",
+        },
+        {
+          q: "Can the text in the PDF be selected or searched?",
+          a: "No. Pages are rasterized into images before being placed in the PDF, so text cannot be selected or searched. Keep the original .docx when you still need editable text.",
+        },
+        {
+          q: "Are older .doc files supported?",
+          a: "No. Only .docx is supported. Open .doc files in Word or LibreOffice, save them as .docx, then convert them on this page.",
+        },
+      ],
+    },
+    relatedTools: ["pdfToDocx", "pdfMerge", "pdfCompress", "imageToPdf"],
+  },
+  {
+    slug: "pdf-to-word",
+    toolId: "pdfToDocx",
+    title: {
+      id: "Konversi PDF ke Word Online — Ekstrak Teks Tanpa Upload",
+      en: "Convert PDF to Word Online — Extract Text Without Uploading",
+    },
+    description: {
+      id: "Ambil teks dari PDF dan unduh sebagai .docx yang bisa diedit. Hanya teks tanpa tata letak asli, diproses 100% di browser tanpa unggahan.",
+      en: "Turn a PDF into an editable Word document by extracting its text in your browser. Layout is not kept, so tables and columns become plain paragraphs.",
+    },
+    h1: {
+      id: "Konversi PDF ke Word",
+      en: "Convert PDF to Word",
+    },
+    intro: {
+      id: [
+        "PDF sangat baik untuk menjaga tampilan dokumen, tetapi tidak nyaman untuk mengedit teks. Ketika kamu perlu memperbaiki kalimat, menyalin bagian tertentu, atau menerjemahkan isi dokumen, file Word jauh lebih praktis. Konversi PDF ke Word membantu membuka kembali teks yang terkunci di dalam halaman PDF.",
+        "Halaman ini mengekstrak lapisan teks setiap halaman PDF dengan pdf.js, lalu menyusunnya menjadi dokumen .docx. Semua proses berjalan di browser tanpa mengunggah file ke server. Hasilnya bisa dibuka di Microsoft Word, Google Docs, atau LibreOffice dan langsung diedit.",
+        "Karena yang diambil hanya teks, gambar, kolom, tabel, font, dan tata letak asli tidak ikut disalin. PDF hasil pindai yang tidak memiliki lapisan teks juga tidak akan menghasilkan apa pun. Untuk dokumen seperti itu, jalankan OCR terlebih dahulu atau gunakan alat PDF ke Gambar.",
+      ],
+      en: [
+        "PDF is excellent for preserving how a document looks, but it is awkward for editing text. When you need to fix a sentence, copy a section, or translate a document, Word is far more practical. PDF to Word conversion helps unlock the text trapped inside PDF pages.",
+        "This page extracts the text layer of each PDF page with pdf.js and assembles it into a .docx document. Everything runs in your browser without uploading the file to a server. The result opens in Microsoft Word, Google Docs, or LibreOffice and can be edited immediately.",
+        "Because only text is extracted, images, columns, tables, fonts, and the original layout are not copied. Scanned PDFs with no text layer will not produce anything either. For those documents, run OCR first or use the PDF to Images tool.",
+      ],
+    },
+    bullets: {
+      id: [
+        "Menerima satu PDF hingga 100 MB dengan pemeriksaan halaman.",
+        "Teks diekstrak lokal dengan pdf.js, tanpa unggahan.",
+        "Menghasilkan file .docx yang bisa diedit di Word atau Google Docs.",
+        "Setiap halaman PDF dipisahkan dengan pemisah halaman di Word.",
+        "Catatan jelas bahwa hasil hanya berisi teks tanpa tata letak asli.",
+      ],
+      en: [
+        "Accepts one PDF up to 100 MB with page validation.",
+        "Text is extracted locally with pdf.js, with no upload.",
+        "Produces a .docx file editable in Word or Google Docs.",
+        "Each PDF page is separated by a page break in Word.",
+        "A clear note explains that the result is text only without the original layout.",
+      ],
+    },
+    sections: {
+      id: [
+        {
+          heading: "Kapan konversi PDF ke Word berguna",
+          paragraphs: [
+            "Konversi ini cocok ketika isi dokumen perlu diedit: memperbaiki typo pada kontrak, mengambil kutipan dari laporan, menyesuaikan format surat, atau menerjemahkan materi. Daripada mengetik ulang, kamu bisa mengekstrak teks lalu merapikannya di aplikasi pengolah kata.",
+            "Alat ini juga membantu ketika kamu hanya membutuhkan teks dari PDF yang panjang. Setelah diekstrak, teks bisa dicari, disalin, dan dipindahkan ke dokumen lain dengan cepat. Namun, ini bukan alat untuk mereproduksi tampilan PDF secara identik.",
+          ],
+        },
+        {
+          heading: "Seperti apa hasil dokumen Word-nya",
+          paragraphs: [
+            "Hasilnya berupa teks dengan satu paragraf per baris teks yang terdeteksi. Kalimat panjang akan membungkus secara alami di Word. Halaman PDF yang memiliki teks dimulai pada halaman baru, sehingga urutan bacaan tetap mudah diikuti.",
+            "Format visual tidak dipertahankan: gambar hilang, tabel menjadi teks berurutan, dan font asli diganti dengan font standar. Ini disengaja agar hasilnya ringan dan bisa diedit. Setelah diunduh, kamu bisa memberi gaya ulang, menambahkan tabel, atau menggabungkan teks dengan dokumen lain.",
+          ],
+          bullets: [
+            "Teks saja, tanpa gambar atau tabel bergaya.",
+            "Satu halaman PDF dimulai pada halaman Word baru.",
+            "Halaman tanpa teks dilewati.",
+            "File .docx bisa langsung diedit dan diformat ulang.",
+          ],
+        },
+        {
+          heading: "Jika PDF tidak menghasilkan teks",
+          paragraphs: [
+            "PDF hasil pindai umumnya berupa gambar halaman, sehingga tidak punya lapisan teks untuk diekstrak. Alat akan menampilkan pesan yang jelas ketika tidak ada teks ditemukan. Solusinya adalah menjalankan OCR dengan aplikasi khusus, atau mengubah halaman menjadi gambar dengan alat PDF ke Gambar.",
+            "PDF berpassword juga harus dibuka proteksinya terlebih dahulu. Untuk dokumen dengan tata letak rumit yang harus tetap identik, konversi teks saja tidak akan cukup; gunakan aplikasi desktop yang mendukung konversi tata letak penuh.",
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: "When PDF to Word makes sense",
+          paragraphs: [
+            "This conversion is useful when the content needs editing: fixing a typo in a contract, quoting a section of a report, adjusting a letter, or translating material. Instead of retyping, you can extract the text and clean it up in a word processor.",
+            "It also helps when you only need the text from a long PDF. Once extracted, the text can be searched, copied, and moved into another document quickly. It is not a tool for reproducing the exact appearance of a PDF.",
+          ],
+        },
+        {
+          heading: "What the Word document looks like",
+          paragraphs: [
+            "The output contains text with one paragraph per detected text line. Long sentences wrap naturally in Word. PDF pages that contain text start on a new page, so the reading order stays easy to follow.",
+            "Visual formatting is not preserved: images are dropped, tables become sequential text, and the original fonts are replaced with a standard font. This is intentional so the result stays light and editable. After downloading, you can restyle it, add tables, or combine it with another document.",
+          ],
+          bullets: [
+            "Text only, without images or styled tables.",
+            "Each PDF page starts on a new Word page.",
+            "Pages without text are skipped.",
+            "The .docx file can be edited and reformatted immediately.",
+          ],
+        },
+        {
+          heading: "When a PDF produces no text",
+          paragraphs: [
+            "Scanned PDFs are usually page images, so they have no text layer to extract. The tool shows a clear message when no text is found. The solution is to run OCR with a dedicated app, or turn the pages into images with the PDF to Images tool.",
+            "Password-protected PDFs must also have their protection removed first. For documents with complex layouts that must stay identical, text-only conversion will not be enough; use a desktop app that supports full layout conversion.",
+          ],
+        },
+      ],
+    },
+    faq: {
+      id: [
+        {
+          q: "Apakah PDF saya diunggah ke server?",
+          a: "Tidak. Teks dibaca dengan pdf.js dan file .docx dibuat dengan library docx di browser. File tidak pernah dikirim ke server dan tidak disimpan setelah tab ditutup.",
+        },
+        {
+          q: "Apakah tata letak asli ikut tersalin?",
+          a: "Tidak. Hasilnya hanya teks, dengan satu paragraf per baris. Gambar, kolom, tabel, font, warna, header, dan footer tidak dipertahankan. Kamu bisa merapikan ulang dokumen Word setelah diunduh.",
+        },
+        {
+          q: "Mengapa PDF hasil pindai tidak menghasilkan teks?",
+          a: "Hasil pindai biasanya hanya berisi gambar halaman tanpa lapisan teks. Jalankan OCR terlebih dahulu, atau gunakan alat PDF ke Gambar bila kamu membutuhkan gambar halaman.",
+        },
+        {
+          q: "Apakah gambar dan tabel di PDF ikut dikonversi?",
+          a: "Tidak. Alat ini hanya mengekstrak teks. Gambar dan tabel tidak disalin, dan teks di dalam tabel akan muncul sebagai baris teks biasa tanpa struktur kolom.",
+        },
+      ],
+      en: [
+        {
+          q: "Is my PDF uploaded to a server?",
+          a: "No. Text is read with pdf.js and the .docx file is built with the docx library in your browser. The file is never sent to a server or stored after the tab closes.",
+        },
+        {
+          q: "Is the original layout copied?",
+          a: "No. The output is text only, with one paragraph per line. Images, columns, tables, fonts, colors, headers, and footers are not preserved. You can restyle the Word document after downloading it.",
+        },
+        {
+          q: "Why does a scanned PDF produce no text?",
+          a: "A scan usually contains page images with no text layer. Run OCR first, or use the PDF to Images tool when you need page images instead.",
+        },
+        {
+          q: "Are images and tables in the PDF converted?",
+          a: "No. This tool extracts text only. Images and tables are not copied, and text inside tables appears as ordinary text lines without column structure.",
+        },
+      ],
+    },
+    relatedTools: ["pdfToImage", "pdfMerge", "pdfCompress", "docxToPdf"],
+  },
 ];
 
 export function getLanding(slug: string): LandingDefinition | undefined {

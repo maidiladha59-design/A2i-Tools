@@ -8,12 +8,12 @@ export const organizeScannedPdfPages: BlogPost = {
   readingMinutes: 8,
   relatedTools: ["pdfOrganize", "pdfCompress", "pdfMerge"],
   title: {
-    id: "Merapikan PDF Hasil Pindai: Halaman Terbalik, Kosong, dan Salah Urutan",
-    en: "Organizing a Scanned PDF: Upside-Down, Blank, and Out-of-Order Pages",
+    id: "Merapikan PDF Hasil Pindai: Halaman Terbalik & Kosong",
+    en: "Organizing a Scanned PDF: Blank, Crooked, Wrong Order",
   },
   description: {
-    id: "Panduan merapikan PDF hasil pindai: memutar halaman miring, menghapus halaman kosong, menyusun ulang urutan, memilih mode ekspor, dan memeriksa hasil sebelum dikirim.",
-    en: "A practical guide to cleaning up scanned PDFs: rotating crooked pages, removing blank sheets, fixing page order, choosing an export mode, and checking the result.",
+    id: "Panduan merapikan PDF hasil pindai: memutar halaman miring, menghapus halaman kosong, menyusun ulang urutan, dan memeriksa hasilnya.",
+    en: "A practical guide to cleaning up scanned PDFs: rotate crooked pages, remove blank sheets, fix page order, and check the result before sending.",
   },
   intro: {
     id: [

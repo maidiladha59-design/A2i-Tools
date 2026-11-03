@@ -1,7 +1,11 @@
 import {
   Crop,
   FileArchive,
+  FileDown,
+  FileImage,
+  FileText,
   ImageDown,
+  ImagePlus,
   LayoutGrid,
   Merge,
   Repeat2,
@@ -15,10 +19,14 @@ export type ToolId =
   | "imageResize"
   | "imageConvert"
   | "imageCrop"
+  | "imageToPdf"
   | "pdfCompress"
   | "pdfReduce"
   | "pdfOrganize"
-  | "pdfMerge";
+  | "pdfMerge"
+  | "pdfToImage"
+  | "docxToPdf"
+  | "pdfToDocx";
 
 export type ToolGroup = "image" | "pdf";
 
@@ -57,6 +65,12 @@ export const TOOLS: ToolDefinition[] = [
     icon: Crop,
   },
   {
+    id: "imageToPdf",
+    href: "/image/to-pdf",
+    group: "image",
+    icon: ImagePlus,
+  },
+  {
     id: "pdfCompress",
     href: "/pdf/compress",
     group: "pdf",
@@ -82,6 +96,24 @@ export const TOOLS: ToolDefinition[] = [
     group: "pdf",
     icon: Merge,
     popular: true,
+  },
+  {
+    id: "pdfToImage",
+    href: "/pdf/to-image",
+    group: "pdf",
+    icon: FileImage,
+  },
+  {
+    id: "docxToPdf",
+    href: "/pdf/from-word",
+    group: "pdf",
+    icon: FileText,
+  },
+  {
+    id: "pdfToDocx",
+    href: "/pdf/to-word",
+    group: "pdf",
+    icon: FileDown,
   },
 ];
 

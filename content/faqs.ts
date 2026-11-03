@@ -670,4 +670,332 @@ export const TOOL_CONTENT: Record<ToolId, Bilingual<ToolContent>> = {
       ],
     },
   },
+  imageToPdf: {
+    id: {
+      steps: [
+        {
+          title: "Tambahkan gambar",
+          body: "Tarik dan lepas file JPG, PNG, atau WebP, atau pilih dari perangkat. Kamu bisa menambahkan hingga 20 gambar sekaligus, dan setiap file diperiksa sebelum diproses.",
+        },
+        {
+          title: "Atur urutan dan ukuran halaman",
+          body: "Tarik kartu untuk mengubah urutan atau gunakan tombol naik dan turun. Pilih Auto agar rasio halaman mengikuti gambar, atau A4 agar semua halaman berukuran sama dengan margin putih.",
+        },
+        {
+          title: "Buat dan unduh PDF",
+          body: "Tekan Buat PDF, pantau kemajuan per gambar, lalu unduh satu file PDF. File asli di perangkat tidak diubah dan tidak ada data yang dikirim ke server.",
+        },
+      ],
+      tip: "Gunakan Auto untuk foto dan tangkapan layar agar tidak ada ruang kosong. Pilih A4 bila PDF akan dicetak atau digabung dengan dokumen lain yang memakai ukuran kertas standar.",
+      faq: [
+        {
+          q: "Apakah gambar saya diunggah ke server?",
+          a: "Tidak. Gambar dibaca dan digabung di browser memakai canvas dan pdf-lib. Tidak ada API unggahan, dan PDF hasil hanya ada di memori perangkat sampai kamu mengunduhnya.",
+        },
+        {
+          q: "Format gambar apa yang didukung?",
+          a: "JPG, PNG, dan WebP. Setiap gambar maksimal 50 MB dan satu antrean maksimal 20 file. Format lain seperti BMP, GIF, atau HEIC sebaiknya dikonversi ke JPG terlebih dahulu.",
+        },
+        {
+          q: "Bagaimana cara mengatur urutan halaman?",
+          a: "Urutan PDF mengikuti daftar dari atas ke bawah. Tarik kartu atau gunakan tombol naik dan turun. Semua tombol bisa diakses dengan keyboard, dan urutan masih bisa diubah sebelum PDF dibuat.",
+        },
+        {
+          q: "Apa bedanya ukuran halaman Auto dan A4?",
+          a: "Auto membuat ukuran halaman mengikuti proporsi gambar, sehingga foto panorama tetap lebar tanpa bingkai. A4 memakai ukuran kertas standar, memilih orientasi portrait atau landscape otomatis, lalu menempatkan gambar di tengah dengan margin.",
+        },
+        {
+          q: "Apakah transparansi PNG hilang?",
+          a: "Halaman PDF diberi latar putih, jadi area transparan pada PNG atau WebP akan terlihat putih. Jika latar transparan harus dipertahankan, simpan gambar asli terpisah karena PDF di sini meratakan halaman ke latar putih.",
+        },
+        {
+          q: "Apakah kualitas gambar turun?",
+          a: "Gambar diproses ulang pada kualitas tinggi sebelum ditanam ke PDF, sehingga ada penurunan kecil yang biasanya tidak terlihat. Untuk hasil terbaik, mulai dari file asli dan hindari gambar yang sudah berkali-kali dikompres.",
+        },
+      ],
+    },
+    en: {
+      steps: [
+        {
+          title: "Add images",
+          body: "Drag and drop JPG, PNG, or WebP files, or choose them from your device. Add up to 20 images at once, and every file is checked before processing.",
+        },
+        {
+          title: "Set order and page size",
+          body: "Drag cards to reorder or use the up and down buttons. Pick Auto so each page follows the image ratio, or A4 so every page shares the same paper size with white margins.",
+        },
+        {
+          title: "Create and download the PDF",
+          body: "Press Create PDF, follow per-image progress, then download one PDF file. The originals on your device stay unchanged and nothing is sent to a server.",
+        },
+      ],
+      tip: "Use Auto for photos and screenshots so there is no empty space. Choose A4 when the PDF will be printed or combined with documents that use a standard paper size.",
+      faq: [
+        {
+          q: "Are my images uploaded to a server?",
+          a: "No. Images are read and combined in your browser with canvas and pdf-lib. There is no upload API, and the PDF exists only in device memory until you download it.",
+        },
+        {
+          q: "Which image formats are supported?",
+          a: "JPG, PNG, and WebP. Each image can be up to 50 MB, and one queue holds up to 20 files. Other formats such as BMP, GIF, or HEIC should be converted to JPG first.",
+        },
+        {
+          q: "How do I set the page order?",
+          a: "The PDF follows the list from top to bottom. Drag a card or use the up and down buttons. Every control is keyboard accessible, and the order can still be changed before the PDF is created.",
+        },
+        {
+          q: "What is the difference between Auto and A4?",
+          a: "Auto makes the page follow the image proportions, so a panorama stays wide without borders. A4 uses a standard paper size, picks portrait or landscape automatically, and centers the image with a margin.",
+        },
+        {
+          q: "Is PNG transparency lost?",
+          a: "PDF pages are given a white background, so transparent areas in PNG or WebP appear white. If transparency must survive, keep the original image separately because this PDF flattens each page onto white.",
+        },
+        {
+          q: "Does image quality drop?",
+          a: "Images are re-encoded at high quality before being embedded, so there is a small loss that is usually invisible. For the best result, start from the original file and avoid images that have already been compressed repeatedly.",
+        },
+      ],
+    },
+  },
+  pdfToImage: {
+    id: {
+      steps: [
+        {
+          title: "Pilih PDF",
+          body: "Tambahkan satu file PDF. Nama, ukuran, jumlah halaman, dan apakah file terkunci kata sandi akan diperiksa sebelum proses dimulai.",
+        },
+        {
+          title: "Atur format dan resolusi",
+          body: "Pilih JPG untuk foto atau PNG untuk teks dan garis tajam. Tentukan resolusi 72, 150, atau 300 DPI, lalu atur kualitas JPEG bila memakai JPG.",
+        },
+        {
+          title: "Unduh hasil",
+          body: "Setiap halaman ditampilkan sebagai pratinjau dengan ukuran pikselnya. Unduh per halaman, atau semua halaman sekaligus dalam satu arsip ZIP.",
+        },
+      ],
+      tip: "150 DPI cukup untuk dibaca di layar dan presentasi. Pilih 300 DPI bila gambar akan dicetak, dan PNG bila halaman berisi teks kecil atau diagram bergaris tipis.",
+      faq: [
+        {
+          q: "Apakah PDF saya diunggah?",
+          a: "Tidak. PDF dibaca dengan pdf.js di browser, lalu setiap halaman digambar ke canvas dan diubah menjadi gambar. Tidak ada file yang dikirim ke server dan tidak ada hasil yang disimpan setelah tab ditutup.",
+        },
+        {
+          q: "Resolusi mana yang sebaiknya dipilih?",
+          a: "72 DPI cocok untuk pratinjau cepat dan file kecil. 150 DPI seimbang untuk layar dan dokumen sehari-hari. 300 DPI memberi detail cetak tetapi menghasilkan gambar jauh lebih besar dan proses lebih lama.",
+        },
+        {
+          q: "Apakah teks bisa diedit setelah menjadi gambar?",
+          a: "Tidak. Hasilnya adalah gambar JPG atau PNG, jadi teks tidak bisa dipilih, dicari, atau diedit. Simpan PDF asli bila kamu masih membutuhkan teks yang dapat dicari atau disalin.",
+        },
+        {
+          q: "Berapa batas ukuran dan jumlah halaman?",
+          a: "Satu PDF maksimal 100 MB, dan semua halaman diproses satu per satu agar memori tetap aman. PDF berpassword atau rusak ditolak dengan pesan yang jelas; buka proteksinya terlebih dahulu.",
+        },
+        {
+          q: "Apakah semua halaman bisa diunduh sekaligus?",
+          a: "Bisa. Tekan Unduh semua (ZIP) setelah proses selesai. ZIP dibuat di perangkatmu dengan jszip, tanpa mengunggah gambar. Kamu juga tetap bisa mengunduh halaman tertentu satu per satu.",
+        },
+      ],
+    },
+    en: {
+      steps: [
+        {
+          title: "Choose a PDF",
+          body: "Add one PDF file. Its name, size, page count, and password protection are checked before processing starts.",
+        },
+        {
+          title: "Set format and resolution",
+          body: "Pick JPG for photos or PNG for crisp text and lines. Choose 72, 150, or 300 DPI, then adjust JPEG quality when JPG is selected.",
+        },
+        {
+          title: "Download the results",
+          body: "Every page appears as a preview with its pixel dimensions. Download pages individually, or grab all of them in a single ZIP archive.",
+        },
+      ],
+      tip: "150 DPI is plenty for screens and presentations. Choose 300 DPI when the images will be printed, and PNG when pages contain small text or thin diagrams.",
+      faq: [
+        {
+          q: "Is my PDF uploaded?",
+          a: "No. The PDF is read with pdf.js in your browser, then each page is drawn to canvas and encoded as an image. Nothing is sent to a server, and no result is stored after you close the tab.",
+        },
+        {
+          q: "Which resolution should I choose?",
+          a: "72 DPI suits quick previews and small files. 150 DPI is a balance for screens and everyday documents. 300 DPI keeps print detail but produces much larger images and takes longer to process.",
+        },
+        {
+          q: "Can the text be edited once it becomes an image?",
+          a: "No. The output is a JPG or PNG, so text cannot be selected, searched, or edited. Keep the original PDF when you still need searchable or copyable text.",
+        },
+        {
+          q: "What are the size and page limits?",
+          a: "One PDF can be up to 100 MB, and pages are processed one at a time to keep memory safe. Password-protected or corrupted PDFs are rejected with a clear message; remove the protection first.",
+        },
+        {
+          q: "Can I download every page at once?",
+          a: "Yes. Press Download all (ZIP) after processing finishes. The ZIP is built on your device with jszip, without uploading the images. You can still download individual pages separately.",
+        },
+      ],
+    },
+  },
+  docxToPdf: {
+    id: {
+      steps: [
+        {
+          title: "Pilih file Word",
+          body: "Tambahkan satu file .docx hingga 25 MB. File .doc lama tidak didukung, jadi simpan ulang sebagai .docx dari aplikasi Word atau LibreOffice terlebih dahulu.",
+        },
+        {
+          title: "Konversi di browser",
+          body: "Isi dokumen dibaca dengan mammoth, dirender di perangkatmu, lalu dipecah menjadi halaman A4. Tidak ada file yang dikirim ke server dan tidak ada akun yang dibutuhkan.",
+        },
+        {
+          title: "Periksa dan unduh",
+          body: "Setelah proses selesai, lihat jumlah halaman dan ukuran PDF, lalu unduh hasilnya. Buka PDF untuk memeriksa tabel, gambar, dan pemisah halaman sebelum dibagikan.",
+        },
+      ],
+      tip: "Dokumen dengan judul, daftar, tabel, dan gambar sederhana biasanya tampil paling rapi. Untuk skripsi atau laporan dengan kolom, header, dan footer khusus, selalu periksa hasil PDF karena tata letak kompleks bisa bergeser.",
+      faq: [
+        {
+          q: "Apakah file Word saya diunggah?",
+          a: "Tidak. File dibaca dan dirender sepenuhnya di browser menggunakan mammoth, html2canvas, dan pdf-lib. Tidak ada unggahan, API eksternal, atau penyimpanan di server.",
+        },
+        {
+          q: "Apakah tata letak PDF sama persis dengan dokumen asli?",
+          a: "Tidak selalu. Konversi ini menyusun ulang isi dokumen pada halaman A4, sehingga kolom, kotak teks mengambang, header, footer, dan pemisah halaman khusus bisa berubah. Dokumen teks biasa umumnya tetap rapi.",
+        },
+        {
+          q: "Apakah teks di PDF masih bisa dipilih?",
+          a: "Tidak. Setiap halaman dirasterisasi menjadi gambar sebelum dimasukkan ke PDF, jadi teks tidak bisa dipilih atau dicari. Simpan file .docx asli bila kamu masih membutuhkan teks yang bisa diedit.",
+        },
+        {
+          q: "Format Word apa yang didukung?",
+          a: "Hanya .docx. Format .doc lama harus disimpan ulang sebagai .docx. File yang rusak, kosong, atau dilindungi kata sandi akan ditolak dengan pesan yang jelas.",
+        },
+        {
+          q: "Apakah gambar di dalam dokumen ikut terkonversi?",
+          a: "Ya, gambar yang bisa dibaca mammoth akan ditampilkan di halaman PDF. Gambar yang sangat besar atau memakai format tidak umum bisa gagal dimuat, jadi periksa hasilnya sebelum digunakan.",
+        },
+      ],
+    },
+    en: {
+      steps: [
+        {
+          title: "Choose a Word file",
+          body: "Add one .docx file up to 25 MB. Older .doc files are not supported, so save them as .docx from Word or LibreOffice first.",
+        },
+        {
+          title: "Convert in your browser",
+          body: "The document is read with mammoth, rendered on your device, and split into A4 pages. Nothing is sent to a server and no account is required.",
+        },
+        {
+          title: "Review and download",
+          body: "When processing finishes, check the page count and PDF size, then download the result. Open the PDF to review tables, images, and page breaks before sharing it.",
+        },
+      ],
+      tip: "Documents with simple headings, lists, tables, and images look best. For theses or reports with columns, custom headers, or footers, always inspect the PDF because complex layouts can shift.",
+      faq: [
+        {
+          q: "Is my Word file uploaded?",
+          a: "No. The file is read and rendered entirely in your browser with mammoth, html2canvas, and pdf-lib. There is no upload, external API, or server-side storage.",
+        },
+        {
+          q: "Is the PDF layout identical to the original?",
+          a: "Not always. This conversion reflows the document onto A4 pages, so columns, floating text boxes, headers, footers, and custom page breaks can change. Straight text documents usually stay clean.",
+        },
+        {
+          q: "Can the text in the PDF still be selected?",
+          a: "No. Each page is rasterized into an image before being placed in the PDF, so text cannot be selected or searched. Keep the original .docx when you still need editable text.",
+        },
+        {
+          q: "Which Word formats are supported?",
+          a: "Only .docx. Older .doc files must be saved as .docx. Corrupted, empty, or password-protected files are rejected with a clear message.",
+        },
+        {
+          q: "Are images inside the document converted too?",
+          a: "Yes, images that mammoth can read are shown on the PDF pages. Extremely large images or uncommon formats may fail to load, so check the result before using it.",
+        },
+      ],
+    },
+  },
+  pdfToDocx: {
+    id: {
+      steps: [
+        {
+          title: "Pilih PDF",
+          body: "Tambahkan satu file PDF hingga 100 MB. Jumlah halaman, proteksi kata sandi, dan apakah file bisa dibaca diperiksa sebelum proses dimulai.",
+        },
+        {
+          title: "Ekstrak teks tiap halaman",
+          body: "pdf.js membaca lapisan teks setiap halaman di browser, lalu menyusunnya menjadi baris dan paragraf. Gambar dan tata letak asli tidak disertakan.",
+        },
+        {
+          title: "Unduh dokumen Word",
+          body: "Hasilnya berupa file .docx yang bisa dibuka di Word, Google Docs, atau LibreOffice. Setiap halaman PDF dipisahkan dengan pemisah halaman di dokumen Word.",
+        },
+      ],
+      tip: "Alat ini paling cocok untuk PDF digital yang dibuat dari Word atau aplikasi teks, bukan hasil pindai. Jika halaman hanya berisi gambar, jalankan OCR terlebih dahulu agar ada lapisan teks yang bisa diekstrak.",
+      faq: [
+        {
+          q: "Apakah PDF saya diunggah ke server?",
+          a: "Tidak. Teks diekstrak dengan pdf.js dan file .docx dibuat dengan library docx, semuanya di browser. File hanya ada di memori perangkat sampai kamu mengunduhnya.",
+        },
+        {
+          q: "Apakah tata letak asli dipertahankan?",
+          a: "Tidak. Hasil berisi teks saja, dengan satu paragraf per baris teks. Kolom, gambar, tabel, font, warna, header, dan footer tidak ikut disalin. Dokumen Word tetap bisa kamu rapikan ulang setelah diunduh.",
+        },
+        {
+          q: "Mengapa PDF hasil pindai tidak menghasilkan teks?",
+          a: "Hasil pindai biasanya berupa gambar halaman tanpa lapisan teks, sehingga tidak ada yang bisa diekstrak. Gunakan alat PDF ke Gambar untuk mendapatkan gambar, atau jalankan OCR dengan aplikasi lain sebelum memakai alat ini.",
+        },
+        {
+          q: "Apakah semua halaman dipisahkan di Word?",
+          a: "Ya. Halaman PDF yang memiliki teks dimulai pada halaman baru di dokumen Word. Halaman kosong tanpa teks dilewati, dan hasil akan memberi tahu bila tidak ada teks sama sekali.",
+        },
+        {
+          q: "Berapa batas ukuran file?",
+          a: "Satu PDF maksimal 100 MB. Pemrosesan dilakukan halaman demi halaman agar tab tetap stabil, dan PDF berpassword harus dibuka proteksinya terlebih dahulu.",
+        },
+      ],
+    },
+    en: {
+      steps: [
+        {
+          title: "Choose a PDF",
+          body: "Add one PDF file up to 100 MB. Page count, password protection, and readability are checked before processing starts.",
+        },
+        {
+          title: "Extract text from each page",
+          body: "pdf.js reads the text layer of every page in your browser, then groups it into lines and paragraphs. Images and the original layout are not included.",
+        },
+        {
+          title: "Download the Word document",
+          body: "The result is a .docx file you can open in Word, Google Docs, or LibreOffice. Each PDF page is separated by a page break in the Word document.",
+        },
+      ],
+      tip: "This tool works best on digital PDFs created from Word or a text editor, not scans. If pages contain only images, run OCR first so there is a text layer to extract.",
+      faq: [
+        {
+          q: "Is my PDF uploaded to a server?",
+          a: "No. Text is extracted with pdf.js and the .docx is built with the docx library, all in your browser. The file stays in device memory until you download it.",
+        },
+        {
+          q: "Is the original layout preserved?",
+          a: "No. The output contains text only, with one paragraph per text line. Columns, images, tables, fonts, colors, headers, and footers are not copied. You can restyle the Word document after downloading it.",
+        },
+        {
+          q: "Why does a scanned PDF produce no text?",
+          a: "A scan is usually an image of a page with no text layer, so there is nothing to extract. Use the PDF to Images tool to get the page images, or run OCR with another app before using this tool.",
+        },
+        {
+          q: "Are all pages separated in Word?",
+          a: "Yes. PDF pages that contain text start on a new page in the Word document. Blank pages without text are skipped, and you will see a message if no text is found at all.",
+        },
+        {
+          q: "What is the file size limit?",
+          a: "One PDF can be up to 100 MB. Processing runs page by page to keep the tab stable, and password-protected PDFs must have their protection removed first.",
+        },
+      ],
+    },
+  },
 };

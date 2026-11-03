@@ -915,7 +915,7 @@ export function ImageCompressor({
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={item.previewUrl}
-                          alt=""
+                          alt={t("previewAlt", { name: item.file.name })}
                           className="h-14 w-14 shrink-0 rounded-xl border border-line bg-surface-2 object-cover"
                           loading="lazy"
                         />

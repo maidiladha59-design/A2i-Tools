@@ -8,8 +8,8 @@ export const mergePdfFilesGuide: BlogPost = {
   readingMinutes: 8,
   relatedTools: ["pdfMerge", "pdfOrganize", "pdfReduce"],
   title: {
-    id: "Cara Menggabung PDF: Urutan, Duplikat, dan Hal yang Sering Terlewat",
-    en: "How to Merge PDFs: Order, Duplicates, and What People Overlook",
+    id: "Cara Menggabungkan PDF: Urutan, Halaman, dan Duplikat",
+    en: "How to Merge PDFs: Order, Duplicates, and Common Misses",
   },
   description: {
     id: "Panduan menggabung beberapa PDF menjadi satu berkas: menyusun urutan, memeriksa jumlah halaman, membersihkan duplikat, dan menangani file terkunci.",

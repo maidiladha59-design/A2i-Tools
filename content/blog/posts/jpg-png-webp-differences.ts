@@ -8,11 +8,11 @@ export const jpgPngWebpDifferences: BlogPost = {
   readingMinutes: 7,
   relatedTools: ["imageConvert", "imageCompress", "imageResize"],
   title: {
-    id: "JPG, PNG, atau WebP: Panduan Memilih Format Gambar yang Tepat",
+    id: "JPG, PNG, atau WebP: Cara Memilih Format Gambar",
     en: "JPG, PNG, or WebP: How to Choose the Right Image Format",
   },
   description: {
-    id: "Perbedaan JPG, PNG, dan WebP dijelaskan secara praktis: kompresi lossy dan lossless, transparansi, animasi, dukungan browser, serta strategi menghadapi batas unggahan.",
+    id: "Perbedaan JPG, PNG, dan WebP dijelaskan praktis: kompresi lossy dan lossless, transparansi, animasi, dukungan browser, dan batas ukuran unggahan.",
     en: "A practical look at JPG, PNG, and WebP: lossy versus lossless compression, transparency, animation, browser support, and tactics for beating upload limits.",
   },
   intro: {

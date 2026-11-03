@@ -9,7 +9,7 @@ export const compressPhotoForRegistration: BlogPost = {
   relatedTools: ["imageCompress", "imageCrop", "imageResize"],
   title: {
     id: "Kompres Foto untuk Pendaftaran: Rasio, Piksel, dan Batas KB",
-    en: "Compressing a Photo for an Application: Ratios, Pixels, and KB Limits",
+    en: "Compressing a Photo for an Application: Ratios, Pixels, KB",
   },
   description: {
     id: "Panduan menyiapkan foto pendaftaran agar lolos unggah: membaca syarat portal, memotong rasio 3×4 atau 4×6, mengatur piksel, dan mencapai batas KB.",

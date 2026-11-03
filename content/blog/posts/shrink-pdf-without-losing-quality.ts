@@ -8,7 +8,7 @@ export const shrinkPdfWithoutLosingQuality: BlogPost = {
   readingMinutes: 9,
   relatedTools: ["pdfReduce", "pdfCompress", "pdfOrganize"],
   title: {
-    id: "Cara Mengecilkan PDF Tanpa Kehilangan Kualitas: Panduan yang Jujur",
+    id: "Cara Mengecilkan PDF Tanpa Kehilangan Kualitas",
     en: "How to Shrink a PDF Without Losing Quality: An Honest Guide",
   },
   description: {

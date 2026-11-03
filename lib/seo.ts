@@ -120,12 +120,12 @@ export function toolJsonLd(input: {
 }): JsonLdObject {
   return {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": ["SoftwareApplication", "WebApplication"],
     name: input.name,
     description: input.description,
     url: localePath(input.locale, input.path),
     applicationCategory: "UtilitiesApplication",
-    operatingSystem: "Any modern browser",
+    operatingSystem: "Web",
     browserRequirements: "Requires JavaScript, Web Workers, and canvas support",
     isAccessibleForFree: true,
     inLanguage: input.locale === "en" ? "en" : "id",

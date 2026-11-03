@@ -1,16 +1,19 @@
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
-import { LockKeyhole, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { Check, LockKeyhole, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { Breadcrumbs, type BreadcrumbItem } from "@/components/ui/Breadcrumbs";
 import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { ToolCard } from "@/components/tools/ToolCard";
+import { RelatedArticles } from "@/components/tools/RelatedArticles";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Link } from "@/i18n/navigation";
 import {
   TOOL_CONTENT,
   pickLocale,
+  type FaqEntry,
 } from "@/content/faqs";
+import { TOOL_GUIDES } from "@/content/tool-guides";
 import { getTool, relatedTools, type ToolId } from "@/lib/tools/registry";
 import {
   breadcrumbJsonLd,
@@ -18,6 +21,17 @@ import {
   toolJsonLd,
 } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
+
+function mergeFaq(base: FaqEntry[], extra: FaqEntry[]): FaqEntry[] {
+  const normalize = (value: string) => value.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  const seen = new Set<string>();
+  return [...base, ...extra].filter((item) => {
+    const key = normalize(item.q);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 
 type ToolPageProps = {
   locale: Locale;
@@ -39,6 +53,8 @@ export async function ToolPage({
   const tTools = await getTranslations({ locale, namespace: "tools" });
   const tool = getTool(toolId);
   const content = pickLocale(TOOL_CONTENT[toolId], locale);
+  const guide = pickLocale(TOOL_GUIDES[toolId], locale);
+  const faqItems = mergeFaq(content.faq, guide.extraFaq).slice(0, 6);
   const crumbs: BreadcrumbItem[] = [
     { label: t("breadcrumbHome"), href: "/" },
     { label: tTools(`${toolId}.name`) },
@@ -61,7 +77,7 @@ export async function ToolPage({
           { name: tTools(`${toolId}.name`), path: tool.href },
         ])}
       />
-      <JsonLd data={faqJsonLd(content.faq)} />
+      <JsonLd data={faqJsonLd(faqItems)} />
 
       <section className="relative overflow-hidden border-b border-line">
         <div className="pattern-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
@@ -145,6 +161,45 @@ export async function ToolPage({
           </div>
         </section>
 
+        <div className="mt-12">
+          <p className="max-w-3xl text-base leading-relaxed text-muted">
+            {guide.lead}
+          </p>
+          {guide.sections.map((section) => (
+            <section key={section.heading} className="mt-8 max-w-3xl">
+              <h2 className="text-xl font-extrabold text-ink sm:text-2xl">
+                {section.heading}
+              </h2>
+              <div className="mt-3 space-y-3">
+                {section.paragraphs.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 48)}
+                    className="text-sm leading-relaxed text-muted sm:text-base"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              {section.bullets?.length ? (
+                <ul className="mt-3 space-y-2">
+                  {section.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex gap-2 text-sm leading-relaxed text-muted"
+                    >
+                      <Check
+                        className="mt-0.5 h-4 w-4 shrink-0 text-brand"
+                        aria-hidden="true"
+                      />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </section>
+          ))}
+        </div>
+
         <section className="mt-12" aria-labelledby="faq-heading">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <h2 id="faq-heading" className="text-2xl font-extrabold text-ink sm:text-3xl">
@@ -157,7 +212,7 @@ export async function ToolPage({
               </Link>
             </p>
           </div>
-          <FaqAccordion items={content.faq} className="mt-5" />
+          <FaqAccordion items={faqItems} className="mt-5" />
         </section>
 
         <section className="mt-14" aria-labelledby="related-heading">
@@ -171,6 +226,8 @@ export async function ToolPage({
             ))}
           </div>
         </section>
+
+        <RelatedArticles locale={locale} toolId={toolId} />
       </section>
     </>
   );
