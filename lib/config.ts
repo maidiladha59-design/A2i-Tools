@@ -2,7 +2,7 @@ export const SITE_NAME = "Ai2 All Compress";
 export const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL || "maidiladha59@gmail.com";
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ai2allcompress.vercel.app";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ai2alltools.de5.net";
 
 export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
 export const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "";
