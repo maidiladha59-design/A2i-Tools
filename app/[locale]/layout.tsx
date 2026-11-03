@@ -57,6 +57,9 @@ export async function generateMetadata({
       template: "%s",
     },
     description: t("description"),
+    verification: {
+  google: "jdCdifSniUsVWBxN61HDDFZp3X14hySzl4jKqrJgOI0",
+},
     manifest: "/manifest.webmanifest",
     icons: {
       icon: "/icon.svg",
