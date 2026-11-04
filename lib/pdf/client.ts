@@ -1,5 +1,13 @@
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 import { MAX_PDF_BYTES } from "@/lib/config";
+import {
+  clampNumber,
+  isCloseToTarget,
+  mixNumber,
+  pageAllowance,
+  canRaisePageQuality,
+  refineUnderTarget,
+} from "@/lib/target-search";
 
 export type PdfErrorCode =
   | "PASSWORD"
@@ -39,6 +47,7 @@ export type PdfRenderResult = {
   blob: Blob;
   bytes: Uint8Array;
   pageCount: number;
+  imageBytesTotal?: number;
 };
 
 export type PdfThumbnail = {
@@ -183,17 +192,17 @@ function canvasToJpeg(canvas: HTMLCanvasElement, quality: number): Promise<Blob>
   });
 }
 
-type RenderedPage = {
-  blob: Blob;
+type RasterizedPage = {
+  canvas: HTMLCanvasElement;
   width: number;
   height: number;
 };
 
-async function renderSinglePage(
+async function rasterizePage(
   page: PDFPageProxy,
   options: PdfRasterOptions,
   rotationDelta: number
-): Promise<RenderedPage> {
+): Promise<RasterizedPage> {
   const rotation = ((page.rotate || 0) + rotationDelta + 360) % 360;
   const baseViewport = page.getViewport({ scale: 1, rotation });
   const maxSideScale =
@@ -224,30 +233,46 @@ async function renderSinglePage(
       background: "#ffffff",
     });
     await task.promise;
-
-    let outputCanvas = canvas;
-    let grayCanvas: HTMLCanvasElement | null = null;
-    if (options.grayscale) {
-      grayCanvas = document.createElement("canvas");
-      grayCanvas.width = canvas.width;
-      grayCanvas.height = canvas.height;
-      const grayContext = grayCanvas.getContext("2d", { alpha: false });
-      if (grayContext) {
-        grayContext.filter = "grayscale(100%)";
-        grayContext.drawImage(canvas, 0, 0);
-        outputCanvas = grayCanvas;
-      }
-    }
-
-    const blob = await canvasToJpeg(outputCanvas, options.quality);
-    return {
-      blob,
-      width: baseViewport.width,
-      height: baseViewport.height,
-    };
-  } finally {
+  } catch (error) {
     canvas.width = 0;
     canvas.height = 0;
+    throw error;
+  }
+
+  if (!options.grayscale) return { canvas, width: baseViewport.width, height: baseViewport.height };
+
+  const grayCanvas = document.createElement("canvas");
+  grayCanvas.width = canvas.width;
+  grayCanvas.height = canvas.height;
+  const grayContext = grayCanvas.getContext("2d", { alpha: false });
+  if (!grayContext) return { canvas, width: baseViewport.width, height: baseViewport.height };
+  grayContext.filter = "grayscale(100%)";
+  grayContext.drawImage(canvas, 0, 0);
+  return { canvas: grayCanvas, width: baseViewport.width, height: baseViewport.height };
+}
+
+type RenderedPage = {
+  blob: Blob;
+  width: number;
+  height: number;
+};
+
+async function renderSinglePage(
+  page: PDFPageProxy,
+  options: PdfRasterOptions,
+  rotationDelta: number
+): Promise<RenderedPage> {
+  const raster = await rasterizePage(page, options, rotationDelta);
+  try {
+    const blob = await canvasToJpeg(raster.canvas, options.quality);
+    return {
+      blob,
+      width: raster.width,
+      height: raster.height,
+    };
+  } finally {
+    raster.canvas.width = 0;
+    raster.canvas.height = 0;
     page.cleanup();
   }
 }
@@ -261,6 +286,7 @@ async function buildPdfFromDocument(
   const { PDFDocument } = await importPdfLib();
   const output = await PDFDocument.create();
   const total = pages.length;
+  let imageBytesTotal = 0;
 
   for (let index = 0; index < pages.length; index += 1) {
     assertNotCancelled(callbacks.shouldCancel);
@@ -268,6 +294,7 @@ async function buildPdfFromDocument(
     if (!spec) continue;
     const page = await pdf.getPage(spec.sourceIndex + 1);
     const rendered = await renderSinglePage(page, options, spec.rotation);
+    imageBytesTotal += rendered.blob.size;
     const image = await output.embedJpg(await rendered.blob.arrayBuffer());
     const outputPage = output.addPage([rendered.width, rendered.height]);
     outputPage.drawImage(image, {
@@ -286,6 +313,7 @@ async function buildPdfFromDocument(
     bytes,
     blob: new Blob([new Uint8Array(bytes)], { type: "application/pdf" }),
     pageCount: output.getPageCount(),
+    imageBytesTotal,
   };
 }
 
@@ -316,6 +344,173 @@ const REDUCE_STRATEGIES: Array<{ scale: number; quality: number }> = [
   { scale: 0.6, quality: 0.32 },
 ];
 
+export type PdfReduceStrategy = { scale: number; quality: number };
+
+/** Quality ceiling for the per-page budget pass. */
+const REDUCE_MAX_QUALITY = 0.95;
+const REDUCE_MIN_QUALITY = 0.2;
+const REFINE_MAX_STEPS = 5;
+const REFINE_MIN_GAP = 0.05;
+const POLISH_MAX_PAGES = 60;
+const MIN_BUDGET_MS = 45000;
+const MAX_BUDGET_MS = 240000;
+const HARD_MAX_MS = 420000;
+const BUDGET_PASSES = 6;
+
+/**
+ * Strategy at a fractional position on the rung ladder. Whole positions match
+ * `REDUCE_STRATEGIES`; positions between two rungs blend scale and quality so the
+ * search can step finer than the ladder itself. Higher position, smaller output.
+ */
+export function reduceStrategyAt(position: number): PdfReduceStrategy {
+  const lastIndex = REDUCE_STRATEGIES.length - 1;
+  const clamped = clampNumber(position, 0, lastIndex);
+  const low = Math.floor(clamped);
+  const high = Math.min(lastIndex, low + 1);
+  const a = REDUCE_STRATEGIES[low];
+  const b = REDUCE_STRATEGIES[high];
+  if (!a || !b) return { scale: 0.6, quality: 0.32 };
+  const t = clamped - low;
+  return {
+    scale: Number(mixNumber(a.scale, b.scale, t).toFixed(4)),
+    quality: Number(mixNumber(a.quality, b.quality, t).toFixed(4)),
+  };
+}
+
+type SizedRender = PdfRenderResult & { size: number; imageBytesTotal: number };
+
+function toSized(result: PdfRenderResult): SizedRender {
+  return {
+    ...result,
+    size: result.bytes.length,
+    imageBytesTotal: result.imageBytesTotal ?? result.bytes.length,
+  };
+}
+
+async function renderAtPosition(
+  pdf: PDFDocumentProxy,
+  pages: PdfPageRender[],
+  position: number,
+  callbacks: ProgressCallbacks
+): Promise<SizedRender> {
+  return toSized(
+    await buildPdfFromDocument(pdf, pages, reduceStrategyAt(position), callbacks)
+  );
+}
+
+/**
+ * One render pass that fits the document to the target page by page. Every page
+ * is rasterised once, encoded at the global quality, then nudged: a page with
+ * headroom gets more quality, a page over its share gets less. Pages that
+ * underspend hand their room to the pages behind them, so leftover bytes end up
+ * used instead of wasted.
+ */
+async function buildPdfWithPageBudget(
+  pdf: PDFDocumentProxy,
+  pages: PdfPageRender[],
+  strategy: PdfReduceStrategy,
+  budget: {
+    targetBytes: number;
+    overheadBytes: number;
+    minQuality: number;
+    maxQuality: number;
+  },
+  callbacks: ProgressCallbacks
+): Promise<SizedRender> {
+  const { PDFDocument } = await importPdfLib();
+  const output = await PDFDocument.create();
+  let usedBytes = 0;
+  let imageBytesTotal = 0;
+
+  for (let index = 0; index < pages.length; index += 1) {
+    assertNotCancelled(callbacks.shouldCancel);
+    const spec = pages[index];
+    if (!spec) continue;
+    const page = await pdf.getPage(spec.sourceIndex + 1);
+    const raster = await rasterizePage(page, strategy, spec.rotation);
+
+    try {
+      const allowance = pageAllowance({
+        targetBytes: budget.targetBytes,
+        overheadBytes: budget.overheadBytes,
+        usedBytes,
+        pageIndex: index,
+        pageCount: pages.length,
+      });
+
+      let quality = strategy.quality;
+      let blob = await canvasToJpeg(raster.canvas, quality);
+
+      if (blob.size > allowance && quality > budget.minQuality) {
+        // This page alone would blow the budget: step down until it fits.
+        const floorBlob = await canvasToJpeg(raster.canvas, budget.minQuality);
+        if (floorBlob.size <= allowance) {
+          const refined = await refineUnderTarget<number, Blob>({
+            target: allowance,
+            known: { candidate: budget.minQuality, value: floorBlob },
+            aspiration: quality,
+            mix: (t) => mixNumber(budget.minQuality, quality, t),
+            probe: (candidate) => canvasToJpeg(raster.canvas, candidate),
+            maxSteps: 2,
+            minGap: 0.05,
+          });
+          quality = refined.candidate;
+          blob = refined.value;
+        } else {
+          quality = budget.minQuality;
+          blob = floorBlob;
+        }
+      } else if (
+        canRaisePageQuality({
+          pageSize: blob.size,
+          allowance,
+          quality,
+          maxQuality: budget.maxQuality,
+        })
+      ) {
+        const refined = await refineUnderTarget<number, Blob>({
+          target: allowance,
+          known: { candidate: quality, value: blob },
+          aspiration: budget.maxQuality,
+          mix: (t) => mixNumber(quality, budget.maxQuality, t),
+          probe: (candidate) => canvasToJpeg(raster.canvas, candidate),
+          maxSteps: 2,
+          minGap: 0.06,
+        });
+        quality = refined.candidate;
+        blob = refined.value;
+      }
+
+      usedBytes += blob.size;
+      imageBytesTotal += blob.size;
+      const image = await output.embedJpg(await blob.arrayBuffer());
+      const outputPage = output.addPage([raster.width, raster.height]);
+      outputPage.drawImage(image, {
+        x: 0,
+        y: 0,
+        width: raster.width,
+        height: raster.height,
+      });
+    } finally {
+      raster.canvas.width = 0;
+      raster.canvas.height = 0;
+      page.cleanup();
+    }
+
+    callbacks.onPage?.(index + 1, pages.length);
+    await yieldToMainThread();
+  }
+
+  assertNotCancelled(callbacks.shouldCancel);
+  const bytes = await output.save({ useObjectStreams: true });
+  return toSized({
+    bytes,
+    blob: new Blob([new Uint8Array(bytes)], { type: "application/pdf" }),
+    pageCount: output.getPageCount(),
+    imageBytesTotal,
+  });
+}
+
 export type PdfReduceResult = PdfRenderResult & {
   targetBytes: number;
   targetMet: boolean;
@@ -333,42 +528,154 @@ export async function reducePdfToTarget(
       sourceIndex: index,
       rotation: 0,
     }));
-    let best: PdfRenderResult | null = null;
+    const pageCount = pages.length;
+    const lastIndex = REDUCE_STRATEGIES.length - 1;
+    const willPolish = pageCount > 0 && pageCount <= POLISH_MAX_PAGES;
+    const bracketSteps = Math.ceil(Math.log2(lastIndex + 1)) + 1;
+    const totalAttempts = bracketSteps + REFINE_MAX_STEPS + (willPolish ? 1 : 0);
+
+    const startedAt = Date.now();
+    let passMs = 0;
+    let deadlineAt = startedAt + MIN_BUDGET_MS;
+    const hardDeadlineAt = startedAt + HARD_MAX_MS;
     let attempts = 0;
 
-    for (let index = 0; index < REDUCE_STRATEGIES.length; index += 1) {
-      assertNotCancelled(callbacks.shouldCancel);
-      const strategy = REDUCE_STRATEGIES[index];
-      if (!strategy) continue;
-      attempts = index + 1;
-      callbacks.onAttempt?.(attempts, REDUCE_STRATEGIES.length, strategy.scale, strategy.quality);
+    // A full pass is the expensive unit of work, so the time budget is expressed
+    // in passes measured from the document itself rather than a fixed guess.
+    const canAffordPass = () => Date.now() + Math.max(passMs, 1000) <= deadlineAt;
+    // The per-page pass is reserved one pass beyond the soft budget: it is the
+    // step that actually closes the gap to the target, and the ladder alone can
+    // spend the whole soft budget on documents with many pages.
+    const canAffordPolish = () =>
+      canAffordPass() || Date.now() + Math.max(passMs, 1000) <= hardDeadlineAt;
 
-      const result = await buildPdfFromDocument(
+    const measure = (tookMs: number) => {
+      passMs = passMs ? Math.round((passMs + tookMs) / 2) : tookMs;
+      deadlineAt =
+        startedAt + clampNumber(passMs * BUDGET_PASSES, MIN_BUDGET_MS, MAX_BUDGET_MS);
+    };
+
+    const probe = async (position: number): Promise<SizedRender> => {
+      assertNotCancelled(callbacks.shouldCancel);
+      const strategy = reduceStrategyAt(position);
+      attempts += 1;
+      callbacks.onAttempt?.(attempts, totalAttempts, strategy.scale, strategy.quality);
+      const beganAt = Date.now();
+      const result = await renderAtPosition(pdf, pages, position, callbacks);
+      measure(Date.now() - beganAt);
+      return result;
+    };
+
+    const polish = async (
+      position: number,
+      overheadBytes: number
+    ): Promise<SizedRender> => {
+      const strategy = reduceStrategyAt(position);
+      attempts += 1;
+      callbacks.onAttempt?.(attempts, totalAttempts, strategy.scale, strategy.quality);
+      const beganAt = Date.now();
+      const result = await buildPdfWithPageBudget(
         pdf,
         pages,
-        { scale: strategy.scale, quality: strategy.quality },
+        strategy,
+        {
+          targetBytes,
+          overheadBytes,
+          minQuality: Math.min(REDUCE_MIN_QUALITY, strategy.quality),
+          maxQuality: REDUCE_MAX_QUALITY,
+        },
         callbacks
       );
+      measure(Date.now() - beganAt);
+      return result;
+    };
 
-      if (!best || result.bytes.length < best.bytes.length) {
-        best = result;
+    // Bisect the ladder instead of walking it: find the gentlest rung that still
+    // fits in a few passes, whatever the document size.
+    let smallest: SizedRender | null = null;
+    let fit: { position: number; result: SizedRender } | null = null;
+    let lo = 0;
+    let hi = lastIndex;
+
+    while (lo <= hi) {
+      const mid = Math.floor((lo + hi) / 2);
+      const result = await probe(mid);
+      if (!smallest || result.size < smallest.size) {
+        smallest = result;
       }
-
-      if (result.bytes.length <= targetBytes) {
-        return {
-          ...result,
-          targetBytes,
-          targetMet: true,
-          attempts,
-        };
+      if (result.size <= targetBytes) {
+        if (!fit || result.size > fit.result.size) {
+          fit = { position: mid, result };
+        }
+        hi = mid - 1;
+      } else {
+        lo = mid + 1;
       }
     }
 
-    if (!best) throw new PdfToolError("PROCESS_FAILED");
+    if (!fit) {
+      // Nothing on the ladder reached the target. The per-page pass can still go
+      // below the lowest global quality, so try it before giving up.
+      let fallback = smallest;
+      if (willPolish && fallback && canAffordPolish()) {
+        const polished = await polish(
+          lastIndex,
+          Math.max(0, fallback.size - fallback.imageBytesTotal)
+        );
+        if (polished.size <= fallback.size) {
+          fallback = polished;
+        }
+      }
+      if (!fallback) throw new PdfToolError("PROCESS_FAILED");
+      return {
+        ...fallback,
+        targetBytes,
+        targetMet: fallback.size <= targetBytes,
+        attempts,
+      };
+    }
+
+    let chosen = fit.result;
+    let chosenPosition = fit.position;
+
+    // Chase the target from below: walk back toward the rung that was still too
+    // big, accepting only candidates that stay at or under the target.
+    if (
+      chosenPosition >= 1 &&
+      !isCloseToTarget(chosen.size, targetBytes) &&
+      canAffordPass()
+    ) {
+      const refined = await refineUnderTarget<number, SizedRender>({
+        target: targetBytes,
+        known: { candidate: chosenPosition, value: chosen },
+        aspiration: chosenPosition - 1,
+        mix: (t) => mixNumber(chosenPosition, chosenPosition - 1, t),
+        probe,
+        maxSteps: REFINE_MAX_STEPS,
+        minGap: REFINE_MIN_GAP,
+        deadlineAt,
+        canContinue: canAffordPass,
+      });
+      chosen = refined.value;
+      chosenPosition = refined.candidate;
+    }
+
+    // Spend what the global search left on the table, page by page.
+    if (willPolish && !isCloseToTarget(chosen.size, targetBytes) && canAffordPolish()) {
+      const polished = await polish(
+        chosenPosition,
+        Math.max(0, chosen.size - chosen.imageBytesTotal)
+      );
+      if (polished.size <= targetBytes && polished.size > chosen.size) {
+        chosen = polished;
+      }
+    }
+
+    assertNotCancelled(callbacks.shouldCancel);
     return {
-      ...best,
+      ...chosen,
       targetBytes,
-      targetMet: false,
+      targetMet: chosen.size <= targetBytes,
       attempts,
     };
   } finally {

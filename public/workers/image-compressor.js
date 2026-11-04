@@ -233,12 +233,24 @@ async function processImage(id, file, options) {
           continue;
         }
 
+        // Same acceptance band as lib/target-search.ts: keep bisecting quality
+        // until the result sits just under the target instead of stopping at the
+        // first value that happens to fit.
+        const TOLERANCE = 0.04;
+        const MIN_QUALITY_GAP = 0.02;
         let low = 0.1;
         let high = 0.95;
         let bestUnderTarget = null;
         let smallest = null;
 
-        for (let step = 0; step < 6; step += 1) {
+        for (let step = 0; step < 8; step += 1) {
+          if (
+            bestUnderTarget &&
+            bestUnderTarget.blob.size >= requestedTarget * (1 - TOLERANCE)
+          ) {
+            break;
+          }
+          if (high - low <= MIN_QUALITY_GAP) break;
           const quality = (low + high) / 2;
           postProgress(id, {
             stage: "search",
