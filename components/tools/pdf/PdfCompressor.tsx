@@ -18,6 +18,10 @@ import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { usePdfErrorMessage } from "@/components/tools/pdf/usePdfErrorMessage";
 import {
+  useUploadFeedback,
+  type RejectedUpload,
+} from "@/components/tools/useUploadFeedback";
+import {
   compressPdf,
   isCancelledError,
   validatePdfFile,
@@ -82,6 +86,7 @@ export function PdfCompressor() {
   const locale = useLocale();
   const { toast } = useToast();
   const errorText = usePdfErrorMessage();
+  const upload = useUploadFeedback();
 
   const [items, setItems] = useState<CompressorItem[]>([]);
   const itemsRef = useRef<CompressorItem[]>([]);
@@ -104,14 +109,16 @@ export function PdfCompressor() {
       if (processing) return;
       const currentCount = itemsRef.current.length;
       if (currentCount >= MAX_PDF_FILES) {
-        toast({ title: tErrors("maxFiles"), variant: "error" });
+        upload.reportRejected(
+          files.map((file) => ({ name: file.name, reason: tErrors("maxFiles") }))
+        );
         return;
       }
 
       const accepted = files.slice(0, Math.max(0, MAX_PDF_FILES - currentCount));
-      if (accepted.length < files.length) {
-        toast({ title: tErrors("maxFiles"), variant: "error" });
-      }
+      const rejected: RejectedUpload[] = files
+        .slice(accepted.length)
+        .map((file) => ({ name: file.name, reason: tErrors("maxFiles") }));
 
       const rows: CompressorItem[] = accepted.map((file) => ({
         id: createId(),
@@ -126,14 +133,20 @@ export function PdfCompressor() {
           updateItem(row.id, { status: "queued", pageCount: validation.pageCount });
         } else {
           updateItem(row.id, { status: "error", errorCode: validation.code });
-          toast({
-            title: `${row.file.name}: ${errorText(validation.code)}`,
-            variant: "error",
-          });
+          rejected.push({ name: row.file.name, reason: errorText(validation.code) });
         }
       }
+
+      if (!rows.length) {
+        upload.reportRejected(rejected);
+        return;
+      }
+
+      upload.reportAddedWithRejected(rows.length, rejected);
+      upload.flashNewItems(rows.length);
+      upload.revealUploadTarget();
     },
-    [errorText, processing, tErrors, toast, updateItem]
+    [errorText, processing, tErrors, upload, updateItem]
   );
 
   const removeItem = useCallback(
@@ -263,6 +276,7 @@ export function PdfCompressor() {
   const processedCount = items.filter((item) =>
     ["done", "error", "cancelled"].includes(item.status)
   ).length;
+  const queueBytes = items.reduce((sum, item) => sum + item.file.size, 0);
 
   const totalBefore = doneItems.reduce((sum, item) => sum + item.file.size, 0);
   const totalAfter = doneItems.reduce(
@@ -314,6 +328,13 @@ export function PdfCompressor() {
             multiple
             disabled={processing}
             icon={FileArchive}
+            fileCount={items.length}
+            readySummary={
+              items.length
+                ? upload.readySummary("readyCompress", items.length, queueBytes)
+                : undefined
+            }
+            readyActionLabel={t("addMore")}
           />
 
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -336,7 +357,7 @@ export function PdfCompressor() {
               <p className="text-sm text-muted">{t("emptyBody")}</p>
             </div>
           ) : (
-            <ul className="space-y-3">
+            <ul className="space-y-3" data-upload-list>
               {items.map((item) => {
                 const result = item.result;
                 const percent = result

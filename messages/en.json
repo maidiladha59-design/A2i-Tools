@@ -421,6 +421,7 @@
     "widthLabel": "Width (px)",
     "heightLabel": "Height (px)",
     "keepRatio": "Lock aspect ratio",
+    "formatOriginal": "Keep original format",
     "formatLabel": "Output format",
     "qualityLabel": "Quality",
     "qualityNote": "Quality applies to JPG and WebP.",
@@ -470,6 +471,7 @@
     "aspectLandscape": "4 : 3",
     "aspectWide": "16 : 9",
     "selection": "Selection: {width} × {height} px",
+    "formatOriginal": "Keep original format",
     "formatLabel": "Output format",
     "qualityLabel": "Quality",
     "crop": "Crop & download",
@@ -768,6 +770,7 @@
     "title": "File compression guides, minus the hassle",
     "subtitle": "How to choose formats, shrink documents, and meet upload limits — written for applications, work, and everyday tasks.",
     "readMore": "Read article",
+    "count": "{count, plural, one {# article} other {# articles}}",
     "minRead": "{count} min read",
     "by": "Ai2 All Compress Team",
     "backToBlog": "Back to blog",
@@ -817,7 +820,8 @@
     "subtitle": "Ai2 All Compress was built for a very practical problem: upload size limits that show up at the worst possible moment.",
     "ctaTitle": "Try the tools",
     "ctaDesc": "Every tool is free and runs directly in your browser.",
-    "contactCta": "Contact us"
+    "contactCta": "Contact us",
+    "languages": "Indonesian & English"
   },
   "legal": {
     "updated": "Last updated: {date}",
@@ -841,6 +845,22 @@
   },
   "ads": {
     "label": "Advertisement"
+  },
+  "upload": {
+    "added": "{count, plural, one {# file added.} other {# files added.}}",
+    "addedWithSkipped": "{count, plural, one {# file added} other {# files added}}, {skipped} skipped.",
+    "rejectedTitle": "{count, plural, one {# file skipped.} other {# files skipped.}}",
+    "rejectedItem": "{name}: {reason}",
+    "more": "{count, plural, one {+# more file} other {+# more files}}",
+    "readyCompress": "{count, plural, one {# file ready to compress} other {# files ready to compress}} ({size})",
+    "readyResize": "{count, plural, one {# file ready to resize} other {# files ready to resize}} ({size})",
+    "readyConvert": "{count, plural, one {# file ready to convert} other {# files ready to convert}} ({size})",
+    "readyCrop": "{count, plural, one {# file ready to crop} other {# files ready to crop}} ({size})",
+    "readyMerge": "{count, plural, one {# file ready to merge} other {# files ready to merge}} ({size})",
+    "readyOrganize": "{count, plural, one {# page ready to organize} other {# pages ready to organize}} ({size})",
+    "readyToPdf": "{count, plural, one {# image ready to convert to PDF} other {# images ready to convert to PDF}} ({size})",
+    "readyPdfConvert": "{count, plural, one {# PDF file ready to convert} other {# PDF files ready to convert}} ({size})",
+    "readyWord": "{count, plural, one {# Word file ready to convert} other {# Word files ready to convert}} ({size})"
   },
   "toast": {
     "filesAdded": "{count} files added.",

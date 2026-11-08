@@ -62,7 +62,7 @@ export default async function BlogPage({ params }: PageProps) {
           />
           <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand-soft/60 px-3 py-1.5 text-[11px] font-bold text-brand">
             <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
-            {BLOG_POSTS.length} {locale === "en" ? "articles" : "artikel"}
+            {t("count", { count: BLOG_POSTS.length })}
           </p>
           <h1 className="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.08] text-ink sm:text-4xl lg:text-5xl">
             {t("title")}

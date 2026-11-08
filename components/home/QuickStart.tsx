@@ -5,6 +5,7 @@ import { FileUp, FileText, Image as ImageIcon, ShieldCheck } from "lucide-react"
 import { Dropzone } from "@/components/ui/Dropzone";
 import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
+import { useUploadFeedback } from "@/components/tools/useUploadFeedback";
 import { useHandoff } from "@/lib/tools/handoff";
 import { isImageFile } from "@/lib/image/client";
 import { isPdfFile } from "@/lib/pdf/client";
@@ -18,6 +19,7 @@ export function QuickStart() {
   const tErrors = useTranslations("errors");
   const { toast } = useToast();
   const { launch } = useHandoff();
+  const upload = useUploadFeedback();
 
   const handleFiles = (files: File[]) => {
     if (!files.length) return;
@@ -36,7 +38,12 @@ export function QuickStart() {
       toast({ title: t("quickMixed"), variant: "info" });
       return;
     }
-    toast({ title: tErrors("unsupportedImage"), variant: "error" });
+    upload.reportRejected(
+      files.map((file) => ({
+        name: file.name,
+        reason: tErrors("unsupportedImage"),
+      }))
+    );
   };
 
   return (

@@ -43,6 +43,10 @@ import { Dropzone } from "@/components/ui/Dropzone";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
+import {
+  useUploadFeedback,
+  type RejectedUpload,
+} from "@/components/tools/useUploadFeedback";
 import { readImageDimensions, validateImageFile } from "@/lib/image/client";
 import {
   imagesToPdf,
@@ -226,6 +230,7 @@ export function ImageToPdf({
   const tToast = useTranslations("toast");
   const locale = useLocale();
   const { toast } = useToast();
+  const upload = useUploadFeedback();
 
   const [items, setItems] = useState<ImageItem[]>([]);
   const itemsRef = useRef<ImageItem[]>([]);
@@ -264,16 +269,19 @@ export function ImageToPdf({
     async (files: File[]) => {
       if (building) return;
       const current = itemsRef.current;
+      const tooManyReason = t("tooMany", { count: MAX_IMAGE_FILES });
       if (current.length >= MAX_IMAGE_FILES) {
-        toast({ title: t("tooMany", { count: MAX_IMAGE_FILES }), variant: "error" });
+        upload.reportRejected(
+          files.map((file) => ({ name: file.name, reason: tooManyReason }))
+        );
         return;
       }
 
       const capacity = MAX_IMAGE_FILES - current.length;
       const selected = files.slice(0, Math.max(0, capacity));
-      if (selected.length < files.length) {
-        toast({ title: t("tooMany", { count: MAX_IMAGE_FILES }), variant: "error" });
-      }
+      const rejected: RejectedUpload[] = files
+        .slice(selected.length)
+        .map((file) => ({ name: file.name, reason: tooManyReason }));
 
       const rows: ImageItem[] = [];
       for (const file of selected) {
@@ -281,7 +289,7 @@ export function ImageToPdf({
           (item) => item.file.name === file.name && item.file.size === file.size
         );
         if (duplicate) {
-          toast({ title: t("duplicate"), variant: "info" });
+          rejected.push({ name: file.name, reason: t("duplicate") });
           continue;
         }
 
@@ -297,19 +305,16 @@ export function ImageToPdf({
           const message = tErrors(validationMessageKey(basicError));
           row.status = "error";
           row.errorMessage = message;
-          toast({
-            title: t("invalidFile", {
-              name: file.name,
-              reason: message,
-            }),
-            variant: "error",
-          });
+          rejected.push({ name: file.name, reason: message });
         }
 
         rows.push(row);
       }
 
-      if (!rows.length) return;
+      if (!rows.length) {
+        upload.reportRejected(rejected);
+        return;
+      }
       setItems((previous) => [...previous, ...rows]);
       setResult(null);
 
@@ -328,17 +333,15 @@ export function ImageToPdf({
             status: "error",
             errorMessage: message,
           });
-          toast({
-            title: t("invalidFile", {
-              name: row.file.name,
-              reason: message,
-            }),
-            variant: "error",
-          });
+          rejected.push({ name: row.file.name, reason: message });
         }
       }
+
+      upload.reportAddedWithRejected(rows.length, rejected);
+      upload.flashNewItems(rows.length);
+      upload.revealUploadTarget();
     },
-    [building, t, tErrors, toast, updateItem]
+    [building, t, tErrors, upload, updateItem]
   );
 
   const removeItem = (id: string) => {
@@ -375,6 +378,7 @@ export function ImageToPdf({
   );
   const reading = items.some((item) => item.status === "reading");
   const totalBytes = validItems.reduce((sum, item) => sum + item.file.size, 0);
+  const queueBytes = items.reduce((sum, item) => sum + item.file.size, 0);
 
   const create = useCallback(async () => {
     if (building || validItems.length < 1) return;
@@ -447,6 +451,13 @@ export function ImageToPdf({
           multiple
           disabled={building}
           icon={ImagePlus}
+          fileCount={items.length}
+          readySummary={
+            items.length
+              ? upload.readySummary("readyToPdf", items.length, queueBytes)
+              : undefined
+          }
+          readyActionLabel={t("addMore")}
         />
 
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -483,7 +494,7 @@ export function ImageToPdf({
                 items={items.map((item) => item.id)}
                 strategy={verticalListSortingStrategy}
               >
-                <ul className="space-y-2.5">
+                <ul className="space-y-2.5" data-upload-list>
                   {items.map((item, index) => (
                     <SortableImageRow
                       key={item.id}

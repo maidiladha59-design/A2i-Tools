@@ -247,6 +247,26 @@ export const DISCLAIMER: LegalDoc = {
         ],
       },
       {
+        heading: "Batas format dan kemampuan alat",
+        paragraphs: [
+          "Alat gambar menerima format yang didukung browser seperti JPG, PNG, dan WebP, lalu mengompres, mengubah ukuran, mengonversi, atau memotong gambar tersebut. Alat PDF dapat mengompres, memperkecil ke target ukuran, menggabungkan, mengatur urutan halaman, serta merender halaman menjadi gambar. Konversi Word ke PDF dan PDF ke Word memakai pustaka yang berjalan di browser dan tidak menjamin tata letak yang identik dengan aplikasi perkantoran.",
+          "Situs ini bukan editor PDF lengkap, bukan layanan OCR, dan tidak menyediakan penyimpanan cloud. PDF hasil pindai tetap berupa gambar kecuali kamu memakai alat OCR terpisah. Jika sebuah format atau fitur tidak tercantum di halaman alat, fitur itu tidak tersedia.",
+        ],
+      },
+      {
+        heading: "Metadata, kualitas, dan struktur dokumen",
+        paragraphs: [
+          "Kompresi gambar dapat menghapus metadata seperti EXIF, termasuk informasi lokasi dan kamera. Mengubah PDF menjadi gambar menghilangkan teks yang dapat dipilih, tautan, bookmark, dan lapisan aksesibilitas. Menggabungkan atau mengompres PDF dapat mengubah struktur internal, sehingga formulir interaktif atau tanda tangan digital tertentu tidak lagi berfungsi.",
+          "Periksa hasil di pembaca PDF atau penampil gambar sebelum mengirimkannya. Jika dokumen memerlukan teks yang dapat dicari, tanda tangan digital yang valid, atau formulir interaktif, gunakan alat khusus yang mendukung kebutuhan tersebut.",
+        ],
+      },
+      {
+        heading: "Persyaratan pihak ketiga dapat berubah",
+        paragraphs: [
+          "Portal pendaftaran, universitas, dan perusahaan dapat mengubah batas ukuran, dimensi, format, atau persyaratan lain tanpa pemberitahuan. Keberhasilan kompresi tidak menjamin bahwa file akan diterima. Selalu baca petunjuk resmi terbaru dan unggah file percobaan lebih awal agar kamu punya waktu memperbaiki jika ditolak.",
+        ],
+      },
+      {
         heading: "Bukan nasihat profesional",
         paragraphs: [
           "Artikel blog dan teks di situs ini bersifat informasi umum, bukan nasihat hukum, imigrasi, akademik, atau profesional. Persyaratan portal pendaftaran, universitas, dan perusahaan dapat berubah. Selalu periksa petunjuk resmi yang berlaku.",
@@ -277,6 +297,26 @@ export const DISCLAIMER: LegalDoc = {
         heading: "Always keep the original file",
         paragraphs: [
           "The tool does not store files and has no undo after the tab is closed. Download the result, open it again to check pages or images, and keep a copy of the original before submitting a compressed version.",
+        ],
+      },
+      {
+        heading: "Format and tool limits",
+        paragraphs: [
+          "Image tools accept formats supported by your browser, such as JPG, PNG, and WebP, and can compress, resize, convert, or crop those images. PDF tools can compress, reduce to a target size, merge, reorder pages, and render pages to images. Word-to-PDF and PDF-to-Word conversion use libraries that run in the browser and do not promise a layout identical to a desktop office suite.",
+          "This site is not a full PDF editor, an OCR service, or cloud storage. A scanned PDF remains an image unless you use a separate OCR tool. If a format or feature is not listed on a tool page, it is not available.",
+        ],
+      },
+      {
+        heading: "Metadata, quality, and document structure",
+        paragraphs: [
+          "Image compression may remove metadata such as EXIF, including location and camera information. Converting a PDF to images removes selectable text, links, bookmarks, and the accessibility layer. Merging or compressing PDFs may change the internal structure, so some interactive forms or digital signatures may stop working.",
+          "Check the result in a PDF reader or image viewer before submitting it. If a document requires searchable text, valid digital signatures, or interactive forms, use a dedicated tool that supports those needs.",
+        ],
+      },
+      {
+        heading: "Third-party requirements can change",
+        paragraphs: [
+          "Registration portals, universities, and companies can change size limits, dimensions, formats, or other requirements without notice. A successful compression does not guarantee that a file will be accepted. Always read the latest official instructions and upload a test file early so you have time to correct a rejection.",
         ],
       },
       {

@@ -38,6 +38,8 @@ import { ProgressBar } from "@/components/ui/ProgressBar";
 import { buttonClass } from "@/components/ui/Button";
 import { Dropzone } from "@/components/ui/Dropzone";
 import { useToast } from "@/components/ui/Toast";
+import { UploadStatus } from "@/components/ui/UploadStatus";
+import { useUploadFeedback } from "@/components/tools/useUploadFeedback";
 import { usePdfErrorMessage } from "@/components/tools/pdf/usePdfErrorMessage";
 import {
   isCancelledError,
@@ -211,6 +213,7 @@ export function PdfOrganizer() {
   const tToast = useTranslations("toast");
   const locale = useLocale();
   const { toast } = useToast();
+  const upload = useUploadFeedback();
   const errorText = usePdfErrorMessage();
 
   const [file, setFile] = useState<File | null>(null);
@@ -258,12 +261,16 @@ export function PdfOrganizer() {
 
       if (!validation.ok) {
         setLoading(null);
-        toast({ title: errorText(validation.code), variant: "error" });
+        upload.reportRejected([
+          { name: next.name, reason: errorText(validation.code) },
+        ]);
         return;
       }
 
       setFile(next);
       setPageCount(validation.pageCount);
+      upload.reportAdded(1);
+      upload.revealUploadTarget();
 
       const bytes = new Uint8Array(await next.arrayBuffer());
       if (generation.current !== currentGeneration) return;
@@ -306,7 +313,7 @@ export function PdfOrganizer() {
         if (generation.current === currentGeneration) setLoading(null);
       }
     },
-    [errorText, tToast, toast]
+    [errorText, tToast, toast, upload]
   );
 
   const reset = () => {
@@ -459,7 +466,7 @@ export function PdfOrganizer() {
           icon={LayoutGrid}
         />
       ) : (
-        <div className="space-y-5">
+        <div className="space-y-5" data-upload-action>
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-surface p-4">
             <div className="flex min-w-0 items-center gap-3">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-danger/10 text-danger">
@@ -494,6 +501,13 @@ export function PdfOrganizer() {
               </button>
             </div>
           </div>
+
+          <UploadStatus
+            summary={upload.t("readyOrganize", {
+              count: pageCount,
+              size: formatBytes(file.size, locale),
+            })}
+          />
 
           <div className="flex items-start gap-3 rounded-2xl border border-accent/30 bg-accent/10 p-4">
             <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-ink" aria-hidden="true" />

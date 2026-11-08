@@ -17,6 +17,7 @@ import { Link } from "@/i18n/navigation";
 import { ABOUT_CONTENT } from "@/content/about";
 import { pickLocale } from "@/content/types";
 import { CONTACT_EMAIL, SITE_NAME } from "@/lib/config";
+import { TOOLS } from "@/lib/tools/registry";
 import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
@@ -41,6 +42,7 @@ export default async function AboutPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: "about" });
   const tCommon = await getTranslations({ locale, namespace: "common" });
+  const tTools = await getTranslations({ locale, namespace: "tools" });
   const intro = pickLocale(ABOUT_CONTENT.intro, locale);
   const values = pickLocale(ABOUT_CONTENT.values, locale);
   const sections = pickLocale(ABOUT_CONTENT.sections, locale);
@@ -98,8 +100,8 @@ export default async function AboutPage({ params }: PageProps) {
               </p>
               <dl className="mt-4 grid grid-cols-2 gap-3">
                 {[
-                  { value: "8", label: tCommon("allTools"), icon: Sparkles },
-                  { value: "2", label: "ID / EN", icon: FileText },
+                  { value: String(TOOLS.length), label: tCommon("allTools"), icon: Sparkles },
+                  { value: "2", label: t("languages"), icon: FileText },
                   { value: "0", label: tCommon("noUpload"), icon: ShieldCheck },
                   { value: "100%", label: tCommon("privacyShort"), icon: LockKeyhole },
                 ].map((item) => (
@@ -198,7 +200,7 @@ export default async function AboutPage({ params }: PageProps) {
                 href="/pdf/compress"
                 className={buttonClass("secondary", "md", "mt-2 w-full")}
               >
-                PDF Compressor
+                {tTools("pdfCompress.name")}
               </Link>
             </div>
             <div className="rounded-3xl border border-line bg-surface-2/60 p-5">

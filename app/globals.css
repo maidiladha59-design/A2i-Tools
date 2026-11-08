@@ -253,6 +253,12 @@ input[type="radio"].radio {
   }
 }
 
+/* Targets revealed after files are added; keep them clear of the sticky header. */
+[data-upload-list],
+[data-upload-action] {
+  scroll-margin-top: 96px;
+}
+
 /* react-image-crop overrides */
 .ReactCrop {
   max-width: 100%;

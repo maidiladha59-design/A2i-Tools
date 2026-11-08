@@ -15,6 +15,8 @@ import { Dropzone } from "@/components/ui/Dropzone";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
+import { UploadStatus } from "@/components/ui/UploadStatus";
+import { useUploadFeedback } from "@/components/tools/useUploadFeedback";
 import { usePdfErrorMessage } from "@/components/tools/pdf/usePdfErrorMessage";
 import { useHandoff } from "@/lib/tools/handoff";
 import {
@@ -55,6 +57,7 @@ export function PdfReducer({
   const tToast = useTranslations("toast");
   const locale = useLocale();
   const { toast } = useToast();
+  const upload = useUploadFeedback();
   const { take } = useHandoff();
   const errorText = usePdfErrorMessage();
 
@@ -88,18 +91,19 @@ export function PdfReducer({
       if (!validation.ok) {
         setFile(null);
         setPageCount(null);
-        toast({
-          title: errorText(validation.code as PdfErrorCode),
-          variant: "error",
-        });
+        upload.reportRejected([
+          { name: next.name, reason: errorText(validation.code as PdfErrorCode) },
+        ]);
         return;
       }
       setFile(next);
       setPageCount(validation.pageCount);
       setResult(null);
       setError(null);
+      upload.reportAdded(1);
+      upload.revealUploadTarget();
     },
-    [errorText, toast]
+    [errorText, upload]
   );
 
   useEffect(() => {
@@ -229,7 +233,7 @@ export function PdfReducer({
             icon={Target}
           />
         ) : (
-          <div className="card-surface space-y-4 p-4 sm:p-5">
+          <div className="card-surface space-y-4 p-4 sm:p-5" data-upload-action>
             <div className="flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-start gap-3">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-danger/10 text-danger">
@@ -255,6 +259,8 @@ export function PdfReducer({
                 {t("replace")}
               </button>
             </div>
+
+            <UploadStatus summary={upload.readySummary("readyCompress", 1, file.size)} />
 
             <div className="flex items-start gap-3 rounded-2xl border border-accent/30 bg-accent/10 p-4">
               <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-ink" aria-hidden="true" />

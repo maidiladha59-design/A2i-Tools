@@ -13,6 +13,8 @@ import { Dropzone } from "@/components/ui/Dropzone";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
+import { UploadStatus } from "@/components/ui/UploadStatus";
+import { useUploadFeedback } from "@/components/tools/useUploadFeedback";
 import {
   docxToPdf,
   isDocxFile,
@@ -46,6 +48,7 @@ export function DocxToPdf() {
   const tToast = useTranslations("toast");
   const locale = useLocale();
   const { toast } = useToast();
+  const upload = useUploadFeedback();
 
   const [file, setFile] = useState<File | null>(null);
   const [converting, setConverting] = useState(false);
@@ -69,17 +72,16 @@ export function DocxToPdf() {
         setFile(null);
         const message = tErrors(errorKey(validation));
         setError(message);
-        toast({
-          title: t("invalidFile", { name: selected.name, reason: message }),
-          variant: "error",
-        });
+        upload.reportRejected([{ name: selected.name, reason: message }]);
         return;
       }
 
       setError(null);
       setFile(selected);
+      upload.reportAdded(1);
+      upload.revealUploadTarget();
     },
-    [converting, t, tErrors, toast]
+    [converting, tErrors, upload]
   );
 
   const start = useCallback(async () => {
@@ -137,7 +139,10 @@ export function DocxToPdf() {
             icon={FileText}
           />
         ) : (
-          <div className="card-surface flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5">
+          <div
+            className="card-surface flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5"
+            data-upload-action
+          >
             <div className="flex min-w-0 items-center gap-3">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand">
                 <FileText className="h-5 w-5" aria-hidden="true" />
@@ -160,6 +165,10 @@ export function DocxToPdf() {
               <RefreshCw className="h-4 w-4" aria-hidden="true" />
               {t("replace")}
             </button>
+            <UploadStatus
+              className="basis-full"
+              summary={upload.readySummary("readyWord", 1, file.size)}
+            />
           </div>
         )}
 

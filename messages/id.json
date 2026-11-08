@@ -421,6 +421,7 @@
     "widthLabel": "Lebar (px)",
     "heightLabel": "Tinggi (px)",
     "keepRatio": "Kunci rasio",
+    "formatOriginal": "Pertahankan format asli",
     "formatLabel": "Format keluaran",
     "qualityLabel": "Kualitas",
     "qualityNote": "Kualitas berlaku untuk JPG dan WebP.",
@@ -470,6 +471,7 @@
     "aspectLandscape": "4 : 3",
     "aspectWide": "16 : 9",
     "selection": "Area pilihan: {width} × {height} px",
+    "formatOriginal": "Pertahankan format asli",
     "formatLabel": "Format keluaran",
     "qualityLabel": "Kualitas",
     "crop": "Potong & unduh",
@@ -768,6 +770,7 @@
     "title": "Panduan kompresi file tanpa ribet",
     "subtitle": "Cara memilih format, mengecilkan dokumen, dan memenuhi batas unggahan — ditulis untuk kebutuhan pendaftaran, pekerjaan, dan tugas sehari-hari.",
     "readMore": "Baca artikel",
+    "count": "{count} artikel",
     "minRead": "{count} menit baca",
     "by": "Tim Ai2 All Compress",
     "backToBlog": "Kembali ke blog",
@@ -817,7 +820,8 @@
     "subtitle": "Ai2 All Compress dibuat untuk satu masalah yang sangat praktis: batas ukuran unggahan yang sering menghadang di momen penting.",
     "ctaTitle": "Coba alatnya",
     "ctaDesc": "Semua alat gratis dan langsung berjalan di browser.",
-    "contactCta": "Hubungi kami"
+    "contactCta": "Hubungi kami",
+    "languages": "Bahasa ID & EN"
   },
   "legal": {
     "updated": "Terakhir diperbarui: {date}",
@@ -841,6 +845,22 @@
   },
   "ads": {
     "label": "Iklan"
+  },
+  "upload": {
+    "added": "{count} file ditambahkan.",
+    "addedWithSkipped": "{count} file ditambahkan, {skipped} dilewati.",
+    "rejectedTitle": "{count} file dilewati.",
+    "rejectedItem": "{name}: {reason}",
+    "more": "+{count} file lainnya",
+    "readyCompress": "{count} file siap dikompres ({size})",
+    "readyResize": "{count} file siap diubah ukurannya ({size})",
+    "readyConvert": "{count} file siap dikonversi ({size})",
+    "readyCrop": "{count} file siap dipotong ({size})",
+    "readyMerge": "{count} file siap digabung ({size})",
+    "readyOrganize": "{count} halaman siap diatur ({size})",
+    "readyToPdf": "{count} gambar siap dijadikan PDF ({size})",
+    "readyPdfConvert": "{count} file PDF siap dikonversi ({size})",
+    "readyWord": "{count} file Word siap dikonversi ({size})"
   },
   "toast": {
     "filesAdded": "{count} file ditambahkan.",

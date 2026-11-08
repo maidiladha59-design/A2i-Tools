@@ -14,6 +14,8 @@ import { Dropzone } from "@/components/ui/Dropzone";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
+import { UploadStatus } from "@/components/ui/UploadStatus";
+import { useUploadFeedback } from "@/components/tools/useUploadFeedback";
 import {
   cancelImageJobs,
   compressImage,
@@ -46,6 +48,7 @@ export function ImageResizer() {
   const tErrors = useTranslations("errors");
   const locale = useLocale();
   const { toast } = useToast();
+  const upload = useUploadFeedback();
 
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -90,22 +93,24 @@ export function ImageResizer() {
       if (!next) return;
       const problem = validateImageFile(next);
       if (problem) {
-        toast({
-          title: tErrors(
-            problem === "empty"
-              ? "emptyFile"
-              : problem === "too-large"
-                ? "imageTooLarge"
-                : "unsupportedImage"
-          ),
-          variant: "error",
-        });
+        upload.reportRejected([
+          {
+            name: next.name,
+            reason: tErrors(
+              problem === "empty"
+                ? "emptyFile"
+                : problem === "too-large"
+                  ? "imageTooLarge"
+                  : "unsupportedImage"
+            ),
+          },
+        ]);
         return;
       }
 
       const dimensions = await readImageDimensions(next);
       if (!dimensions) {
-        toast({ title: tErrors("imageDecode"), variant: "error" });
+        upload.reportRejected([{ name: next.name, reason: tErrors("imageDecode") }]);
         return;
       }
 
@@ -118,8 +123,10 @@ export function ImageResizer() {
       setResult(null);
       setResultUrl(null);
       setError(null);
+      upload.reportAdded(1);
+      upload.revealUploadTarget();
     },
-    [tErrors, toast]
+    [tErrors, upload]
   );
 
   const applyPreset = (id: PresetId) => {
@@ -267,7 +274,7 @@ export function ImageResizer() {
         />
       ) : (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
-          <div className="card-surface space-y-4 p-4 sm:p-5">
+          <div className="card-surface space-y-4 p-4 sm:p-5" data-upload-action>
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <p className="truncate text-sm font-bold text-ink" title={file.name}>
@@ -290,6 +297,8 @@ export function ImageResizer() {
                 {t("replace")}
               </button>
             </div>
+
+            <UploadStatus summary={upload.readySummary("readyResize", 1, file.size)} />
 
             <div className="relative flex max-h-[420px] min-h-[240px] items-center justify-center overflow-hidden rounded-2xl border border-line bg-surface-2">
               {resultUrl ? (
@@ -432,7 +441,7 @@ export function ImageResizer() {
                 disabled={processing}
                 className="field-select"
               >
-                <option value="auto">JPG / PNG / WebP (asli)</option>
+                <option value="auto">{t("formatOriginal")}</option>
                 <option value="image/jpeg">JPG</option>
                 <option value="image/png">PNG</option>
                 <option value="image/webp">WebP</option>

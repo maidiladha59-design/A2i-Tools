@@ -10,6 +10,8 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ContactForm, CopyEmailButton } from "@/components/pages/ContactForm";
+import { CONTACT_CONTENT } from "@/content/contact";
+import { pickLocale } from "@/content/types";
 import { CONTACT_EMAIL } from "@/lib/config";
 import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
@@ -34,6 +36,8 @@ export default async function ContactPage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: "contact" });
   const tCommon = await getTranslations({ locale, namespace: "common" });
   const asideItems = [t("aside1"), t("aside2"), t("aside3")];
+  const contactLead = pickLocale(CONTACT_CONTENT.lead, locale);
+  const contactSections = pickLocale(CONTACT_CONTENT.sections, locale);
 
   return (
     <>
@@ -139,6 +143,40 @@ export default async function ContactPage({ params }: PageProps) {
               <p>{t("privacyNote")}</p>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-surface/40">
+        <div className="container-page py-10 sm:py-12">
+          <div className="mx-auto max-w-3xl">
+            <p className="text-base leading-relaxed text-muted">{contactLead}</p>
+            <div className="mt-7 space-y-7">
+              {contactSections.map((section) => (
+                <section key={section.heading}>
+                  <h2 className="text-xl font-extrabold text-ink sm:text-2xl">
+                    {section.heading}
+                  </h2>
+                  <div className="mt-3 space-y-3">
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph.slice(0, 48)} className="text-sm leading-relaxed text-muted sm:text-base">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                  {section.bullets?.length ? (
+                    <ul className="mt-3 space-y-2">
+                      {section.bullets.map((bullet) => (
+                        <li key={bullet} className="flex gap-2 text-sm leading-relaxed text-muted">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </section>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </>

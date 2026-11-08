@@ -38,6 +38,10 @@ import { ProgressBar } from "@/components/ui/ProgressBar";
 import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { usePdfErrorMessage } from "@/components/tools/pdf/usePdfErrorMessage";
+import {
+  useUploadFeedback,
+  type RejectedUpload,
+} from "@/components/tools/useUploadFeedback";
 import { useHandoff } from "@/lib/tools/handoff";
 import {
   isCancelledError,
@@ -183,6 +187,7 @@ export function PdfMerge() {
   const { toast } = useToast();
   const { launch } = useHandoff();
   const errorText = usePdfErrorMessage();
+  const upload = useUploadFeedback();
 
   const [items, setItems] = useState<MergeItem[]>([]);
   const itemsRef = useRef<MergeItem[]>([]);
@@ -212,16 +217,19 @@ export function PdfMerge() {
     async (files: File[]) => {
       if (merging) return;
       const current = itemsRef.current;
+      const tooManyReason = t("tooMany", { count: MAX_PDF_FILES });
       if (current.length >= MAX_PDF_FILES) {
-        toast({ title: t("tooMany", { count: MAX_PDF_FILES }), variant: "error" });
+        upload.reportRejected(
+          files.map((file) => ({ name: file.name, reason: tooManyReason }))
+        );
         return;
       }
 
       const capacity = MAX_PDF_FILES - current.length;
       const selected = files.slice(0, Math.max(0, capacity));
-      if (selected.length < files.length) {
-        toast({ title: t("tooMany", { count: MAX_PDF_FILES }), variant: "error" });
-      }
+      const rejected: RejectedUpload[] = files
+        .slice(selected.length)
+        .map((file) => ({ name: file.name, reason: tooManyReason }));
 
       const rows: MergeItem[] = [];
       for (const file of selected) {
@@ -229,13 +237,16 @@ export function PdfMerge() {
           (item) => item.file.name === file.name && item.file.size === file.size
         );
         if (duplicate) {
-          toast({ title: t("duplicate"), variant: "info" });
+          rejected.push({ name: file.name, reason: t("duplicate") });
           continue;
         }
         rows.push({ id: createId(), file, status: "reading" });
       }
 
-      if (!rows.length) return;
+      if (!rows.length) {
+        upload.reportRejected(rejected);
+        return;
+      }
       setItems((previous) => [...previous, ...rows]);
       setResult(null);
 
@@ -245,17 +256,15 @@ export function PdfMerge() {
           updateItem(row.id, { status: "ready", pageCount: validation.pageCount });
         } else {
           updateItem(row.id, { status: "error", errorCode: validation.code });
-          toast({
-            title: t("invalidFile", {
-              name: row.file.name,
-              reason: errorText(validation.code),
-            }),
-            variant: "error",
-          });
+          rejected.push({ name: row.file.name, reason: errorText(validation.code) });
         }
       }
+
+      upload.reportAddedWithRejected(rows.length, rejected);
+      upload.flashNewItems(rows.length);
+      upload.revealUploadTarget();
     },
-    [errorText, merging, t, toast, updateItem]
+    [errorText, merging, t, upload, updateItem]
   );
 
   const removeItem = (id: string) => {
@@ -290,6 +299,7 @@ export function PdfMerge() {
   );
   const totalPages = validItems.reduce((sum, item) => sum + (item.pageCount || 0), 0);
   const totalBytes = validItems.reduce((sum, item) => sum + item.file.size, 0);
+  const queueBytes = items.reduce((sum, item) => sum + item.file.size, 0);
   const reading = items.some((item) => item.status === "reading");
 
   const merge = useCallback(async () => {
@@ -371,6 +381,13 @@ export function PdfMerge() {
           multiple
           disabled={merging}
           icon={Merge}
+          fileCount={items.length}
+          readySummary={
+            items.length
+              ? upload.readySummary("readyMerge", items.length, queueBytes)
+              : undefined
+          }
+          readyActionLabel={t("addMore")}
         />
 
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -408,7 +425,7 @@ export function PdfMerge() {
                 items={items.map((item) => item.id)}
                 strategy={verticalListSortingStrategy}
               >
-                <ul className="space-y-2.5">
+                <ul className="space-y-2.5" data-upload-list>
                   {items.map((item, index) => (
                     <SortableMergeRow
                       key={item.id}

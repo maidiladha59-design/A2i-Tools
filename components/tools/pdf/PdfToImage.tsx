@@ -15,6 +15,8 @@ import { Dropzone } from "@/components/ui/Dropzone";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
+import { UploadStatus } from "@/components/ui/UploadStatus";
+import { useUploadFeedback } from "@/components/tools/useUploadFeedback";
 import { usePdfErrorMessage } from "@/components/tools/pdf/usePdfErrorMessage";
 import {
   isCancelledError,
@@ -51,6 +53,7 @@ export function PdfToImage({
   const tToast = useTranslations("toast");
   const locale = useLocale();
   const { toast } = useToast();
+  const upload = useUploadFeedback();
   const errorText = usePdfErrorMessage();
 
   const [file, setFile] = useState<File | null>(null);
@@ -100,13 +103,18 @@ export function PdfToImage({
 
       if (!validation.ok) {
         setError(errorText(validation.code));
+        upload.reportRejected([
+          { name: selected.name, reason: errorText(validation.code) },
+        ]);
         return;
       }
 
       setFile(selected);
       setPageCount(validation.pageCount);
+      upload.reportAdded(1);
+      upload.revealUploadTarget();
     },
-    [clearPages, errorText, processing]
+    [clearPages, errorText, processing, upload]
   );
 
   const start = useCallback(async () => {
@@ -240,7 +248,10 @@ export function PdfToImage({
             icon={FileImage}
           />
         ) : (
-          <div className="card-surface flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5">
+          <div
+            className="card-surface flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5"
+            data-upload-action
+          >
             <div className="flex min-w-0 items-center gap-3">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-danger/10 text-danger">
                 <FileImage className="h-5 w-5" aria-hidden="true" />
@@ -264,6 +275,10 @@ export function PdfToImage({
               <RefreshCw className="h-4 w-4" aria-hidden="true" />
               {t("replace")}
             </button>
+            <UploadStatus
+              className="basis-full"
+              summary={upload.readySummary("readyPdfConvert", 1, file.size)}
+            />
           </div>
         )}
 

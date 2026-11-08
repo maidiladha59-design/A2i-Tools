@@ -40,6 +40,10 @@ export function buildMetadata({
 }: BuildMetadataInput): Metadata {
   const canonical = localePath(locale, path);
   const image = absoluteUrl("/og.png");
+  const imageAlt =
+    locale === "en"
+      ? `${SITE_NAME} — compress images and PDFs locally`
+      : `${SITE_NAME} — kompres gambar dan PDF secara lokal`;
 
   return {
     title,
@@ -61,7 +65,7 @@ export function buildMetadata({
           url: image,
           width: 1200,
           height: 630,
-          alt: `${SITE_NAME} — compress files locally`,
+          alt: imageAlt,
         },
       ],
       ...(publishedTime ? { publishedTime } : {}),
@@ -71,7 +75,7 @@ export function buildMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: [{ url: image, alt: imageAlt }],
     },
     robots: noIndex
       ? { index: false, follow: false }

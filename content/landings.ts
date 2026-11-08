@@ -458,8 +458,8 @@ export const LANDINGS: LandingDefinition[] = [
           a: "Alat menampilkan hasil terkecil yang bisa dibuat beserta ukurannya. Kamu bisa menghapus halaman yang tidak perlu, mencoba target yang lebih tinggi, atau memakai dokumen dengan gambar yang lebih sederhana. Tidak ada file yang dikirim ke server saat target gagal.",
         },
         {
-          q: "Apakah PDF saya diunggah atau disimpan?",
-          a: "Tidak. File dibaca dan diproses di browser, halaman demi halaman. Tidak ada API unggahan dan tidak ada penyimpanan di server. Menutup tab akan menghentikan proses dan membebaskan memori perangkat.",
+          q: "Apakah saya bisa membatalkan proses kompresi?",
+          a: "Bisa. Gunakan tombol batal selama proses berlangsung, atau tutup tab untuk menghentikannya. Karena pemrosesan berjalan di perangkat, pembatalan langsung membebaskan memori dan tidak meninggalkan file di server.",
         },
         {
           q: "Apakah PDF berpassword bisa diproses?",
@@ -476,8 +476,8 @@ export const LANDINGS: LandingDefinition[] = [
           a: "The tool shows the smallest file it could produce and its size. You can remove pages you do not need, try a higher target, or use a document with simpler imagery. Nothing is sent to a server when the target is missed.",
         },
         {
-          q: "Is my PDF uploaded or stored?",
-          a: "No. The file is read and processed in your browser, page by page. There is no upload API and no server-side storage. Closing the tab stops processing and frees device memory.",
+          q: "Can I cancel a compression that is already running?",
+          a: "Yes. Use the cancel button while processing, or close the tab to stop it. Because processing runs on your device, cancelling frees memory immediately and leaves no file on a server.",
         },
         {
           q: "Can password-protected PDFs be processed?",
@@ -933,16 +933,16 @@ export const LANDINGS: LandingDefinition[] = [
     faq: {
       id: [
         {
-          q: "Apakah teks dan tautan tetap utuh setelah digabung?",
-          a: "Ya. Penggabungan menyalin halaman asli tanpa render ulang, sehingga teks tetap bisa dipilih dan dicari, tautan tetap berfungsi, dan kualitas gambar tidak berubah. Ukuran hasil kira-kira jumlah file asal.",
+          q: "Apakah kualitas halaman turun setelah digabung?",
+          a: "Tidak ada kompresi tambahan saat penggabungan. Halaman disalin tanpa render ulang, jadi teks, tautan, dan kualitas gambar tetap seperti file asal. Ukuran hasil kira-kira jumlah semua file, sehingga jika terlalu besar kamu perlu mengompresnya setelah digabung.",
         },
         {
-          q: "Apakah PDF saya diunggah ke server?",
-          a: "Tidak. Penggabungan memakai pdf-lib di browser. File hanya berada di memori perangkat, dan hasilnya diunduh langsung tanpa pernah meninggalkan browser. Menutup tab akan membersihkan data proses.",
+          q: "Di mana file PDF berada selama proses penggabungan?",
+          a: "File hanya berada di memori perangkat selama tab terbuka. Penggabungan memakai pdf-lib di browser, hasilnya langsung diunduh, dan menutup tab membersihkan data proses. Tidak ada unggahan ke server.",
         },
         {
-          q: "Berapa banyak file yang bisa digabung?",
-          a: "Hingga 20 file dalam satu antrean, dengan batas 100 MB per PDF. Jika salah satu file berpassword atau rusak, file itu ditandai dan tidak bisa digabung sampai diperbaiki.",
+          q: "Bisakah PDF hasil pindai ikut digabung?",
+          a: "Bisa. Halaman pindai diperlakukan sebagai gambar dan disalin apa adanya, tetapi ukurannya biasanya jauh lebih besar daripada PDF teks. Jika hasil melewati batas unggahan, kompres PDF setelah digabung atau kurangi halaman yang tidak perlu.",
         },
         {
           q: "Bagaimana kalau urutan file ternyata salah?",
@@ -951,16 +951,16 @@ export const LANDINGS: LandingDefinition[] = [
       ],
       en: [
         {
-          q: "Are text and links still intact after merging?",
-          a: "Yes. Merging copies original pages without re-rendering, so text remains selectable and searchable, links keep working, and image quality is unchanged. The result is roughly the sum of the input files.",
+          q: "Does page quality drop after merging?",
+          a: "No extra compression happens during merging. Pages are copied without re-rendering, so text, links, and image quality stay as they were in the source files. The result is roughly the sum of all inputs, so compress it afterward if the size is too large.",
         },
         {
-          q: "Are my PDFs uploaded to a server?",
-          a: "No. Merging uses pdf-lib in your browser. Files stay in device memory, and the result downloads directly without ever leaving the browser. Closing the tab clears the working data.",
+          q: "Where do the PDF files stay during merging?",
+          a: "Files stay in device memory while the tab is open. Merging uses pdf-lib in your browser, the result downloads directly, and closing the tab clears the working data. Nothing is uploaded to a server.",
         },
         {
-          q: "How many files can I merge?",
-          a: "Up to 20 files in one queue, with a 100 MB limit per PDF. If one file is password-protected or corrupted, it is flagged and cannot be merged until it is fixed.",
+          q: "Can scanned PDFs be merged too?",
+          a: "Yes. Scanned pages are treated as images and copied as they are, but they are usually much larger than text PDFs. If the result exceeds an upload limit, compress the PDF after merging or remove pages you do not need.",
         },
         {
           q: "What if the file order turns out to be wrong?",
@@ -1221,37 +1221,37 @@ export const LANDINGS: LandingDefinition[] = [
     faq: {
       id: [
         {
-          q: "Format apa saja yang bisa dijadikan PDF?",
-          a: "Alat ini menerima JPG, PNG, dan WebP, masing-masing hingga 50 MB dan maksimal 20 gambar per PDF. Halaman ini sudah diatur ke A4, tetapi kamu bisa menggantinya ke Auto.",
+          q: "Bisakah JPG, PNG, dan WebP dicampur dalam satu PDF?",
+          a: "Bisa. Semua gambar dalam antrean ditempatkan pada halaman PDF sesuai urutan yang kamu atur, dan kamu boleh menggabungkan beberapa format sekaligus. Halaman ini memakai ukuran A4, tetapi kamu bisa menggantinya ke Auto agar rasio mengikuti gambar.",
         },
         {
-          q: "Apakah transparansi PNG dipertahankan?",
-          a: "PNG tetap disimpan sebagai PNG di dalam PDF, tetapi halaman PDF memiliki latar putih. Area transparan akan terlihat putih saat halaman dibuka. Simpan file PNG asli jika latar transparan masih diperlukan.",
+          q: "Apakah latar transparan PNG menjadi putih di PDF?",
+          a: "Ya. PNG tetap disimpan sebagai PNG di dalam PDF, tetapi halaman PDF memiliki latar putih, sehingga area transparan tampak putih saat halaman dibuka. Simpan file PNG asli jika latar transparan masih diperlukan.",
         },
         {
-          q: "Apakah teks pada PNG tetap tajam?",
-          a: "Ya. PNG tidak diubah menjadi JPG, sehingga huruf dan garis tidak mengalami kompresi lossy tambahan. Mulai dari tangkapan layar beresolusi penuh dan hindari gambar yang sudah diperkecil sebelum ditambahkan.",
+          q: "Mengapa teks pada tangkapan layar tetap tajam?",
+          a: "Karena PNG tidak diubah menjadi JPG, huruf dan garis tidak mengalami kompresi lossy tambahan. Mulai dari tangkapan layar beresolusi penuh dan hindari gambar yang sudah diperkecil sebelum ditambahkan.",
         },
         {
-          q: "Berapa banyak gambar yang bisa diproses?",
+          q: "Apakah ada batas jumlah gambar per PDF?",
           a: "Hingga 20 file dalam satu PDF, dengan batas 50 MB per gambar. Pemrosesan berjalan lokal, jadi kecepatan bergantung pada perangkat dan ukuran gambar.",
         },
       ],
       en: [
         {
-          q: "Which formats can become a PDF?",
-          a: "This tool accepts JPG, PNG, and WebP, each up to 50 MB and up to 20 images per PDF. This page is set to A4, but you can switch it to Auto.",
+          q: "Can JPG, PNG, and WebP be mixed in one PDF?",
+          a: "Yes. Every image in the queue is placed on a PDF page in the order you set, and you can mix formats in the same file. This page uses A4, but you can switch to Auto so each page follows the image ratio.",
         },
         {
-          q: "Is PNG transparency preserved?",
-          a: "PNGs stay PNG inside the PDF, but a PDF page has a white background. Transparent areas appear white when the page is opened. Keep the original PNG if you still need a transparent background.",
+          q: "Will a transparent PNG background turn white in the PDF?",
+          a: "Yes. PNGs stay PNG inside the PDF, but a PDF page has a white background, so transparent areas appear white when the page is opened. Keep the original PNG if you still need a transparent background.",
         },
         {
-          q: "Does text in a PNG stay sharp?",
-          a: "Yes. PNGs are not converted to JPG, so letters and lines avoid extra lossy compression. Start from a full-resolution screenshot and avoid images that were already shrunk before being added.",
+          q: "Why does text in a screenshot stay sharp?",
+          a: "Because PNGs are not converted to JPG, letters and lines avoid extra lossy compression. Start from a full-resolution screenshot and avoid images that were already shrunk before being added.",
         },
         {
-          q: "How many images can I process?",
+          q: "Is there a limit on images per PDF?",
           a: "Up to 20 files in one PDF, with a 50 MB limit per image. Processing runs locally, so speed depends on your device and the image sizes.",
         },
       ],
@@ -1365,38 +1365,38 @@ export const LANDINGS: LandingDefinition[] = [
     faq: {
       id: [
         {
-          q: "Apakah PDF saya diunggah?",
-          a: "Tidak. PDF dibaca dengan pdf.js di browser, lalu setiap halaman dirender ke canvas dan diubah menjadi JPG. Tidak ada file yang dikirim ke server dan tidak ada hasil yang disimpan setelah tab ditutup.",
+          q: "Berapa lama konversi satu PDF selesai?",
+          a: "Tidak ada waktu pasti karena bergantung pada jumlah halaman, DPI, dan perangkat. Setiap halaman dirender berurutan dengan indikator kemajuan, sehingga PDF puluhan halaman bisa memakan waktu lebih lama. Semakin tinggi DPI, semakin berat prosesnya.",
         },
         {
-          q: "Resolusi mana yang sebaiknya dipilih?",
-          a: "72 DPI untuk pratinjau cepat, 150 DPI untuk layar dan presentasi, dan 300 DPI untuk cetak. Resolusi lebih tinggi menghasilkan gambar lebih tajam, tetapi ukuran file dan waktu proses ikut bertambah.",
+          q: "Kapan sebaiknya memakai JPG daripada PNG?",
+          a: "JPG lebih hemat ruang untuk halaman berisi foto, hasil pindai, atau gambar dengan banyak gradasi warna. Untuk halaman berisi teks kecil, tabel, dan garis tipis, PNG biasanya lebih tajam meskipun ukurannya lebih besar. Pilih berdasarkan isi halaman, bukan kebiasaan.",
         },
         {
-          q: "Apakah teks pada JPG bisa diedit?",
-          a: "Tidak. Hasilnya adalah gambar, sehingga teks tidak bisa dipilih, dicari, atau diedit. Simpan PDF asli bila kamu masih membutuhkan teks yang dapat dicari atau disalin.",
+          q: "Apakah metadata PDF ikut terbawa ke JPG?",
+          a: "Tidak. Halaman dirender ulang ke canvas, sehingga metadata dokumen seperti penulis, judul, dan bookmark tidak disalin ke gambar. Data EXIF kamera juga tidak ditambahkan karena gambar dibuat dari render PDF, bukan dari kamera.",
         },
         {
-          q: "Apakah semua halaman bisa diunduh sekaligus?",
-          a: "Bisa. Setelah proses selesai, tekan Unduh semua (ZIP). Arsip dibuat di perangkat dengan jszip tanpa mengunggah gambar, dan halaman juga tetap bisa diunduh satu per satu.",
+          q: "Bagaimana hasil JPG diberi nama saat diunduh?",
+          a: "Setiap file memakai nama PDF asli ditambah nomor halaman, misalnya dokumen-page-01.jpg. Saat memilih Unduh semua (ZIP), nama yang sama dipertahankan di dalam arsip agar urutan halaman mudah diperiksa.",
         },
       ],
       en: [
         {
-          q: "Is my PDF uploaded?",
-          a: "No. The PDF is read with pdf.js in your browser, then each page is rendered to canvas and encoded as JPG. Nothing is sent to a server, and no result is stored after you close the tab.",
+          q: "How long does one PDF conversion take?",
+          a: "There is no fixed time because it depends on page count, DPI, and your device. Pages render one after another with a progress indicator, so a PDF with dozens of pages can take longer. Higher DPI makes processing heavier.",
         },
         {
-          q: "Which resolution should I choose?",
-          a: "72 DPI for quick previews, 150 DPI for screens and presentations, and 300 DPI for printing. Higher resolution produces sharper images but also larger files and longer processing.",
+          q: "When should I choose JPG instead of PNG?",
+          a: "JPG saves space on pages containing photos, scans, or images with many color gradients. For pages with small text, tables, and thin lines, PNG usually stays sharper even though the file is larger. Choose based on the page content, not habit.",
         },
         {
-          q: "Can the text in a JPG be edited?",
-          a: "No. The output is an image, so text cannot be selected, searched, or edited. Keep the original PDF when you still need searchable or copyable text.",
+          q: "Does PDF metadata carry over to the JPG?",
+          a: "No. Each page is re-rendered onto a canvas, so document metadata such as author, title, and bookmarks is not copied into the image. Camera EXIF data is not added because the image comes from a PDF render, not a camera.",
         },
         {
-          q: "Can I download every page at once?",
-          a: "Yes. When processing finishes, press Download all (ZIP). The archive is built on your device with jszip without uploading the images, and individual pages remain available to download separately.",
+          q: "How are the JPG files named when downloaded?",
+          a: "Each file uses the original PDF name plus the page number, for example document-page-01.jpg. When you choose Download all (ZIP), the same names are kept inside the archive so the page order is easy to check.",
         },
       ],
     },
@@ -1513,16 +1513,16 @@ export const LANDINGS: LandingDefinition[] = [
           a: "Untuk halaman berisi teks, tabel, dan garis tipis, PNG lebih tajam karena tidak memakai kompresi lossy. Untuk foto, JPG biasanya lebih kecil dan cukup baik. Pilih sesuai isi halaman dan kebutuhan ukuran.",
         },
         {
-          q: "Resolusi berapa yang sebaiknya dipakai?",
-          a: "150 DPI seimbang untuk layar dan presentasi. Gunakan 300 DPI untuk cetak atau saat detail kecil harus tetap jelas. Resolusi lebih tinggi memperbesar ukuran file dan memperlama proses.",
+          q: "Kapan 300 DPI diperlukan?",
+          a: "Gunakan 300 DPI saat hasil akan dicetak, diarsipkan, atau diproses dengan OCR. Untuk membaca di layar dan presentasi, 150 DPI sudah seimbang. Resolusi lebih tinggi memperbesar ukuran file dan memperlama proses.",
         },
         {
           q: "Apakah latar transparan pada PDF dipertahankan?",
           a: "Halaman PDF dirender di atas latar putih, sehingga PNG hasilnya memiliki latar putih yang padat. Jika kamu membutuhkan transparansi, simpan elemen asli dari dokumen sumber, bukan hasil render halaman.",
         },
         {
-          q: "Apakah teks masih bisa dicari?",
-          a: "Tidak. Hasilnya adalah gambar PNG, sehingga teks tidak bisa dipilih atau dicari. Simpan PDF asli bila dokumen masih perlu dicari, disalin, atau diedit.",
+          q: "Apakah PNG hasil render bisa dipakai untuk OCR?",
+          a: "Bisa, karena PNG adalah gambar beresolusi tinggi yang dapat dibaca aplikasi OCR. Gunakan 300 DPI agar huruf kecil lebih mudah dikenali. Situs ini tidak menyediakan OCR, dan PDF digital asli tetap menjadi sumber teks yang paling akurat.",
         },
       ],
       en: [
@@ -1531,16 +1531,16 @@ export const LANDINGS: LandingDefinition[] = [
           a: "For pages with text, tables, and thin lines, PNG is sharper because it uses no lossy compression. For photos, JPG is usually smaller and good enough. Choose based on the page content and size needs.",
         },
         {
-          q: "Which resolution should I use?",
-          a: "150 DPI is a good balance for screens and presentations. Use 300 DPI for printing or when small details must stay clear. Higher resolution increases file size and processing time.",
+          q: "When is 300 DPI necessary?",
+          a: "Use 300 DPI when the output will be printed, archived, or processed with OCR. For reading on screen and presentations, 150 DPI is a good balance. Higher resolution increases file size and processing time.",
         },
         {
           q: "Is a transparent PDF background preserved?",
           a: "PDF pages are rendered onto a white background, so the resulting PNG has a solid white background. If you need transparency, export the original element from the source document rather than a rendered page.",
         },
         {
-          q: "Can the text still be searched?",
-          a: "No. The output is a PNG image, so text cannot be selected or searched. Keep the original PDF if the document still needs to be searched, copied, or edited.",
+          q: "Can the rendered PNG be used for OCR?",
+          a: "Yes, because the PNG is a high-resolution image that OCR software can read. Use 300 DPI so small letters are easier to recognize. This site does not provide OCR, and the original digital PDF remains the most accurate text source.",
         },
       ],
     },
@@ -1652,16 +1652,16 @@ export const LANDINGS: LandingDefinition[] = [
     faq: {
       id: [
         {
-          q: "Apakah file Word saya diunggah?",
-          a: "Tidak. Konversi berjalan di browser dengan mammoth, html2canvas, dan pdf-lib. File tidak pernah dikirim ke server, tidak disimpan, dan tidak dilihat oleh kami.",
+          q: "Mengapa ukuran PDF hasil konversi bisa lebih besar?",
+          a: "Setiap halaman dirender menjadi gambar JPEG berkualitas tinggi sebelum dimasukkan ke PDF. Gambar di dalam dokumen, font yang tertanam, dan latar putih penuh ikut menambah ukuran. Jika PDF terlalu besar, kurangi gambar di dokumen asli atau kompres PDF setelah konversi.",
         },
         {
-          q: "Apakah hasil PDF sama persis dengan dokumen asli?",
-          a: "Untuk dokumen teks sederhana, hasilnya biasanya sangat mirip. Kolom, kotak teks mengambang, header, footer, dan pemisah halaman khusus bisa berubah karena isi disusun ulang pada halaman A4. Periksa hasil sebelum dibagikan.",
+          q: "Bagaimana tabel dan gambar dalam .docx ditangani?",
+          a: "Mammoth mengubah tabel menjadi tabel HTML dan menyertakan gambar yang dapat dibaca, lalu semuanya dirender ke halaman A4. Tabel sederhana biasanya tetap terbaca, sedangkan kolom bertingkat, kotak teks mengambang, dan header-footer dapat berubah posisi. Periksa hasilnya sebelum dibagikan.",
         },
         {
-          q: "Apakah teks di PDF bisa dipilih atau dicari?",
-          a: "Tidak. Halaman dirasterisasi menjadi gambar sebelum dimasukkan ke PDF, sehingga teks tidak bisa dipilih atau dicari. Simpan file .docx asli bila kamu masih membutuhkan teks yang bisa diedit.",
+          q: "Apakah hasil PDF bisa diedit lagi?",
+          a: "Tidak secara langsung. PDF berisi gambar halaman, jadi teks tidak bisa dipilih atau diedit seperti dokumen Word. Simpan file .docx asli untuk penyuntingan dan gunakan PDF hanya sebagai versi final yang siap dikirim atau dicetak.",
         },
         {
           q: "Apakah file .doc lama didukung?",
@@ -1670,16 +1670,16 @@ export const LANDINGS: LandingDefinition[] = [
       ],
       en: [
         {
-          q: "Is my Word file uploaded?",
-          a: "No. Conversion runs in your browser with mammoth, html2canvas, and pdf-lib. The file is never sent to a server, stored, or viewed by us.",
+          q: "Why can the converted PDF be larger than the Word file?",
+          a: "Each page is rendered as a high-quality JPEG before being placed in the PDF. Images inside the document, embedded fonts, and the full white background all add weight. If the PDF is too large, reduce images in the source document or compress the PDF after conversion.",
         },
         {
-          q: "Is the PDF identical to the original document?",
-          a: "For simple text documents, the result is usually very close. Columns, floating text boxes, headers, footers, and custom page breaks can change because content is reflowed onto A4 pages. Review the result before sharing it.",
+          q: "How are tables and images in a .docx handled?",
+          a: "Mammoth turns tables into HTML tables and includes readable images, then everything is rendered onto A4 pages. Simple tables usually remain readable, while multi-level columns, floating text boxes, and headers or footers may shift. Check the result before sharing it.",
         },
         {
-          q: "Can the text in the PDF be selected or searched?",
-          a: "No. Pages are rasterized into images before being placed in the PDF, so text cannot be selected or searched. Keep the original .docx when you still need editable text.",
+          q: "Can the resulting PDF be edited again?",
+          a: "Not directly. The PDF contains page images, so text cannot be selected or edited like a Word document. Keep the original .docx for editing and use the PDF only as a final version ready to send or print.",
         },
         {
           q: "Are older .doc files supported?",
@@ -1795,38 +1795,38 @@ export const LANDINGS: LandingDefinition[] = [
     faq: {
       id: [
         {
-          q: "Apakah PDF saya diunggah ke server?",
-          a: "Tidak. Teks dibaca dengan pdf.js dan file .docx dibuat dengan library docx di browser. File tidak pernah dikirim ke server dan tidak disimpan setelah tab ditutup.",
+          q: "Mengapa hasil .docx hanya berisi teks?",
+          a: "Alat ini mengekstrak lapisan teks dari PDF, bukan membangun ulang tata letaknya. Gambar, kolom, tabel, pilihan font, warna, header, dan footer tidak disalin. Hasilnya cocok ketika kamu hanya perlu mengambil isi tulisan untuk diedit ulang di Word.",
         },
         {
-          q: "Apakah tata letak asli ikut tersalin?",
-          a: "Tidak. Hasilnya hanya teks, dengan satu paragraf per baris. Gambar, kolom, tabel, font, warna, header, dan footer tidak dipertahankan. Kamu bisa merapikan ulang dokumen Word setelah diunduh.",
+          q: "Bagaimana memeriksa urutan paragraf setelah konversi?",
+          a: "Buka hasil di Word atau Google Docs, lalu bandingkan judul dan paragraf pertama dengan PDF asli. Pada dokumen berkolom, urutan baris bisa saling menyelip karena teks diekstrak satu per satu. Gunakan pencarian kata kunci dan rapikan urutan secara manual bila perlu.",
         },
         {
-          q: "Mengapa PDF hasil pindai tidak menghasilkan teks?",
-          a: "Hasil pindai biasanya hanya berisi gambar halaman tanpa lapisan teks. Jalankan OCR terlebih dahulu, atau gunakan alat PDF ke Gambar bila kamu membutuhkan gambar halaman.",
+          q: "Apakah file .docx bisa dibuka di Word, Google Docs, dan LibreOffice?",
+          a: "Bisa. Hasilnya adalah file .docx standar yang dapat dibuka di Microsoft Word, Google Docs, LibreOffice, dan aplikasi lain yang mendukung format tersebut. Format teksnya sederhana, jadi kamu mungkin perlu menambahkan kembali gaya, gambar, atau tabel.",
         },
         {
-          q: "Apakah gambar dan tabel di PDF ikut dikonversi?",
-          a: "Tidak. Alat ini hanya mengekstrak teks. Gambar dan tabel tidak disalin, dan teks di dalam tabel akan muncul sebagai baris teks biasa tanpa struktur kolom.",
+          q: "Kapan sebaiknya memakai OCR, bukan konversi PDF ke Word?",
+          a: "Jika PDF hanya berisi gambar hasil pindai tanpa lapisan teks, konversi ini akan menghasilkan dokumen kosong atau pesan bahwa teks tidak ditemukan. Jalankan OCR dengan aplikasi khusus terlebih dahulu, lalu konversi PDF hasil OCR bila masih diperlukan. Situs ini tidak menyediakan OCR.",
         },
       ],
       en: [
         {
-          q: "Is my PDF uploaded to a server?",
-          a: "No. Text is read with pdf.js and the .docx file is built with the docx library in your browser. The file is never sent to a server or stored after the tab closes.",
+          q: "Why does the .docx contain text only?",
+          a: "This tool extracts the text layer from a PDF rather than rebuilding its layout. Images, columns, tables, font choices, colors, headers, and footers are not copied. The result fits when you only need the written content to edit again in Word.",
         },
         {
-          q: "Is the original layout copied?",
-          a: "No. The output is text only, with one paragraph per line. Images, columns, tables, fonts, colors, headers, and footers are not preserved. You can restyle the Word document after downloading it.",
+          q: "How do I check paragraph order after conversion?",
+          a: "Open the result in Word or Google Docs, then compare the headings and first paragraphs with the original PDF. In multi-column documents, lines can interleave because text is extracted one item at a time. Use keyword search and reorder paragraphs manually where needed.",
         },
         {
-          q: "Why does a scanned PDF produce no text?",
-          a: "A scan usually contains page images with no text layer. Run OCR first, or use the PDF to Images tool when you need page images instead.",
+          q: "Can the .docx be opened in Word, Google Docs, and LibreOffice?",
+          a: "Yes. The result is a standard .docx file that opens in Microsoft Word, Google Docs, LibreOffice, and other apps that support the format. The text styling is simple, so you may need to add back styles, images, or tables.",
         },
         {
-          q: "Are images and tables in the PDF converted?",
-          a: "No. This tool extracts text only. Images and tables are not copied, and text inside tables appears as ordinary text lines without column structure.",
+          q: "When should I use OCR instead of PDF to Word conversion?",
+          a: "If the PDF contains only scanned images with no text layer, this conversion will produce an empty document or a no-text message. Run OCR with a dedicated app first, then convert the OCR result if you still need a Word file. This site does not provide OCR.",
         },
       ],
     },

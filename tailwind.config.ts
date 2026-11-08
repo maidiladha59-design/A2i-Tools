@@ -61,12 +61,23 @@ const config: Config = {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.55" },
         },
+        "upload-flash": {
+          "0%": {
+            backgroundColor: "rgb(var(--brand) / 0.16)",
+            boxShadow: "0 0 0 3px rgb(var(--brand) / 0.22)",
+          },
+          "100%": {
+            backgroundColor: "rgb(var(--brand) / 0)",
+            boxShadow: "0 0 0 0 rgb(var(--brand) / 0)",
+          },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both",
         "fade-in": "fade-in 0.35s ease both",
         shimmer: "shimmer 1.6s ease-in-out infinite",
         "pulse-soft": "pulse-soft 1.8s ease-in-out infinite",
+        "upload-flash": "upload-flash 1.6s ease-out both",
       },
       typography: {
         DEFAULT: {

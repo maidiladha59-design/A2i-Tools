@@ -29,6 +29,10 @@ import { buttonClass } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { useHandoff } from "@/lib/tools/handoff";
 import {
+  useUploadFeedback,
+  type RejectedUpload,
+} from "@/components/tools/useUploadFeedback";
+import {
   cancelImageJobs,
   compressImage,
   ImageWorkerError,
@@ -95,6 +99,7 @@ export function ImageCompressor({
   const locale = useLocale();
   const { toast } = useToast();
   const { take } = useHandoff();
+  const upload = useUploadFeedback();
 
   const [items, setItems] = useState<CompressorItem[]>([]);
   const itemsRef = useRef<CompressorItem[]>([]);
@@ -143,34 +148,39 @@ export function ImageCompressor({
 
       const current = itemsRef.current;
       if (current.length >= MAX_IMAGE_FILES) {
-        toast({ title: tErrors("maxFiles"), variant: "error" });
+        upload.reportRejected(
+          files.map((file) => ({ name: file.name, reason: tErrors("maxFiles") }))
+        );
         return;
       }
 
       const accepted: File[] = [];
-      let firstError: string | null = null;
+      const rejected: RejectedUpload[] = [];
 
       for (const file of files) {
-        if (current.length + accepted.length >= MAX_IMAGE_FILES) break;
+        if (current.length + accepted.length >= MAX_IMAGE_FILES) {
+          rejected.push({ name: file.name, reason: tErrors("maxFiles") });
+          continue;
+        }
         const problem = validateImageFile(file);
         if (problem) {
-          if (!firstError) {
-            firstError =
+          rejected.push({
+            name: file.name,
+            reason: tErrors(
               problem === "empty"
                 ? "emptyFile"
                 : problem === "too-large"
                   ? "imageTooLarge"
-                  : "unsupportedImage";
-          }
+                  : "unsupportedImage"
+            ),
+          });
           continue;
         }
         accepted.push(file);
       }
 
       if (!accepted.length) {
-        if (firstError) {
-          toast({ title: tErrors(firstError), variant: "error" });
-        }
+        upload.reportRejected(rejected);
         return;
       }
 
@@ -192,16 +202,11 @@ export function ImageCompressor({
         });
       }
 
-      if (firstError) {
-        toast({ title: tErrors(firstError), variant: "error" });
-      } else if (newItems.length > 1) {
-        toast({
-          title: tToast("filesAdded", { count: newItems.length }),
-          variant: "success",
-        });
-      }
+      upload.reportAddedWithRejected(newItems.length, rejected);
+      upload.flashNewItems(newItems.length);
+      upload.revealUploadTarget();
     },
-    [isProcessing, t, tErrors, tToast, toast]
+    [isProcessing, t, tErrors, toast, upload]
   );
 
   useEffect(() => {
@@ -458,6 +463,7 @@ export function ImageCompressor({
   };
 
   const targetPresetsId = useMemo(() => createId(), []);
+  const queueBytes = items.reduce((sum, item) => sum + item.file.size, 0);
   const hasPng = items.some((item) => item.file.type === "image/png");
   const hasHeic = items.some(
     (item) =>
@@ -480,6 +486,13 @@ export function ImageCompressor({
         enablePaste
         disabled={isProcessing}
         icon={ImagePlus}
+        fileCount={items.length}
+        readySummary={
+          items.length
+            ? upload.readySummary("readyCompress", items.length, queueBytes)
+            : undefined
+        }
+        readyActionLabel={t("addMore")}
       />
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
@@ -896,7 +909,7 @@ export function ImageCompressor({
               <p className="text-sm text-muted">{t("emptyBody")}</p>
             </div>
           ) : (
-            <ul className="space-y-3">
+            <ul className="space-y-3" data-upload-list>
               {items.map((item) => {
                 const result = item.result;
                 const percent = result

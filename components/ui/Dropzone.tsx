@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { UploadCloud } from "lucide-react";
+import { CheckCircle2, UploadCloud } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { buttonClass } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -20,6 +20,12 @@ type DropzoneProps = {
   compact?: boolean;
   icon?: LucideIcon;
   className?: string;
+  /** Number of files already queued; shows the compact "ready" state when > 0. */
+  fileCount?: number;
+  /** Summary shown in the ready state, e.g. "3 files ready to compress (2.4 MB)". */
+  readySummary?: string;
+  /** Label of the action shown in the ready state, e.g. "Add more". */
+  readyActionLabel?: string;
 };
 
 export function Dropzone({
@@ -36,6 +42,9 @@ export function Dropzone({
   compact = false,
   icon: Icon = UploadCloud,
   className,
+  fileCount = 0,
+  readySummary,
+  readyActionLabel,
 }: DropzoneProps) {
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -84,6 +93,9 @@ export function Dropzone({
     return () => document.removeEventListener("paste", handlePaste);
   }, [disabled, enablePaste, multiple, onFiles]);
 
+  const showReady = Boolean(readySummary) && fileCount > 0;
+  const dropLabel = activeLabel || title;
+
   return (
     <div className={cn("w-full", className)}>
       <label
@@ -110,10 +122,18 @@ export function Dropzone({
           handleFiles(event.dataTransfer.files);
         }}
         className={cn(
-          "group relative flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-line bg-surface/70 text-center transition duration-200",
-          compact ? "px-5 py-6" : "px-6 py-12 sm:py-16",
-          active && "border-brand bg-brand-soft/60",
-          !disabled && "hover:border-brand/60 hover:bg-surface",
+          "group relative flex w-full cursor-pointer items-center gap-3 border-2 border-dashed transition duration-200",
+          showReady
+            ? "flex-row flex-wrap justify-start rounded-2xl px-4 py-3 text-left"
+            : "flex-col justify-center rounded-3xl text-center",
+          showReady
+            ? active
+              ? "border-brand bg-brand-soft/70 ring-4 ring-brand/15"
+              : "border-success/40 bg-success/5"
+            : "border-line bg-surface/70",
+          !showReady && (compact ? "px-5 py-6" : "px-6 py-12 sm:py-16"),
+          !showReady && active && "border-brand bg-brand-soft/60 ring-4 ring-brand/15",
+          !disabled && !showReady && "hover:border-brand/60 hover:bg-surface",
           disabled && "cursor-not-allowed opacity-60",
           "focus-within:ring-4 focus-within:ring-brand/15"
         )}
@@ -128,27 +148,62 @@ export function Dropzone({
           className="sr-only"
           onChange={(event) => handleFiles(event.target.files)}
         />
-        <span
-          className={cn(
-            "flex shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-brand transition group-hover:scale-105",
-            compact ? "h-11 w-11" : "h-14 w-14"
-          )}
-          aria-hidden="true"
-        >
-          <Icon className={compact ? "h-5 w-5" : "h-6 w-6"} />
-        </span>
-        <span className="space-y-1">
-          <span className="block text-base font-bold text-ink sm:text-lg">
-            {active ? activeLabel || title : title}
-          </span>
-          <span className="block text-sm text-muted">{hint}</span>
-        </span>
-        <span className={buttonClass("secondary", "sm", "pointer-events-none mt-1")}>
-          {buttonLabel}
-        </span>
-        {pasteHint ? (
-          <span className="text-xs text-muted">{pasteHint}</span>
-        ) : null}
+        {showReady ? (
+          <>
+            <span
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-success/10 text-success"
+              aria-hidden="true"
+            >
+              <CheckCircle2 className="h-5 w-5" />
+            </span>
+            <span className="min-w-0 flex-1 space-y-0.5">
+              <span
+                className="block break-words text-sm font-bold text-ink"
+                role="status"
+                aria-live="polite"
+              >
+                {active ? dropLabel : readySummary}
+              </span>
+              {active ? null : (
+                <span className="block text-xs text-muted">{title}</span>
+              )}
+            </span>
+            <span
+              className={buttonClass(
+                "secondary",
+                "sm",
+                "w-full justify-center sm:w-auto sm:shrink-0"
+              )}
+            >
+              {readyActionLabel || buttonLabel}
+            </span>
+          </>
+        ) : (
+          <>
+            <span
+              className={cn(
+                "flex shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-brand transition group-hover:scale-105",
+                compact ? "h-11 w-11" : "h-14 w-14",
+                active && "scale-105"
+              )}
+              aria-hidden="true"
+            >
+              <Icon className={compact ? "h-5 w-5" : "h-6 w-6"} />
+            </span>
+            <span className="space-y-1">
+              <span className="block text-base font-bold text-ink sm:text-lg">
+                {active ? dropLabel : title}
+              </span>
+              <span className="block text-sm text-muted">{hint}</span>
+            </span>
+            <span className={buttonClass("secondary", "sm", "pointer-events-none mt-1")}>
+              {buttonLabel}
+            </span>
+            {pasteHint ? (
+              <span className="text-xs text-muted">{pasteHint}</span>
+            ) : null}
+          </>
+        )}
       </label>
     </div>
   );

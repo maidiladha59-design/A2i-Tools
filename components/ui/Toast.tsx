@@ -115,7 +115,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-bold text-ink">{item.title}</p>
                 {item.description ? (
-                  <p className="mt-0.5 text-xs leading-relaxed text-muted">
+                  <p className="mt-0.5 whitespace-pre-line text-xs leading-relaxed text-muted">
                     {item.description}
                   </p>
                 ) : null}
