@@ -18,7 +18,7 @@ const STATIC_PATHS = [
   ...BLOG_POSTS.map((post) => `/blog/${post.slug}`),
 ];
 
-const LAST_UPDATED = new Date("2026-11-02T00:00:00.000Z");
+const LAST_UPDATED = new Date("2026-11-14T00:00:00.000Z");
 
 function url(locale: string, path: string): string {
   return `${SITE_URL}/${locale}${path === "/" ? "" : path}`;

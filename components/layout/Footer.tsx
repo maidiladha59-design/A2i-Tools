@@ -1,11 +1,13 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Mail, Settings2, ShieldCheck } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { useConsent } from "@/components/ui/Consent";
+import { GUIDE_LINKS } from "@/content/guides";
+import { pickLocale } from "@/content/types";
 import { CONTACT_EMAIL } from "@/lib/config";
 import { IMAGE_TOOLS, PDF_TOOLS } from "@/lib/tools/registry";
 
@@ -13,6 +15,7 @@ export function Footer() {
   const t = useTranslations("footer");
   const tCommon = useTranslations("common");
   const tTools = useTranslations("tools");
+  const locale = useLocale();
   const { openBanner } = useConsent();
   const year = new Date().getFullYear();
 
@@ -138,7 +141,25 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 border-t border-line pt-8">
+          <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-muted">
+            {t("guidesTitle")}
+          </h2>
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2.5">
+            {GUIDE_LINKS.map((guide) => (
+              <li key={guide.slug}>
+                <Link
+                  href={`/${guide.slug}`}
+                  className="text-sm text-muted transition hover:text-ink"
+                >
+                  {pickLocale(guide.label, locale)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
             <p>{t("copyright", { year })}</p>
             <p>{t("privacyFootnote")}</p>

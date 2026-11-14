@@ -274,7 +274,10 @@ export default async function BlogPostPage({ params }: PageProps) {
             <h2 className="font-display text-lg font-extrabold text-ink">{t("ctaTitle")}</h2>
             <p className="mt-1 text-sm text-muted">{t("ctaDesc")}</p>
           </div>
-          <Link href="/image/compress" className={buttonClass("primary", "md")}>
+          <Link
+            href={relatedTools[0]?.href ?? "/image/compress"}
+            className={buttonClass("primary", "md")}
+          >
             {tCommon("openTool")}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>

@@ -81,7 +81,8 @@
     "copyright": "© {year} Ai2 All Compress. All rights reserved.",
     "privacyFootnote": "No files are uploaded or stored on a server.",
     "languageTitle": "Language",
-    "manageCookies": "Cookie preferences"
+    "manageCookies": "Cookie preferences",
+    "guidesTitle": "Size & format guides"
   },
   "tools": {
     "imageCompress": {
@@ -783,7 +784,10 @@
     "categoryGuide": "Guide",
     "categoryTips": "Tips",
     "categoryFormat": "Format",
-    "categoryPrivacy": "Privacy"
+    "categoryPrivacy": "Privacy",
+    "guideHeading": "How to use the notes on this blog",
+    "demoBeforeAlt": "Example photo before compression, still a large file",
+    "demoAfterAlt": "Example photo after compression, facial detail still sharp"
   },
   "contact": {
     "title": "Questions or feedback?",

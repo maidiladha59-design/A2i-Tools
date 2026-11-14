@@ -81,7 +81,8 @@
     "copyright": "© {year} Ai2 All Compress. Hak cipta dilindungi.",
     "privacyFootnote": "Tidak ada file yang diunggah atau disimpan di server.",
     "languageTitle": "Bahasa",
-    "manageCookies": "Preferensi cookie"
+    "manageCookies": "Preferensi cookie",
+    "guidesTitle": "Panduan ukuran & format"
   },
   "tools": {
     "imageCompress": {
@@ -783,7 +784,10 @@
     "categoryGuide": "Panduan",
     "categoryTips": "Tips",
     "categoryFormat": "Format",
-    "categoryPrivacy": "Privasi"
+    "categoryPrivacy": "Privasi",
+    "guideHeading": "Cara memakai catatan di blog ini",
+    "demoBeforeAlt": "Foto contoh sebelum dikompres, ukuran file masih besar",
+    "demoAfterAlt": "Foto contoh setelah dikompres, detail wajah tetap tajam"
   },
   "contact": {
     "title": "Ada pertanyaan atau masukan?",

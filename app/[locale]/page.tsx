@@ -395,8 +395,8 @@ export default async function HomePage({ params }: PageProps) {
           <BeforeAfter
             beforeSrc="/demo/before.jpg"
             afterSrc="/demo/after.jpg"
-            beforeAlt={tCommon("before")}
-            afterAlt={tCommon("after")}
+            beforeAlt={t("demoBeforeAlt")}
+            afterAlt={t("demoAfterAlt")}
             beforeLabel={tCommon("before")}
             afterLabel={tCommon("after")}
             sliderLabel={t("demoDesc")}

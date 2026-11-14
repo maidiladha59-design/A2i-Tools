@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { buttonClass } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { BLOG_POSTS } from "@/content/blog";
+import { BLOG_INDEX_CONTENT } from "@/content/blog-index";
 import { pickLocale } from "@/content/types";
 import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
@@ -37,6 +38,8 @@ export default async function BlogPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: "blog" });
   const tCommon = await getTranslations({ locale, namespace: "common" });
+  const intro = pickLocale(BLOG_INDEX_CONTENT.intro, locale);
+  const guideSections = pickLocale(BLOG_INDEX_CONTENT.sections, locale);
   const dateFormatter = new Intl.DateTimeFormat(
     locale === "en" ? "en-GB" : "id-ID",
     { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }
@@ -115,6 +118,63 @@ export default async function BlogPage({ params }: PageProps) {
             );
           })}
         </div>
+
+        <section className="mt-12 max-w-5xl" aria-labelledby="blog-guide-heading">
+          <h2
+            id="blog-guide-heading"
+            className="text-2xl font-extrabold text-ink sm:text-3xl"
+          >
+            {t("guideHeading")}
+          </h2>
+          <div className="mt-4 max-w-3xl space-y-3">
+            {intro.map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 48)}
+                className="text-base leading-relaxed text-muted"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {guideSections.map((section) => (
+              <section
+                key={section.heading}
+                className="rounded-2xl border border-line bg-surface p-5"
+              >
+                <h3 className="text-lg font-extrabold leading-snug text-ink">
+                  {section.heading}
+                </h3>
+                <div className="mt-2 space-y-2">
+                  {section.paragraphs.map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 48)}
+                      className="text-sm leading-relaxed text-muted"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+                {section.bullets?.length ? (
+                  <ul className="mt-3 space-y-2">
+                    {section.bullets.map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="flex gap-2 text-sm leading-relaxed text-muted"
+                      >
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand"
+                          aria-hidden="true"
+                        />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </section>
+            ))}
+          </div>
+        </section>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-3xl border border-line bg-surface-2/60 p-6 sm:flex-row">
           <div>

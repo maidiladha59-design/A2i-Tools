@@ -305,7 +305,7 @@ export function ImageResizer() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={resultUrl}
-                  alt={t("resultTitle")}
+                  alt={`${t("resultTitle")}: ${file.name}`}
                   className="max-h-[420px] w-auto max-w-full object-contain"
                 />
               ) : previewUrl ? (

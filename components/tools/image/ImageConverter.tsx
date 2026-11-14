@@ -210,7 +210,7 @@ export function ImageConverter() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={resultUrl || previewUrl || ""}
-                alt={result ? t("resultTitle") : file.name}
+                alt={result ? `${t("resultTitle")}: ${file.name}` : file.name}
                 className="max-h-[420px] w-auto max-w-full object-contain"
               />
             </div>
