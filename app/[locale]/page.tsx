@@ -484,7 +484,7 @@ export default async function HomePage({ params }: PageProps) {
               </Link>
               <Link
                 href="/pdf/compress"
-                className={buttonClass("secondary", "lg", "border-white/20 bg-white/10 text-canvas hover:bg-white/15")}
+                className={buttonClass("inverse", "lg")}
               >
                 <FileArchive className="h-5 w-5" aria-hidden="true" />
                 {t("quickPdfs")}

@@ -397,7 +397,7 @@ export function PdfReducer({
                   className={cn(
                     "min-h-[40px] min-w-[48px] rounded-xl px-2 text-xs font-bold transition",
                     targetUnit === unit
-                      ? "bg-ink text-canvas"
+                      ? "bg-ink text-canvas focus-visible:outline-canvas"
                       : "text-muted hover:bg-surface-2"
                   )}
                 >
